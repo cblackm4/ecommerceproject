@@ -22,3 +22,5 @@ yarn-error.log*
 
 #ignore venv and django files
 venv/
+*.pyc
+*.sqlite3
