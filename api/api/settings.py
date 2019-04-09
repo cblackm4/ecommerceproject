@@ -134,3 +134,6 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
     }
 }
+
+# Login redirect
+LOGIN_REDIRECT_URL = '/'
