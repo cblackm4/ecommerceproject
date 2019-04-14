@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
+from .router import ROUTER
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",
@@ -24,4 +26,5 @@ urlpatterns = [
         name="app",
     ),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api/', include(ROUTER.urls)),
 ]
