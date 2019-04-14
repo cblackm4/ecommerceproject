@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'rest_framework',
     'administration',
+    'pawkages',
 ]
 
 MIDDLEWARE = [
