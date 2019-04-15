@@ -1,37 +1,43 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
+    <v-toolbar>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat v-for='(menu, index) in menus' :key='index' :to={name:menu.route}>
+        {{menu.name}}
       </v-btn>
+      </v-toolbar-items>
+
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
   },
   data () {
     return {
-      //
+      /* To add a new page to the toolbar, first import in router.js then add a new
+      * array item with the name and route parameters.
+      * Name: the name that will displayed in the toolbar
+      * Route: the name of the component that needs to be routed
+      */
+      menus: [
+        {name:'Home', route:"Home"},
+        {name:'Contact', route:'Contact'},
+        {name:'Account', route:'Account'},
+        {name:'Sign Up', route:'Signup'},
+        {name:'Log In', route:'Login'},
+      ]
     }
   }
 }
