@@ -13,9 +13,12 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
+                  <v-text-field prepend-icon="person" name="username" label="Username" type="text" required></v-text-field>
+                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" required></v-text-field>
                 </v-form>
+                <p>
+                  Don't have an account? <a href="/#/signup">Sign up now!</a>
+                </p>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -39,3 +42,6 @@
     }
   }
 </script>
+
+<style>
+</style>

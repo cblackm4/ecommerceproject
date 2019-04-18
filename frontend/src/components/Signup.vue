@@ -1,55 +1,322 @@
 <template>
-  <v-app id="inspire">
+  <div id="signup">
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
+
+              <!--Toolbar-->
               <v-toolbar dark color="primary">
-                <v-toolbar-title>Login form</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-btn :href="source" icon large target="_blank" v-on="on">
-                      <v-icon large>code</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Source</span>
-                </v-tooltip>
-                <v-tooltip right>
-                  <template v-slot:activator="{ on }">
-                    <v-btn icon large href="https://codepen.io/johnjleider/pen/wyYVVj" target="_blank" v-on="on">
-                      <v-icon large>mdi-codepen</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Codepen</span>
-                </v-tooltip>
+                <v-toolbar-title>Register</v-toolbar-title>
               </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary">Login</v-btn>
-              </v-card-actions>
+
+              <!--Stepper-->
+              <v-stepper v-model="e6" vertical>
+
+                <!--Section 1-->
+                <v-stepper-step :complete="e6 > 1" step="1">Personal Information</v-stepper-step>
+                <v-stepper-content step="1">
+                  <v-text-field prepend-icon="person" name="f_name" label="First Name" type="text"></v-text-field>
+                  <v-text-field prepend-icon="person" name="l_name" label="Last Name" type="text"></v-text-field>
+                  <v-text-field prepend-icon="email" name="email" label="E-Mail" type="text"></v-text-field>
+                  <v-text-field prepend-icon="email" name="confirm_email" label="Confirm E-Mail" type="text"></v-text-field>
+                  <v-btn flat>Clear</v-btn>
+                  <v-btn color="primary" @click="e6 = 2">Next</v-btn>
+                </v-stepper-content>
+
+                <!--Section 2-->
+                <v-stepper-step :complete="e6 > 2" step="2">Account Information</v-stepper-step>
+                <v-stepper-content step="2">
+                  <v-text-field prepend-icon="person" name="username" label="Username" type="text"></v-text-field>
+                  <v-text-field prepend-icon="lock" v-model="password" :rules="[rules.password, rules.length(6)]" counter="6" label="Password" type="password" id="password"></v-text-field>
+                  <v-text-field prepend-icon="lock" v-model="confirm_password" :rules="[rules.confirm_password]" label="Confirm Password" type="password" id="confirm_password"></v-text-field>
+                  <v-btn flat>Clear</v-btn>
+                  <v-btn color="primary" @click="e6 = 1">Previous</v-btn>
+                  <v-btn color="primary" @click="e6 = 3">Next</v-btn>
+                </v-stepper-content>
+
+                <!--Section 3-->
+                <v-stepper-step :complete="e6 > 3" step="3">Confirmation</v-stepper-step>
+                <v-stepper-content step="3">
+                  <p>
+                    If the following information is correct, please read the Terms of Service and Privacy Policy. Upon agreeing to these conditions and submitting the following information, your account
+                    will be created.
+                  </p>
+
+                  <!--Terms of Service & Privacy Policy Section-->
+                  <v-checkbox v-model="agreement" :rules="[rules.required]">
+                    <template v-slot:label>
+                      I agree to the&nbsp;<a href="#" @click.stop.prevent="terms = true">Terms of Service</a>&nbsp;and&nbsp;<a href="#" @click.stop.prevent="privacy = true">Privacy Policy</a>
+                    </template>
+                  </v-checkbox>
+
+                  <!--Terms & Conditions Dialog
+                  @TODO: Load an external file to clean up code-->
+                  <v-dialog v-model="terms" absolute max-width="500" persistent>
+                    <v-card>
+                      <v-card-title class="headline grey lighten-3">Privacy Policy</v-card-title>
+                      <v-card-text>
+                        <h2>Welcome to Pawkages</h2>
+                        <p>These terms and conditions outline the rules and regulations for the use of Pawkages's Website.</p> <br />
+                        <span style="text-transform: capitalize;"> Pawkages</span> is located at:<br />
+                        <address><br />
+                        </address>
+                        <p>By accessing this website we assume you accept these terms and conditions in full. Do not continue to use Pawkages's website
+                          if you do not accept all of the terms and conditions stated on this page.</p>
+                        <p>The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice
+                          and any or all Agreements: “Client”, “You” and “Your” refers to you, the person accessing this website
+                          and accepting the Company’s terms and conditions. “The Company”, “Ourselves”, “We”, “Our” and “Us”, refers
+                          to our Company. “Party”, “Parties”, or “Us”, refers to both the Client and ourselves, or either the Client
+                          or ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake
+                          the process of our assistance to the Client in the most appropriate manner, whether by formal meetings
+                          of a fixed duration, or any other means, for the express purpose of meeting the Client’s needs in respect
+                          of provision of the Company’s stated services/products, in accordance with and subject to, prevailing law
+                          of . Any use of the above terminology or other words in the singular, plural,
+                          capitalisation and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p>
+                        <h2>Cookies</h2>
+                        <p>We employ the use of cookies. By using Pawkages's website you consent to the use of cookies
+                          in accordance with Pawkages’s privacy policy.</p>
+                        <p>Most of the modern day interactive web sites
+                          use cookies to enable us to retrieve user details for each visit. Cookies are used in some areas of our site
+                          to enable the functionality of this area and ease of use for those people visiting. Some of our
+                          affiliate / advertising partners may also use cookies.</p>
+                        <h2>License</h2>
+                        <p>Unless otherwise stated, Pawkages and/or it’s licensors own the intellectual property rights for
+                          all material on Pawkages. All intellectual property rights are reserved. You may view and/or print
+                          pages from http://www.pawkages.com for your own personal use subject to restrictions set in these terms and conditions.</p>
+                        <p>You must not:</p>
+                        <ol>
+                          <li>Republish material from http://www.pawkages.com</li>
+                          <li>Sell, rent or sub-license material from http://www.pawkages.com</li>
+                          <li>Reproduce, duplicate or copy material from http://www.pawkages.com</li>
+                        </ol>
+                        <p>Redistribute content from Pawkages (unless content is specifically made for redistribution).</p>
+                        <h2>Hyperlinking to our Content</h2>
+                        <ol>
+                          <li>The following organizations may link to our Web site without prior written approval:
+                            <ol>
+                              <li>Government agencies;</li>
+                              <li>Search engines;</li>
+                              <li>News organizations;</li>
+                              <li>Online directory distributors when they list us in the directory may link to our Web site in the same
+                                manner as they hyperlink to the Web sites of other listed businesses; and</li>
+                              <li>Systemwide Accredited Businesses except soliciting non-profit organizations, charity shopping malls,
+                                and charity fundraising groups which may not hyperlink to our Web site.</li>
+                            </ol>
+                          </li>
+                        </ol>
+                        <ol start="2">
+                          <li>These organizations may link to our home page, to publications or to other Web site information so long
+                            as the link: (a) is not in any way misleading; (b) does not falsely imply sponsorship, endorsement or
+                            approval of the linking party and its products or services; and (c) fits within the context of the linking
+                            party's site.
+                          </li>
+                          <li>We may consider and approve in our sole discretion other link requests from the following types of organizations:
+                            <ol>
+                              <li>commonly-known consumer and/or business information sources such as Chambers of Commerce, American
+                                Automobile Association, AARP and Consumers Union;</li>
+                              <li>dot.com community sites;</li>
+                              <li>associations or other groups representing charities, including charity giving sites,</li>
+                              <li>online directory distributors;</li>
+                              <li>internet portals;</li>
+                              <li>accounting, law and consulting firms whose primary clients are businesses; and</li>
+                              <li>educational institutions and trade associations.</li>
+                            </ol>
+                          </li>
+                        </ol>
+                        <p>We will approve link requests from these organizations if we determine that: (a) the link would not reflect
+                          unfavorably on us or our accredited businesses (for example, trade associations or other organizations
+                          representing inherently suspect types of business, such as work-at-home opportunities, shall not be allowed
+                          to link); (b)the organization does not have an unsatisfactory record with us; (c) the benefit to us from
+                          the visibility associated with the hyperlink outweighs the absence of
+                          <?=$companyName?>; and (d) where the
+                          link is in the context of general resource information or is otherwise consistent with editorial content
+                          in a newsletter or similar product furthering the mission of the organization.</p>
+                        <p>These organizations may link to our home page, to publications or to other Web site information so long as
+                          the link: (a) is not in any way misleading; (b) does not falsely imply sponsorship, endorsement or approval
+                          of the linking party and it products or services; and (c) fits within the context of the linking party's
+                          site.</p>
+                        <p>If you are among the organizations listed in paragraph 2 above and are interested in linking to our website,
+                          you must notify us by sending an e-mail to <a href="mailto:pawkages.biz@gmail.com" title="send an email to pawkages.biz@gmail.com">pawkages.biz@gmail.com</a>.
+                          Please include your name, your organization name, contact information (such as a phone number and/or e-mail
+                          address) as well as the URL of your site, a list of any URLs from which you intend to link to our Web site,
+                          and a list of the URL(s) on our site to which you would like to link. Allow 2-3 weeks for a response.</p>
+                        <p>Approved organizations may hyperlink to our Web site as follows:</p>
+                        <ol>
+                          <li>By use of our corporate name; or</li>
+                          <li>By use of the uniform resource locator (Web address) being linked to; or</li>
+                          <li>By use of any other description of our Web site or material being linked to that makes sense within the
+                            context and format of content on the linking party's site.</li>
+                        </ol>
+                        <p>No use of Pawkages’s logo or other artwork will be allowed for linking absent a trademark license
+                          agreement.</p>
+                        <h2>Iframes</h2>
+                        <p>Without prior approval and express written permission, you may not create frames around our Web pages or
+                          use other techniques that alter in any way the visual presentation or appearance of our Web site.</p>
+                        <h2>Reservation of Rights</h2>
+                        <p>We reserve the right at any time and in its sole discretion to request that you remove all links or any particular
+                          link to our Web site. You agree to immediately remove all links to our Web site upon such request. We also
+                          reserve the right to amend these terms and conditions and its linking policy at any time. By continuing
+                          to link to our Web site, you agree to be bound to and abide by these linking terms and conditions.</p>
+                        <h2>Removal of links from our website</h2>
+                        <p>If you find any link on our Web site or any linked web site objectionable for any reason, you may contact
+                          us about this. We will consider requests to remove links but will have no obligation to do so or to respond
+                          directly to you.</p>
+                        <p>Whilst we endeavour to ensure that the information on this website is correct, we do not warrant its completeness
+                          or accuracy; nor do we commit to ensuring that the website remains available or that the material on the
+                          website is kept up to date.</p>
+                        <h2>Content Liability</h2>
+                        <p>We shall have no responsibility or liability for any content appearing on your Web site. You agree to indemnify
+                          and defend us against all claims arising out of or based upon your Website. No link(s) may appear on any
+                          page on your Web site or within any context containing content or materials that may be interpreted as
+                          libelous, obscene or criminal, or which infringes, otherwise violates, or advocates the infringement or
+                          other violation of, any third party rights.</p>
+                        <h2>Disclaimer</h2>
+                        <p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website (including, without limitation, any warranties implied by law
+                          in respect of satisfactory quality, fitness for purpose and/or the use of reasonable care and skill). Nothing in this disclaimer will:</p>
+                        <ol>
+                          <li>limit or exclude our or your liability for death or personal injury resulting from negligence;</li>
+                          <li>limit or exclude our or your liability for fraud or fraudulent misrepresentation;</li>
+                          <li>limit any of our or your liabilities in any way that is not permitted under applicable law; or</li>
+                          <li>exclude any of our or your liabilities that may not be excluded under applicable law.</li>
+                        </ol>
+                        <p>The limitations and exclusions of liability set out in this Section and elsewhere in this disclaimer: (a)
+                          are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer or
+                          in relation to the subject matter of this disclaimer, including liabilities arising in contract, in tort
+                          (including negligence) and for breach of statutory duty.</p>
+                        <p>To the extent that the website and the information and services on the website are provided free of charge,
+                          we will not be liable for any loss or damage of any nature.</p>
+                        <h2></h2>
+                        <p></p>
+                        <h2>Credit & Contact Information</h2>
+                        <p>This Terms and conditions page was created at <a style="color:inherit;text-decoration:none;cursor:text;" href="https://termsandconditionstemplate.com">termsandconditionstemplate.com</a> generator. If you have
+                          any queries regarding any of our terms, please contact us.</p>
+                      </v-card-text>
+                      <v-divider></v-divider>
+                      <v-card-actions>
+                        <v-btn flat @click="agreement = false, terms = false">No</v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" @click="agreement = true, terms = false">Yes</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+
+                  <!--Privacy Policy Dialog
+                  @TODO: Load an external file to clean up code-->
+                  <v-dialog v-model="privacy" absolute max-width="500" persistent>
+                    <v-card>
+                      <v-card-title class="headline grey lighten-3">Privacy Policy</v-card-title>
+                      <v-card-text>
+                        <h3>Your privacy is critically important to us.</h3>
+                        Pawkages is located at:<br />
+                        <address>Pawkages<br />9999999998</address>
+                        <p>It is Pawkages’s policy to respect your privacy regarding any information we may collect while operating our website. This Privacy Policy applies to <a href="http://www.pawkages.com">www.pawkages.com</a> (hereinafter, "us",
+                          "we", or "www.pawkages.com"). We respect your privacy and are committed to protecting personally identifiable information you may provide us through the Website. We have adopted this privacy policy ("Privacy Policy") to
+                          explain what information may be collected on our Website, how we use this information, and under what circumstances we may disclose the information to third parties. This Privacy Policy applies only to information we collect
+                          through the Website and does not apply to our collection of information from other sources.</p>
+                        <p>This Privacy Policy, together with the Terms and conditions posted on our Website, set forth the general rules and policies governing your use of our Website. Depending on your activities when visiting our Website, you may
+                          be required to agree to additional terms and conditions.</p>
+                        <h2>Website Visitors</h2>
+                        <p>Like most website operators, Pawkages collects non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the
+                          date and time of each visitor request. Pawkages’s purpose in collecting non-personally identifying information is to better understand how Pawkages’s visitors use its website. From time to time, Pawkages may release
+                          non-personally-identifying information in the aggregate, e.g., by publishing a report on trends in the usage of its website.</p>
+                        <p>Pawkages also collects potentially personally-identifying information like Internet Protocol (IP) addresses for logged in users and for users leaving comments on http://www.pawkages.com blog posts. Pawkages only discloses
+                          logged in user and commenter IP addresses under the same circumstances that it uses and discloses personally-identifying information as described below.</p>
+                        <h2>Gathering of Personally-Identifying Information</h2>
+                        <p>Certain visitors to Pawkages’s websites choose to interact with Pawkages in ways that require Pawkages to gather personally-identifying information. The amount and type of information that Pawkages gathers depends on the
+                          nature of the interaction. For example, we ask visitors who sign up for a blog at http://www.pawkages.com to provide a username and email address.</p>
+                        <h2>Security</h2>
+                        <p>The security of your Personal Information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While we strive to use commercially acceptable
+                          means to protect your Personal Information, we cannot guarantee its absolute security.</p>
+                        <h2>Advertisements</h2>
+                        <p>Ads appearing on our website may be delivered to users by advertising partners, who may set cookies. These cookies allow the ad server to recognize your computer each time they send you an online advertisement to compile
+                          information about you or others who use your computer. This information allows ad networks to, among other things, deliver targeted advertisements that they believe will be of most interest to you. This Privacy Policy covers
+                          the use of cookies by Pawkages and does not cover the use of cookies by any advertisers.</p>
+                        <h2>Links To External Sites</h2>
+                        <p>Our Service may contain links to external sites that are not operated by us. If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy and terms
+                          and conditions of every site you visit.</p>
+                        <p>We have no control over, and assume no responsibility for the content, privacy policies or practices of any third party sites, products or services.</p>
+                        <h2>Protection of Certain Personally-Identifying Information</h2>
+                        <p>Pawkages discloses potentially personally-identifying and personally-identifying information only to those of its employees, contractors and affiliated organizations that (i) need to know that information in order to process
+                          it on Pawkages’s behalf or to provide services available at Pawkages’s website, and (ii) that have agreed not to disclose it to others. Some of those employees, contractors and affiliated organizations may be located outside
+                          of your home country; by using Pawkages’s website, you consent to the transfer of such information to them. Pawkages will not rent or sell potentially personally-identifying and personally-identifying information to anyone.
+                          Other than to its employees, contractors and affiliated organizations, as described above, Pawkages discloses potentially personally-identifying and personally-identifying information only in response to a subpoena, court
+                          order or other governmental request, or when Pawkages believes in good faith that disclosure is reasonably necessary to protect the property or rights of Pawkages, third parties or the public at large.</p>
+                        <p>If you are a registered user of http://www.pawkages.com and have supplied your email address, Pawkages may occasionally send you an email to tell you about new features, solicit your feedback, or just keep you up to date
+                          with what’s going on with Pawkages and our products. We primarily use our blog to communicate this type of information, so we expect to keep this type of email to a minimum. If you send us a request (for example via a support
+                          email or via one of our feedback mechanisms), we reserve the right to publish it in order to help us clarify or respond to your request or to help us support other users. Pawkages takes all measures reasonably necessary to
+                          protect against the unauthorized access, use, alteration or destruction of potentially personally-identifying and personally-identifying information.</p>
+                        <h2>Aggregated Statistics</h2>
+                        <p>Pawkages may collect statistics about the behavior of visitors to its website. Pawkages may display this information publicly or provide it to others. However, Pawkages does not disclose your personally-identifying
+                          information.</p>
+                        <h2>Cookies</h2>
+                        <p>To enrich and perfect your online experience, Pawkages uses "Cookies", similar technologies and services provided by others to display personalized content, appropriate advertising and store your preferences on your
+                          computer.</p>
+                        <p>A cookie is a string of information that a website stores on a visitor’s computer, and that the visitor’s browser provides to the website each time the visitor returns. Pawkages uses cookies to help Pawkages identify and
+                          track visitors, their usage of http://www.pawkages.com, and their website access preferences. Pawkages visitors who do not wish to have cookies placed on their computers should set their browsers to refuse cookies before
+                          using Pawkages’s websites, with the drawback that certain features of Pawkages’s websites may not function properly without the aid of cookies.</p>
+                        <p>By continuing to navigate our website without changing your cookie settings, you hereby acknowledge and agree to Pawkages's use of cookies.</p>
+                        <h2>E-commerce</h2>
+                        <p>Those who engage in transactions with Pawkages – by purchasing Pawkages's services or products, are asked to provide additional information, including as necessary the personal and financial information required to process
+                          those transactions. In each case, Pawkages collects such information only insofar as is necessary or appropriate to fulfill the purpose of the visitor’s interaction with Pawkages. Pawkages does not disclose
+                          personally-identifying information other than as described below. And visitors can always refuse to supply personally-identifying information, with the caveat that it may prevent them from engaging in certain website-related
+                          activities.</p>
+                        <h2>Privacy Policy Changes</h2>
+                        <p>Although most changes are likely to be minor, Pawkages may change its Privacy Policy from time to time, and in Pawkages’s sole discretion. Pawkages encourages visitors to frequently check this page for any changes to its
+                          Privacy Policy. Your continued use of this site after any change in this Privacy Policy will constitute your acceptance of such change.</p>
+                        <h2></h2>
+                        <p></p>
+                        <h2>Credit & Contact Information</h2>
+                        <p>This privacy policy was created at <a style="color:inherit;text-decoration:none;" href="https://termsandconditionstemplate.com/privacy-policy-generator/" title="Privacy policy template generator" target="_blank">termsandconditionstemplate.com</a>.
+                          If you have any questions about this Privacy Policy, please contact us via <a href="mailto:">email</a> or <a href="tel:9999999998">phone</a>.</p>
+                      </v-card-text>
+                      <v-divider></v-divider>
+                      <v-card-actions>
+                        <v-btn flat @click="agreement = false, privacy = false">No</v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" @click="agreement = true, privacy = false">Yes</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <v-btn flat>Clear</v-btn>
+                  <v-btn color="primary" @click="e6 = 2">Previous</v-btn>
+                  <v-btn color="primary">Submit</v-btn>
+                </v-stepper-content>
+              </v-stepper>
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
     </v-content>
-  </v-app>
+  </div>
 </template>
 
 <script>
   export default {
     data: () => ({
-      drawer: null
-    }),
-    props: {
-      source: String
-    }
+      drawer: null,
+      e6:1,
+      agreement: false,
+      terms: false,
+      privacy: false,
+      rules: {
+        email: v => (v || '').match(/@/) || 'Please enter a valid email',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+          'Password must contain an upper case letter, a numeric character, and a special character',
+        confirm_password: v => (v || '').match($('#password')) || 'Passwords do not match',
+        required: v => !!v || 'This field is required'
+      },
+      registration: {
+        f_name: null,
+        l_name: null,
+        email: null,
+        confirm_email: null,
+        username: null,
+        password: null,
+        confirm_password: null
+      }
+    })
   }
 </script>

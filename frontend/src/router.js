@@ -9,6 +9,12 @@ import Login from '@/components/Login'
 Vue.use(Router)
 
 export default new Router({
+  /* To add a new page, import the component from '/@components/***' then add the following
+  * route information
+  * Path: path to be displayed in the $.browser.
+  * Name: name of the component
+  * Component: the component
+  */
   routes: [
     {
       path: '/',
