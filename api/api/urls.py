@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 from .router import ROUTER
+from administration.views import SignUp
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
         name="app",
     ),
     path('accounts/', include('django.contrib.auth.urls')),
+    path(r'accounts/signup/', SignUp.as_view(), name='signup'),
     path('api/', include(ROUTER.urls)),
 ]

@@ -16,7 +16,8 @@ class EnforceAuthMiddleware(object):
     def __call__(self, request):
         response = self.get_response(request)
         if not request.user.is_authenticated:
-            if (request.path == reverse('login')):
+            if (request.path == reverse('login')
+                or request.path == reverse('signup')):
                 return response
             else:
                 return HttpResponseRedirect(reverse('login'))
