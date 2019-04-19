@@ -19,8 +19,8 @@
                 <v-stepper-content step="1">
                   <v-text-field prepend-icon="person" name="f_name" label="First Name" type="text"></v-text-field>
                   <v-text-field prepend-icon="person" name="l_name" label="Last Name" type="text"></v-text-field>
-                  <v-text-field prepend-icon="email" name="email" label="E-Mail" type="text"></v-text-field>
-                  <v-text-field prepend-icon="email" name="confirm_email" label="Confirm E-Mail" type="text"></v-text-field>
+                  <v-text-field prepend-icon="email" :rules="[rules.email]" name="email" label="E-Mail" type="text" id="email"></v-text-field>
+                  <v-text-field prepend-icon="email" :rules="[rules.confirm_email]" name="confirm_email" label="Confirm E-Mail" type="text" id="confirm_email"></v-text-field>
                   <v-btn flat>Clear</v-btn>
                   <v-btn color="primary" @click="e6 = 2">Next</v-btn>
                 </v-stepper-content>
@@ -28,7 +28,7 @@
                 <!--Section 2-->
                 <v-stepper-step :complete="e6 > 2" step="2">Account Information</v-stepper-step>
                 <v-stepper-content step="2">
-                  <v-text-field prepend-icon="person" name="username" label="Username" type="text"></v-text-field>
+                  <v-text-field prepend-icon="person" name="username" :rules="[rules.length(5), rules.maxLength(20)]" label="Username" type="text" id="username"></v-text-field>
                   <v-text-field prepend-icon="lock" v-model="password" :rules="[rules.password, rules.length(6)]" counter="6" label="Password" type="password" id="password"></v-text-field>
                   <v-text-field prepend-icon="lock" v-model="confirm_password" :rules="[rules.confirm_password]" label="Confirm Password" type="password" id="confirm_password"></v-text-field>
                   <v-btn flat>Clear</v-btn>
@@ -301,8 +301,10 @@
       terms: false,
       privacy: false,
       rules: {
-        email: v => (v || '').match(/@/) || 'Please enter a valid email',
+        email: v => (v || '').match(/@/) || 'Please enter a valid E-Mail',
+        confirm_email: v => (v || '').match($('#email')) || 'E-Mail does not match',
         length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        maxLength: len => v => (v || '').length <= len || `Character limit is ${len}`,
         password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
           'Password must contain an upper case letter, a numeric character, and a special character',
         confirm_password: v => (v || '').match($('#password')) || 'Passwords do not match',

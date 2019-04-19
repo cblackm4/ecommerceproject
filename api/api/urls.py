@@ -17,14 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
+from rest_framework_jwt.views import obtain_jwt_token
+
 from .router import ROUTER
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",
-        TemplateView.as_view(template_name="application.html"),
-        name="app",
-    ),
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path("",
+    #    TemplateView.as_view(template_name="application.html"),
+    #    name="app",
+    #),
+    path('accounts/', obtain_jwt_token),
     path('api/', include(ROUTER.urls)),
 ]
