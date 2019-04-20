@@ -1,7 +1,8 @@
-#id_first_name, #id_last_name, #id_email, #id_username, #id_password, #id_password1, #id_password2 {
+#id_username {
     background-color: red;
 }
 
-#id_first_name:focus, #id_last_name:focus, #id_email:focus, #id_username:focus, #id_password:focus, #id_password1:focus, #id_password2:focus {
+#id_username:focus {
     background-color: green;
+    padding: 1em;
 }
