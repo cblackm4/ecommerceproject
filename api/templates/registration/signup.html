@@ -57,47 +57,44 @@ document.addEventListener('DOMContentLoaded', function () {
                   <v-toolbar-title>Register</v-toolbar-title>
                 </v-toolbar>
 
+                {% if form.errors %}
+                  <v-alert
+                    :value="true"
+                    type="error">
+                    We encountered one or more errors during the registration process.
+                  </v-alert>
+                {% endif %}
+
                 <!--Stepper-->
-                <v-stepper v-model="e6" vertical>
+                <v-stepper v-model="e6" vertical non-linear>
 
                   <!--Section 1-->
-                  <v-stepper-step :complete="e6 > 1" step="1">Personal Information</v-stepper-step>
+                  <v-stepper-step editable :complete="e6 > 1" step="1">Personal Information</v-stepper-step>
                   <v-stepper-content step="1">
-                    <v-form ref=form1>
-                      <v-text-field prepend-icon="person" label="First Name" type="text" required>{{ form.first_name }}</v-text-field>
-                      <v-text-field prepend-icon="person" label="Last Name" type="text" required>{{ form.last_name }}</v-text-field>
-                      <v-text-field prepend-icon="email" label="E-Mail" type="text" required>{{ form.email }}</v-text-field>
-                    </v-form>
-                    <!--Django Template
-                    <label>{{ form.first_name.label }}</label>
-                    {{ form.first_name }}<br>
-                    <label>{{ form.last_name.label }}</label>
-                    {{ form.last_name }}<br>
-                    <label>{{ form.email.label }}</label>
-                    {{ form.email }}<br>-->
-                    <v-btn flat @click="reset">Clear</v-btn>
-                    <v-btn color="primary" @click="e6 = 2">Next</v-btn>
-                  </v-stepper-content>
-
-                  <!--Section 2-->
-                  <v-stepper-step :complete="e6 > 2" step="2">Account Information</v-stepper-step>
-                  <v-stepper-content step="2">
-                    <v-form ref=form2>
-                      <v-text-field prepend-icon="person" label="Username" type="text" required>{{ form.username }}</v-text-field>
-                      <v-text-field prepend-icon="lock" label="Password" type="password" required>{{ form.password1 }}</v-text-field>
-                      <v-text-field prepend-icon="lock" label="Confirm Password" type="password" required>{{ form.password2 }}</v-text-field>
-                    </v-form>
-                    <!--Django Template
-                    {{ form.username }}
-                    {{ form.password1 }}
-                    {{ form.password2 }}-->
-                    <v-btn flat @click="reset2">Clear</v-btn>
+                      <v-text-field prepend-icon="person" label="First Name" type="text" name="first_name" required></v-text-field>
+                      {% if form.first_name.errors %}<v-alert :value="true" type="error">{{ form.firt_name.errors}}</v-alert>{% endif %}<br>
+                      <v-text-field prepend-icon="person" label="Last Name" type="text" name="last_name" required></v-text-field>
+                      {% if form.last_name.errors %}<v-alert :value="true" type="error">{{ form.last_name.errors}}</v-alert>{% endif %}<br>
+                      <v-text-field prepend-icon="email" label="E-Mail" type="text" name="email" required></v-text-field>
+                      {% if form.email.errors %}<v-alert :value="true" type="error">{{ form.email.errors}}</v-alert>{% endif %}<br>
+                      <v-btn color="primary" @click="e6 = 2">Next</v-btn>
+                    </v-stepper-content>
+                    
+                    <!--Section 2-->
+                    <v-stepper-step editable :complete="e6 > 2" step="2">Account Information</v-stepper-step>
+                    <v-stepper-content step="2">
+                        <v-text-field prepend-icon="person" label="Username" type="text" name="username" required></v-text-field>
+                        {% if form.username.errors %}<v-alert :value="true" type="error">{{ form.username.errors}}</v-alert>{% endif %}<br>
+                        <v-text-field prepend-icon="lock" label="Password" type="password" name="password1" required></v-text-field>
+                        {% if form.password1.errors %}<v-alert :value="true" type="error">{{ form.password1.errors}}</v-alert>{% endif %}<br>
+                        <v-text-field prepend-icon="lock" label="Confirm Password" type="password" name="password2" required></v-text-field>
+                        {% if form.password2.errors %}<v-alert :value="true" type="error">{{ form.password2.errors}}</v-alert>{% endif %}<br>
                     <v-btn color="primary" @click="e6 = 1">Previous</v-btn>
                     <v-btn color="primary" @click="e6 = 3">Next</v-btn>
                   </v-stepper-content>
 
                   <!--Section 3-->
-                  <v-stepper-step :complete="e6 > 3" step="3">Confirmation</v-stepper-step>
+                  <v-stepper-step editable :complete="e6 > 3" step="3">Confirmation</v-stepper-step>
                   <v-stepper-content step="3">
                   <p>
                       If the following information is correct, please read the Terms of Service and Privacy Policy. Upon agreeing to these conditions and submitting the following information, your account
@@ -110,6 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
                       I agree to the&nbsp;<a href="#" @click.stop.prevent="terms = true">Terms of Service</a>&nbsp;and&nbsp;<a href="#" @click.stop.prevent="privacy = true">Privacy Policy</a>
                       </template>
                   </v-checkbox>
+
+                  {% if form.agreement.errors %}<v-alert :value="true" type="error">{{ form.agreement.errors}}</v-alert>{% endif %}<br>
 
                   <!--Terms & Conditions Dialog
                   @TODO: Load an external file to clean up code-->
@@ -344,6 +343,22 @@ document.addEventListener('DOMContentLoaded', function () {
                   </v-stepper-content>
                 </v-stepper>
               </form>
+              {% if form.non_field_errors %}
+                    <v-alert
+                      :value="true"
+                      type="error">
+                      {{ form.non_field_errors }}
+                    </v-alert>
+                {% endif %}
+                {% if messages %}
+                    {% for message in messages %}
+                      <v-alert
+                        :value="true"
+                        type="warning">
+                        {{ message }}
+                      </v-alert>
+                    {% endfor %}
+                {% endif %}
             </v-card>
           </v-flex>
         </v-layout>

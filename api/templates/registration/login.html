@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
               <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <v-card-text>
-                  <v-text-field prepend-icon="person" name="username" label="Username" type="text" required>{{ form.username }}</v-text-field>
-                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" required>{{ form.password }}</v-text-field>
+                  <v-text-field prepend-icon="person" name="username" label="Username" type="text" required></v-text-field>
+                  <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" required></v-text-field>
                   <p>
                     Don't have an account? <a href="{% url 'signup' %}">Sign up now!</a>
                   </p>
