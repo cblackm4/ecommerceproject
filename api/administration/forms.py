@@ -6,11 +6,10 @@ class UserCreateForm(UserCreationForm):
     first_name = forms.CharField(max_length=64)
     last_name = forms.CharField(max_length=64)
     email = forms.EmailField(required=True)
-    agreement = forms.BooleanField(required=True)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2', 'agreement')
+        fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
 
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)

@@ -30,12 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     },
     methods: {
-      reset() {
-        this.$refs.form1.reset()
-      },
-      reset2() {
-        this.$refs.form2.reset()
-      }
     },
   })
 })
@@ -55,6 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 <!--Toolbar-->
                 <v-toolbar dark color="primary">
                   <v-toolbar-title>Register</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-toolbar-items>
+                    <v-btn href="/accounts/login/" flat><v-icon>keyboard_arrow_left</v-icon>Back to Login</v-btn>
+                  </v-toolbar-items>
                 </v-toolbar>
 
                 {% if form.errors %}
@@ -72,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
                   <v-stepper-step editable :complete="e6 > 1" step="1">Personal Information</v-stepper-step>
                   <v-stepper-content step="1">
                       <v-text-field prepend-icon="person" label="First Name" type="text" name="first_name" required></v-text-field>
-                      {% if form.first_name.errors %}<v-alert :value="true" type="error">{{ form.firt_name.errors}}</v-alert>{% endif %}<br>
+                      {% if form.first_name.errors %}<v-alert :value="true" type="error">{{ form.firt_name.errors}}</v-alert><br/>{% endif %}
                       <v-text-field prepend-icon="person" label="Last Name" type="text" name="last_name" required></v-text-field>
-                      {% if form.last_name.errors %}<v-alert :value="true" type="error">{{ form.last_name.errors}}</v-alert>{% endif %}<br>
+                      {% if form.last_name.errors %}<v-alert :value="true" type="error">{{ form.last_name.errors}}</v-alert><br/>{% endif %}
                       <v-text-field prepend-icon="email" label="E-Mail" type="text" name="email" required></v-text-field>
-                      {% if form.email.errors %}<v-alert :value="true" type="error">{{ form.email.errors}}</v-alert>{% endif %}<br>
+                      {% if form.email.errors %}<v-alert :value="true" type="error">{{ form.email.errors}}</v-alert><br/>{% endif %}
                       <v-btn color="primary" @click="e6 = 2">Next</v-btn>
                     </v-stepper-content>
                     
@@ -84,11 +82,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     <v-stepper-step editable :complete="e6 > 2" step="2">Account Information</v-stepper-step>
                     <v-stepper-content step="2">
                         <v-text-field prepend-icon="person" label="Username" type="text" name="username" required></v-text-field>
-                        {% if form.username.errors %}<v-alert :value="true" type="error">{{ form.username.errors}}</v-alert>{% endif %}<br>
+                        {% if form.username.errors %}<v-alert :value="true" type="error">{{ form.username.errors}}</v-alert><br/>{% endif %}
                         <v-text-field prepend-icon="lock" label="Password" type="password" name="password1" required></v-text-field>
-                        {% if form.password1.errors %}<v-alert :value="true" type="error">{{ form.password1.errors}}</v-alert>{% endif %}<br>
+                        {% if form.password1.errors %}<v-alert :value="true" type="error">{{ form.password1.errors}}</v-alert><br/>{% endif %}
                         <v-text-field prepend-icon="lock" label="Confirm Password" type="password" name="password2" required></v-text-field>
-                        {% if form.password2.errors %}<v-alert :value="true" type="error">{{ form.password2.errors}}</v-alert>{% endif %}<br>
+                        {% if form.password2.errors %}<v-alert :value="true" type="error">{{ form.password2.errors}}</v-alert><br/>{% endif %}
                     <v-btn color="primary" @click="e6 = 1">Previous</v-btn>
                     <v-btn color="primary" @click="e6 = 3">Next</v-btn>
                   </v-stepper-content>
@@ -107,8 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       I agree to the&nbsp;<a href="#" @click.stop.prevent="terms = true">Terms of Service</a>&nbsp;and&nbsp;<a href="#" @click.stop.prevent="privacy = true">Privacy Policy</a>
                       </template>
                   </v-checkbox>
-
-                  {% if form.agreement.errors %}<v-alert :value="true" type="error">{{ form.agreement.errors}}</v-alert>{% endif %}<br>
+                  {% if form.agreement.errors %}<v-alert :value="true" type="error">{{ form.agreement.errors}}</v-alert><br/>{% endif %}
 
                   <!--Terms & Conditions Dialog
                   @TODO: Load an external file to clean up code-->
@@ -339,26 +336,26 @@ document.addEventListener('DOMContentLoaded', function () {
                       </v-card>
                   </v-dialog>
                   <v-btn color="primary" @click="e6 = 2">Previous</v-btn>
-                  <v-btn type="submit" color="primary">Submit</v-btn>
+                  <v-btn :disabled="!agreement" type="submit" color="primary">Submit</v-btn>
                   </v-stepper-content>
                 </v-stepper>
               </form>
               {% if form.non_field_errors %}
-                    <v-alert
-                      :value="true"
-                      type="error">
-                      {{ form.non_field_errors }}
-                    </v-alert>
-                {% endif %}
-                {% if messages %}
-                    {% for message in messages %}
-                      <v-alert
-                        :value="true"
-                        type="warning">
-                        {{ message }}
-                      </v-alert>
-                    {% endfor %}
-                {% endif %}
+                <v-alert
+                  :value="true"
+                  type="error">
+                  {{ form.non_field_errors }}
+                </v-alert>
+            {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                  <v-alert
+                    :value="true"
+                    type="warning">
+                    {{ message }}
+                  </v-alert>
+                {% endfor %}
+            {% endif %}
             </v-card>
           </v-flex>
         </v-layout>

@@ -36,6 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 <v-card-text>
                   <v-text-field prepend-icon="person" name="username" label="Username" type="text" required></v-text-field>
                   <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" required></v-text-field>
+                  {% if form.non_field_errors %}
+                    <v-alert
+                      :value="true"
+                      type="error">
+                      {{ form.non_field_errors }}
+                    </v-alert><br/>
+                  {% endif %}
                   <p>
                     Don't have an account? <a href="{% url 'signup' %}">Sign up now!</a>
                   </p>
