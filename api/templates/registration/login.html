@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     {{ form.username }}
                     {{ form.password }}
                   <p>
-                    Don't have an account? <a href="/#/signup">Sign up now!</a>
+                    Don't have an account? <a href="{% url 'signup' %}">Sign up now!</a>
                   </p>
                 </v-card-text>
                 <v-card-actions>
