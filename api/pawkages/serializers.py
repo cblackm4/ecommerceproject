@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import (
     Customer, Product, Ingredient,
-    Recipe, Subscription, Transaction
+    Recipe, Subscription, Transaction, Feedback
 )
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -38,4 +38,10 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
+        fields = '__all__'
+
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
         fields = '__all__'

@@ -46,3 +46,13 @@ class Transaction(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True)
+
+
+class Feedback(models.Model):
+    firstname = models.CharField(max_length=25)
+    lastname = models.CharField(max_length=25)
+    order_number = models.IntegerField()
+    email = models.CharField(max_length=50)
+    reason = models.CharField(max_length=250)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)

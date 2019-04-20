@@ -2,11 +2,11 @@ from rest_framework import viewsets
 
 from .models import (
     Customer, Product, Ingredient,
-    Recipe, Subscription, Transaction
+    Recipe, Subscription, Transaction, Feedback
 )
 from .serializers import (
     CustomerSerializer, ProductSerializer, IngredientSerializer,
-    RecipeSerializer, SubscriptionSerializer, TransactionSerializer
+    RecipeSerializer, SubscriptionSerializer, TransactionSerializer, FeedbackSerializer
 )
 
 
@@ -38,3 +38,8 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+
+
+class FeedbackViewSet(viewsets.ModelViewSet):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
