@@ -143,3 +143,10 @@ WEBPACK_LOADER = {
 
 # Login redirect
 LOGIN_REDIRECT_URL = '/'
+
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'pawkages495@gmail.com'
+#EMAIL_HOST_PASSWORD = 'eC0mmer(e'
+#EMAIL_USE_TLS = True
+#EMAIL_USE_SSL = False
