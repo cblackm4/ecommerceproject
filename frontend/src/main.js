@@ -3,6 +3,8 @@ import './plugins/vuetify'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 
 Vue.config.productionTip = false
 
