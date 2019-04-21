@@ -69,24 +69,24 @@ document.addEventListener('DOMContentLoaded', function () {
                   <!--Section 1-->
                   <v-stepper-step editable :complete="e6 > 1" step="1">Personal Information</v-stepper-step>
                   <v-stepper-content step="1">
-                      <v-text-field prepend-icon="person" label="First Name" type="text" name="first_name" required></v-text-field>
-                      {% if form.first_name.errors %}<v-alert :value="true" type="error">{{ form.firt_name.errors}}</v-alert><br/>{% endif %}
-                      <v-text-field prepend-icon="person" label="Last Name" type="text" name="last_name" required></v-text-field>
-                      {% if form.last_name.errors %}<v-alert :value="true" type="error">{{ form.last_name.errors}}</v-alert><br/>{% endif %}
-                      <v-text-field prepend-icon="email" label="E-Mail" type="text" name="email" required></v-text-field>
-                      {% if form.email.errors %}<v-alert :value="true" type="error">{{ form.email.errors}}</v-alert><br/>{% endif %}
-                      <v-btn color="primary" @click="e6 = 2">Next</v-btn>
-                    </v-stepper-content>
-                    
+                    <v-text-field prepend-icon="person" label="First Name" type="text" name="first_name" required></v-text-field>
+                    {% if form.first_name.errors %}<v-alert :value="true" type="error">{{ form.firt_name.errors}}</v-alert><br/>{% endif %}
+                    <v-text-field prepend-icon="person" label="Last Name" type="text" name="last_name" required></v-text-field>
+                    {% if form.last_name.errors %}<v-alert :value="true" type="error">{{ form.last_name.errors}}</v-alert><br/>{% endif %}
+                    <v-text-field prepend-icon="email" label="E-Mail" type="text" name="email" required></v-text-field>
+                    {% if form.email.errors %}<v-alert :value="true" type="error">{{ form.email.errors}}</v-alert><br/>{% endif %}
+                    <v-btn color="primary" @click="e6 = 2">Next</v-btn>
+                  </v-stepper-content>
+
                     <!--Section 2-->
-                    <v-stepper-step editable :complete="e6 > 2" step="2">Account Information</v-stepper-step>
-                    <v-stepper-content step="2">
-                        <v-text-field prepend-icon="person" label="Username" type="text" name="username" required></v-text-field>
-                        {% if form.username.errors %}<v-alert :value="true" type="error">{{ form.username.errors}}</v-alert><br/>{% endif %}
-                        <v-text-field prepend-icon="lock" label="Password" type="password" name="password1" required></v-text-field>
-                        {% if form.password1.errors %}<v-alert :value="true" type="error">{{ form.password1.errors}}</v-alert><br/>{% endif %}
-                        <v-text-field prepend-icon="lock" label="Confirm Password" type="password" name="password2" required></v-text-field>
-                        {% if form.password2.errors %}<v-alert :value="true" type="error">{{ form.password2.errors}}</v-alert><br/>{% endif %}
+                  <v-stepper-step editable :complete="e6 > 2" step="2">Account Information</v-stepper-step>
+                  <v-stepper-content step="2">
+                    <v-text-field prepend-icon="person" label="Username" type="text" name="username" required></v-text-field>
+                    {% if form.username.errors %}<v-alert :value="true" type="error">{{ form.username.errors}}</v-alert><br/>{% endif %}
+                    <v-text-field prepend-icon="lock" label="Password" type="password" name="password1" required></v-text-field>
+                    {% if form.password1.errors %}<v-alert :value="true" type="error">{{ form.password1.errors}}</v-alert><br/>{% endif %}
+                    <v-text-field prepend-icon="lock" label="Confirm Password" type="password" name="password2" required></v-text-field>
+                    {% if form.password2.errors %}<v-alert :value="true" type="error">{{ form.password2.errors}}</v-alert><br/>{% endif %}
                     <v-btn color="primary" @click="e6 = 1">Previous</v-btn>
                     <v-btn color="primary" @click="e6 = 3">Next</v-btn>
                   </v-stepper-content>
@@ -94,25 +94,25 @@ document.addEventListener('DOMContentLoaded', function () {
                   <!--Section 3-->
                   <v-stepper-step editable :complete="e6 > 3" step="3">Confirmation</v-stepper-step>
                   <v-stepper-content step="3">
-                  <p>
+                    <p>
                       If the following information is correct, please read the Terms of Service and Privacy Policy. Upon agreeing to these conditions and submitting the following information, your account
                       will be created.
-                  </p>
+                    </p>
 
-                  <!--Terms of Service & Privacy Policy Section-->
-                  <v-checkbox v-model="agreement">
+                    <!--Terms of Service & Privacy Policy Section-->
+                    <v-checkbox v-model="agreement">
                       <template v-slot:label>
                       I agree to the&nbsp;<a href="#" @click.stop.prevent="terms = true">Terms of Service</a>&nbsp;and&nbsp;<a href="#" @click.stop.prevent="privacy = true">Privacy Policy</a>
                       </template>
-                  </v-checkbox>
-                  {% if form.agreement.errors %}<v-alert :value="true" type="error">{{ form.agreement.errors}}</v-alert><br/>{% endif %}
+                    </v-checkbox>
+                    {% if form.agreement.errors %}<v-alert :value="true" type="error">{{ form.agreement.errors}}</v-alert><br/>{% endif %}
 
-                  <!--Terms & Conditions Dialog
-                  @TODO: Load an external file to clean up code-->
-                  <v-dialog v-model="terms" absolute max-width="500" persistent>
-                      <v-card>
-                      <v-card-title class="headline grey lighten-3">Privacy Policy</v-card-title>
-                      <v-card-text>
+                    <!--Terms & Conditions Dialog
+                    @TODO: Load an external file to clean up code-->
+                    <v-dialog v-model="terms" absolute max-width="500" persistent>
+                        <v-card>
+                        <v-card-title class="headline grey lighten-3">Privacy Policy</v-card-title>
+                        <v-card-text>
                           <h2>Welcome to Pawkages</h2>
                           <p>These terms and conditions outline the rules and regulations for the use of Pawkages's Website.</p> <br />
                           <span style="text-transform: capitalize;"> Pawkages</span> is located at:<br />
@@ -248,22 +248,22 @@ document.addEventListener('DOMContentLoaded', function () {
                           <h2>Credit & Contact Information</h2>
                           <p>This Terms and conditions page was created at <a style="color:inherit;text-decoration:none;cursor:text;" href="https://termsandconditionstemplate.com">termsandconditionstemplate.com</a> generator. If you have
                           any queries regarding any of our terms, please contact us.</p>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                          <v-btn flat @click="agreement = false, terms = false">No</v-btn>
-                          <v-spacer></v-spacer>
-                          <v-btn color="primary" @click="agreement = true, terms = false">Yes</v-btn>
-                      </v-card-actions>
-                      </v-card>
-                  </v-dialog>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                            <v-btn flat @click="agreement = false, terms = false">No</v-btn>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" @click="agreement = true, terms = false">Yes</v-btn>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
 
-                  <!--Privacy Policy Dialog
-                  @TODO: Load an external file to clean up code-->
-                  <v-dialog v-model="privacy" absolute max-width="500" persistent>
-                      <v-card>
-                      <v-card-title class="headline grey lighten-3">Privacy Policy</v-card-title>
-                      <v-card-text>
+                    <!--Privacy Policy Dialog
+                    @TODO: Load an external file to clean up code-->
+                    <v-dialog v-model="privacy" absolute max-width="500" persistent>
+                        <v-card>
+                        <v-card-title class="headline grey lighten-3">Privacy Policy</v-card-title>
+                        <v-card-text>
                           <h3>Your privacy is critically important to us.</h3>
                           Pawkages is located at:<br />
                           <address>Pawkages<br />9999999998</address>
@@ -326,17 +326,17 @@ document.addEventListener('DOMContentLoaded', function () {
                           <h2>Credit & Contact Information</h2>
                           <p>This privacy policy was created at <a style="color:inherit;text-decoration:none;" href="https://termsandconditionstemplate.com/privacy-policy-generator/" title="Privacy policy template generator" target="_blank">termsandconditionstemplate.com</a>.
                           If you have any questions about this Privacy Policy, please contact us via <a href="mailto:">email</a> or <a href="tel:9999999998">phone</a>.</p>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                          <v-btn flat @click="agreement = false, privacy = false">No</v-btn>
-                          <v-spacer></v-spacer>
-                          <v-btn color="primary" @click="agreement = true, privacy = false">Yes</v-btn>
-                      </v-card-actions>
-                      </v-card>
-                  </v-dialog>
-                  <v-btn color="primary" @click="e6 = 2">Previous</v-btn>
-                  <v-btn :disabled="!agreement" type="submit" color="primary">Submit</v-btn>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                            <v-btn flat @click="agreement = false, privacy = false">No</v-btn>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" @click="agreement = true, privacy = false">Yes</v-btn>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-btn color="primary" @click="e6 = 2">Previous</v-btn>
+                    <v-btn :disabled="!agreement" type="submit" color="primary">Submit</v-btn>
                   </v-stepper-content>
                 </v-stepper>
               </form>
@@ -346,8 +346,8 @@ document.addEventListener('DOMContentLoaded', function () {
                   type="error">
                   {{ form.non_field_errors }}
                 </v-alert>
-            {% endif %}
-            {% if messages %}
+              {% endif %}
+              {% if messages %}
                 {% for message in messages %}
                   <v-alert
                     :value="true"
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     {{ message }}
                   </v-alert>
                 {% endfor %}
-            {% endif %}
+              {% endif %}
             </v-card>
           </v-flex>
         </v-layout>
