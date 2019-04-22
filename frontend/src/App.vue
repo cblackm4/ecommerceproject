@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <v-toolbar>
+
+    <v-toolbar dark>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat v-for="(menu, index) in menus" :key="index" :to="menu.route">
-          {{menu.name}}
-        </v-btn>
-        <v-btn href="/accounts/logout/" flat>LOGOUT</v-btn>
+        <v-btn flat v-for='(menu, index) in menus' :key='index' :to={name:menu.route}>
+        {{menu.name}}
+      </v-btn>
       </v-toolbar-items>
 
     </v-toolbar>
@@ -15,6 +15,8 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+
+
   </v-app>
 </template>
 
@@ -36,6 +38,8 @@ export default {
         {name:'Home', route:"Home"},
         {name:'Contact', route:'Contact'},
         {name:'Account', route:'Account'},
+        {name:'Sign Up', route:'Signup'},
+        {name:'Log In', route:'Login'},
       ]
     }
   }
