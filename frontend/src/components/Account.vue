@@ -52,10 +52,8 @@
         },
         methods: {
             getCustomer: function () {
-                /*this is some testing code - the 1 will be replaced by the customerID that is logged in*/
-                this.$http.get('api/customers/').then(function (data, status, request) {
+                this.$http.get('api/customers/').then(function (data) {
                     var response = data.body.split('|');
-                    console.log(response);
 
                     this.currentUser.username = response[0];
                     this.currentUser.first_name = response[1];
