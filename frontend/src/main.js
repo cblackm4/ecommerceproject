@@ -3,8 +3,11 @@ import './plugins/vuetify'
 import App from './App.vue'
 import store from './store'
 import router from './router'
-import VueResource from 'vue-resource';
-Vue.use(VueResource);
+import axios from 'axios'
+import VueCookies from 'vue-cookies'
+
+Vue.prototype.$axios = axios;
+Vue.prototype.$cookies = VueCookies;
 
 Vue.config.productionTip = false
 

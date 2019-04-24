@@ -46,8 +46,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'api.middleware.EnforceAuthMiddleware',
-    'api.middleware.UserIdCookieMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.EnforceAuthMiddleware',
+    'api.middleware.UserIdCookieMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
