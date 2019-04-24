@@ -23,7 +23,7 @@ class EnforceAuthMiddleware(object):
                 return HttpResponseRedirect(reverse('login'))
         return response
 
-class UserIdCookieMiddleware(object):
+class CookieMiddleware(object):
     """
     Puts the id of the current authenticated user in the cookies.
     """
@@ -33,8 +33,17 @@ class UserIdCookieMiddleware(object):
 
     def __call__(self, request):
         response = self.get_response(request)
+
+        # user id cookie
         if request.user.is_authenticated and not request.COOKIES.get('user'):
             response.set_cookie('user', request.user.id)
         elif not request.user.is_authenticated and request.COOKIES.get('user'):
             response.delete_cookie('user')
+
+        # is staff cookie
+        if request.user.is_authenticated and not request.COOKIES.get('is_staff'):
+            response.set_cookie('is_staff', int(request.user.is_staff))
+        elif not request.user.is_authenticated and request.COOKIES.get('is_staff'):
+            response.delete_cookie('is_staff')
+
         return response
