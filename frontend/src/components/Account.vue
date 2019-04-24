@@ -34,27 +34,13 @@
 <script>
   export default {
     data() {
-    return {
-        user: {
-          username: null,
-          first_name: null,
-          last_name: null,
-          email: null,
-          password: null
-        }
+      return {
       }
     },
-    methods: {
-      getUser() {
-        this.$axios.get('/api/users/' + this.$cookies.get('user') + '/').then(
-          (response) => {
-            this.user = response.data;
-          }
-        )
-      },
-    },
-    beforeMount() {
-      this.getUser();
+    computed: {
+      user() {
+        return this.$store.getters.user;
+      }
     },
   }
 </script>
