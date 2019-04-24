@@ -10,6 +10,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
+    img_src = models.URLField()
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=125)
     price = models.FloatField()
