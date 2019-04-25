@@ -52,6 +52,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
+      <!--Ideally, a v-if will be used to see if a user gave us a first name. If not it will default to the user name-->
       <v-toolbar-title>Hello, {{user.first_name}}!<v-icon class="icon">account_circle</v-icon></v-toolbar-title>
         <v-icon>shopping_cart</v-icon>
       </v-tooldbar-items>
