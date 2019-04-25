@@ -48,9 +48,9 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar dark>
+    <v-toolbar dark fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title></v-toolbar-title>
+      <v-img :src="require('./assets/logo.png')" max-width="175px" max-height="175px" min-width="150px" min-heigh="150px"></v-img>
       <v-spacer></v-spacer>
       <!--Ideally, a v-if will be used to see if a user gave us a first name. If not it will default to the user name-->
       <v-toolbar-title>Hello, {{user.first_name}}!<v-icon class="icon">account_circle</v-icon></v-toolbar-title>
@@ -61,10 +61,10 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-parallax :src="require('./assets/heroimage.jpg')">
+    <v-parallax xs12 :src="require('./assets/heroimage.jpg')">
       <v-layout align-center column justify-center>
         <h1 class="display-2 font-weight-thin mb-3">Welcome to Pawkages!</h1>
-        <h2 class="shop"><a href="#/Products">Shop Now</a></h2>
+        <v-btn dark flat href="#/Products">Shop Now</a></v-btn>
       </v-layout>
     </v-parallax>
 
@@ -72,8 +72,47 @@
       <router-view></router-view>
     </v-content>
 
-    <v-footer dark>
+    <v-footer dark height="auto">
+      <v-layout row wrap justify-center>
+        <v-flex xs4 md3>
+          <v-card-text>
+            <div class="text-xs-center">
+              <v-img :src="require('./assets/logo.png')" max-width="250px" max-height="250px" min-width="150px" min-heigh="150px"></v-img>
+            </div>
+          </v-card-text>
+        </v-flex>
 
+        <v-flex xs4 md3>
+          <v-card-text>
+            <div class="text-xs-center">
+              Quick Links
+            </div>
+            <span>COMPANY:</span><br />
+            <div
+              v-for="link in links"
+              :key="link"
+            >{{ link.name }}</div>
+          </v-card-text>
+        </v-flex>
+
+        <v-flex xs4 md3>
+            <v-card-text>
+              <div class="text-xs-center">
+                Follow Us:
+              </div>
+              <div class="text-xs-center">
+                <v-btn
+                  v-for="icon in icons"
+                  :key="icon"
+                  class="mx-3 white--text"
+                  icon
+                >
+                  <v-icon size="24px">{{ icon.src }}</v-icon>
+                </v-btn>
+              </div>
+            </v-card-text>
+        </v-flex>
+      </v-layout>
     </v-footer>
 
   </v-app>
@@ -100,6 +139,16 @@ export default {
         {title:'Contact', icon: 'contact_support', route:'Contact'},
         {title:'Account', icon: 'account_box', route:'Account'},
       ],
+      icons: [
+        {src:'fab fa-facebook'},
+        {src:'fab fa-twitter'},
+        {src:'fab fa-instagram'}
+      ],
+      links: [
+        {name: 'About Us'},
+        {name: 'Contact Us'},
+        {name: 'Shop'}
+      ]
     }
   },
   computed: {
