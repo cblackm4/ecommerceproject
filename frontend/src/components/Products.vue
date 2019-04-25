@@ -4,7 +4,7 @@
       <v-layout align-center justify-center>
         <v-flex xs12>
           <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
+            <v-toolbar dark flat>
               <v-toolbar-title>Products</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-tooltip right>
@@ -73,7 +73,8 @@
 <style lang="sass">
 
   .product-image
-    max-width: 200px
-    max-height: 200px
+    padding: 1em
+    max-width: 12.5em
+    max-height: 12.5em
 
 </style>

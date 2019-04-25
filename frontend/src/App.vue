@@ -11,7 +11,6 @@
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
           </v-list-tile-avatar>
-
           <v-list-tile-content>
             <v-list-tile-title>{{user.username}}</v-list-tile-title>
           </v-list-tile-content>
@@ -51,17 +50,30 @@
 
     <v-toolbar dark>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Pawkages</v-toolbar-title>
+      <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-title>Welcome, {{user.username}}<v-icon class="icon">account_circle</v-icon></v-toolbar-title>
+      <v-toolbar-title>Hello, {{user.first_name}}!<v-icon class="icon">account_circle</v-icon></v-toolbar-title>
+        <v-icon>shopping_cart</v-icon>
+      </v-tooldbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn href="/accounts/logout/" flat>LOGOUT</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
+    <v-parallax :src="require('./assets/heroimage.jpg')">
+      <v-layout align-center column justify-center>
+        <h1 class="display-2 font-weight-thin mb-3">Welcome to Pawkages!</h1>
+        <h2 class="shop"><a href="#/Products">Shop Now</a></h2>
+      </v-layout>
+    </v-parallax>
+
     <v-content>
       <router-view></router-view>
     </v-content>
+
+    <v-footer dark>
+
+    </v-footer>
 
   </v-app>
 </template>
@@ -115,5 +127,11 @@ export default {
   .icon
     margin-right: 10px
     margin-left: 10px
+
+  .shop a
+    color: white
+
+  .shop a:visited
+    color: white
 
 </style>

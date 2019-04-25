@@ -3,8 +3,8 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <v-flex xs12>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
+          <v-card>
+            <v-toolbar dark flat>
               <v-toolbar-title>{{product.name}}</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn @click="$router.push('/products/')" flat><v-icon>keyboard_arrow_left</v-icon>Back to Products</v-btn>
@@ -12,7 +12,7 @@
               </v-tooltip>
             </v-toolbar>
 
-            
+
 
           </v-card>
         </v-flex>
