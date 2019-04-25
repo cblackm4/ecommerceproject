@@ -1,0 +1,200 @@
+[
+  {
+    "model" : "pawkages.Product",
+    "pk" : 1,
+    "fields" : {
+      "img_src" : "https://images-na.ssl-images-amazon.com/images/I/71W3BtGim9L._SL1300_.jpg",
+      "name" : "Milk-Bone Original Dog Treats",
+      "description" : "Contains 1 - 10 Lb Box Crunchy Texture Helps To Clean Teeth And Freshen Breath Fortified With 12 Vitamins And Minerals To Help Keep Dogs At Their Best Wholesome, Tasty Treats That You Can Feel Good About Giving",
+      "price" : 11.93,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 2,
+    "fields" : {
+      "img_src" : "https://img.chewy.com/is/image/catalog/92057_MAIN._AC_SL1500_V1533825135_.jpg",
+      "name" : "Beggin' Strips Bacon & Beef Flavors Dog Treats",
+      "description" : "Contains 1 - 25 oz bag Beggin' Strips Bacon & Beef Flavored Dog Treats bring out uncontainable excitement in dogs.",
+      "price" : 9.69,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 3,
+    "fields" : {
+      "img_src" : "https://www.beneful.com/sites/g/files/auxxlc231/files/styles/kraken_product_carousel_regular/public/BF_BakedDelights_Snackers_16542.jpg?itok=4VU8nNOP",
+      "name" : "Baked Delights® Snackers",
+      "description" : "Contains 1 - 9.5 oz bag Super-savory, super-snackable, these oven-baked dog treats with soft centers and made with peanut butter (natural and artificial) and cheese flavors are sure to delight your best bud.",
+      "price" : 3.08,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 4,
+    "fields" : {
+      "img_src" : "https://www.beneful.com/sites/g/files/auxxlc231/files/styles/kraken_product_carousel_regular/public/BF_BakedDelights_Snackers_16542.jpg?itok=4VU8nNOP",
+      "name" : "Baked Delights® Snackers",
+      "description" : "Contains 1 - 22 oz bag Super-savory, super-snackable, these oven-baked dog treats with soft centers and made with peanut butter (natural and artificial) and cheese flavors are sure to delight your best bud.",
+      "price" : 5.67,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 5,
+    "fields" : {
+      "img_src" : "https://petco.scene7.com/is/image/PETCO/1544012-center-1?$ProductDetail-large$",
+      "name" : "Pedigree Dentastix",
+      "description" : "Contains 1 - 21 ct box PEDIGREE DENTASTIX Triple Action works to clean teeth, freshen breath and is clinically proven to reduce plaque and tartar build up",
+      "price" : 5.99,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 6,
+    "fields" : {
+      "img_src" : "https://s7d1.scene7.com/is/image/PETCO/1371223-center-1?$ProductDetail-large$",
+      "name" : "Blue Buffalo Blue Wilderness Trail Treats Salmon Biscuits",
+      "description" : "Contains 1 - 10 oz bag The perfect crunchy treat for your meat-loving dog, NO chicken (or poultry) by-product meals A 100% Grain-Free Baked Treat",
+      "price" : 5.99,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 7,
+    "fields" : {
+      "img_src" : "https://target.scene7.com/is/image/Target/GUEST_f5ac9863-c3f9-4c3b-a9dd-bb5182efa57e?wid=1400&fmt=webp",
+      "name" : "Beefeaters Jerky Curl Chicken Dog Treats",
+      "description" : "Contains 1 - 22 oz bag Delicious chicken flavor your dog can’t resist Chewy jerky curls are gentle on dogs’ teeth Comes in resealable pouch for easy storage and lasting freshness.",
+      "price" : 15.99,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 8,
+    "fields" : {
+      "img_src" : "https://img.chewy.com/is/image/catalog/90102_MAIN._AC_SL1500_V1539874363_.jpg?_ga=2.259503498.1278072226.1556076985-1484544224.1556076985",
+      "name" : "Temptations Mixups Catnip Fever Cat Treats",
+      "description" : "Contains 1 - 16 oz tub Tempt your kitty with the scrumptious taste and enticing texture of Temptations Mixups Catnip Fever Cat Treats.",
+      "price" : 8.48,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 9,
+    "fields" : {
+      "img_src" : "https://www.beyondpetfood.com/sites/g/files/auxxlc511/files/styles/kraken_product_carousel_regular/public/BYD_Cat_Treat_GF_OceanWhitefishEgg_17571.png?itok=FajFQHuO",
+      "name" : "Grain Free Ocean Whitefish & Egg Recipe Cat Treats",
+      "description" : "Contains 1 - 2.1 oz bag",
+      "price" : 2.86,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 10,
+    "fields" : {
+      "img_src" : "https://www.beyondpetfood.com/sites/g/files/auxxlc511/files/styles/kraken_product_carousel_regular/public/BYD_Cat_Treat_GF_OceanWhitefishEgg_17571.png?itok=FajFQHuO",
+      "name" : "Grain Free Ocean Whitefish & Egg Recipe Cat Treats",
+      "description" : "Contains 1 - 6 oz bag",
+      "price" : 5.46,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 11,
+    "fields" : {
+      "img_src" : "https://s7d1.scene7.com/is/image/PETCO/1585665-center-1?$ProductDetail-large$",
+      "name" : "Feline Greenies Smartbites Cat Treats",
+      "description" : "Contains 1 - 4.6 oz bag This veterinarian-designed treat provides the balance of fibers cats need to help minimize the formation of hairballs in their digestive tract.",
+      "price" : 4.99,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 12,
+    "fields" : {
+      "img_src" : "https://s7d1.scene7.com/is/image/PETCO/1585665-center-1?$ProductDetail-large$",
+      "name" : "Feline Greenies Smartbites Cat Treats",
+      "description" : "Contains 1 - 2.1 oz bag This veterinarian-designed treat provides the balance of fibers cats need to help minimize the formation of hairballs in their digestive tract.",
+      "price" : 2.37,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 13,
+    "fields" : {
+      "img_src" : "https://s7d1.scene7.com/is/image/PETCO/2160016-center-1?$ProductDetail-large$",
+      "name" : "Blue Buffalo Blue Wilderness Chicken & Turkey Cat Treats",
+      "description" : "Contains 1 - 2 oz bag Made with real chicken and turkey 100% grain-free Free from artificial flavors and preservatives",
+      "price" : 4.79,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 14,
+    "fields" : {
+      "img_src" : "https://images-na.ssl-images-amazon.com/images/I/91wcT3iWgFL._SL1500_.jpg",
+      "name" : "Purina DentaLife Adult Cat Treats",
+      "description" : "Contains 1 - 13.5 oz canister More Porous Texture Than Traditional Cat Treats To More Easily Reduce Tartar Buildup Contains No Artificial Flavors Or Colors Should be fed as a treat to your adult cat",
+      "price" : 5.88,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 15,
+    "fields" : {
+      "img_src" : "https://images-na.ssl-images-amazon.com/images/I/81KLBeqET%2BL._SL1500_.jpg",
+      "name" : "Hill'S Ideal Balance Grain Free Dog Treats",
+      "description" : "Contains 1 - 8oz Bag A large breed puppy food specially made with an optimal level of calcium for controlled bone growth",
+      "price" : 7.69,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 16,
+    "fields" : {
+      "img_src" : "https://images-na.ssl-images-amazon.com/images/I/811CfBrn0OL._SL1500_.jpg",
+      "name" : "Plato Dog Treats Natural Salmon",
+      "description" : "Contains 1 - 16 oz Bag Healthy Snack – Our Treats Have No Added Sugars, Artificial Preservatives, By-Products, Artificial Colors, Protein-Meals, Soy, Wheat, Corn, Fillers, Or Freeze-Drying.",
+      "price" : 17.48,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 17,
+    "fields" : {
+      "img_src" : "https://images-na.ssl-images-amazon.com/images/I/91AhPgoCpEL._SL1500_.jpg",
+      "name" : "Plato Dog Treats - Turkey with Pumpkin",
+      "description" : "Contains 1 - 12 oz Best All Natural Pet Treat On The Market. Plato Uses The Highest Percent Of Quality, Protein On The Market. Treats Are 90% Pure Meat.",
+      "price" : 14.49,
+      "inventory" : 20
+    }
+  },
+  {
+    "model" : "pawkages.Product",
+    "pk" : 18,
+    "fields" : {
+      "img_src" : "https://www.puppyleaks.com/pb-dog-treats/",
+      "name" : "Peanut Butter Dog Treats",
+      "description" : "Contains 36 Homemade Treats These simple treats are made with very few ingredients, featuring organic raw, unsalted peanut butter that is Xylitol free.",
+      "price" : 11.50,
+      "inventory" : 20
+    }
+  }
+]
