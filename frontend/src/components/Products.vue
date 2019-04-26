@@ -17,7 +17,7 @@
               class="elevation-1"
             >
               <template v-slot:items="props">
-                <td @click="goToProduct(props.item.id)"><img class="product-image" :src="props.item.image_src"/></td>
+                <td @click="goToProduct(props.item.id)"><img class="product-image" :src="props.item.img_src"/></td>
                 <td @click="goToProduct(props.item.id)" class="text-xs-right">{{ props.item.name }}</td>
                 <td @click="goToProduct(props.item.id)" class="text-xs-right">{{ props.item.description }}</td>
                 <td @click="goToProduct(props.item.id)" class="text-xs-right">{{ props.item.price }}</td>
@@ -34,18 +34,9 @@
 <script>
   export default {
     data: () => ({
-      products: [
-        {
-          id: 1,
-          image_src: 'https://images-na.ssl-images-amazon.com/images/I/71W3BtGim9L._SL1300_.jpg',
-          name: 'Milk-Bone Original Dog Treats',
-          description: 'Contains 1 - 10 Lb Box Crunchy Texture Helps To Clean Teeth And Freshen Breath Fortified With 12 Vitamins And Minerals To Help Keep Dogs At Their BestWholesome, Tasty Treats That You Can Feel Good About Giving',
-          price: 11.93,
-          inventory: 10
-        }
-      ],
+      products: [],
       headers: [
-        { text: 'Image', value: 'image_src'},
+        { text: 'Image', value: 'img_src'},
         { text: 'Name', value: 'name'},
         { text: 'Description', value: 'description'},
         { text: 'Price', value: 'price'},

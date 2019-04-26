@@ -54,8 +54,7 @@
       <v-spacer></v-spacer>
       <!--Ideally, a v-if will be used to see if a user gave us a first name. If not it will default to the user name-->
       <v-toolbar-title>Hello, {{user.first_name}}!<v-icon class="icon">account_circle</v-icon></v-toolbar-title>
-        <v-icon>shopping_cart</v-icon>
-      </v-tooldbar-items>
+      <v-icon>shopping_cart</v-icon>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn href="/accounts/logout/" flat>LOGOUT</v-btn>
       </v-toolbar-items>
@@ -64,7 +63,7 @@
     <v-parallax xs12 :src="require('./assets/heroimage.jpg')">
       <v-layout align-center column justify-center>
         <h1 class="display-2 font-weight-thin mb-3">Welcome to Pawkages!</h1>
-        <v-btn dark flat href="#/Products">Shop Now</a></v-btn>
+        <v-btn dark flat href="#/Products">Shop Now</v-btn>
       </v-layout>
     </v-parallax>
 
@@ -89,8 +88,8 @@
             </div>
             <span>COMPANY:</span><br />
             <div
-              v-for="link in links"
-              :key="link"
+              v-for="(link, index) in links"
+              :key="'link' + index"
             >{{ link.name }}</div>
           </v-card-text>
         </v-flex>
@@ -102,8 +101,8 @@
               </div>
               <div class="text-xs-center">
                 <v-btn
-                  v-for="icon in icons"
-                  :key="icon"
+                  v-for="(icon, index) in icons"
+                  :key="'icon' + index"
                   class="mx-3 white--text"
                   icon
                 >
