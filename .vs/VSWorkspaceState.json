@@ -1,13 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\api",
-    "\\api\\administration",
-    "\\api\\api",
     "\\frontend",
-    "\\frontend\\src",
-    "\\frontend\\src\\components"
+    "\\frontend\\node_modules",
+    "\\frontend\\node_modules\\vue-cli-plugin-vuetify"
   ],
-  "SelectedNode": "\\frontend\\src\\main.js",
+  "SelectedNode": "\\frontend\\vue.config.js",
   "PreviewInSolutionExplorer": false
 }

@@ -190,7 +190,7 @@
     "model" : "pawkages.Product",
     "pk" : 18,
     "fields" : {
-      "img_src" : "https://www.puppyleaks.com/pb-dog-treats/",
+      "img_src" : "https://www.puppyleaks.com/wp-content/uploads/2017/01/pbtreat3.png",
       "name" : "Peanut Butter Dog Treats",
       "description" : "Contains 36 Homemade Treats These simple treats are made with very few ingredients, featuring organic raw, unsalted peanut butter that is Xylitol free.",
       "price" : 11.50,
