@@ -151,3 +151,6 @@ LOGIN_REDIRECT_URL = '/'
 #EMAIL_HOST_PASSWORD = 'eC0mmer(e'
 #EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

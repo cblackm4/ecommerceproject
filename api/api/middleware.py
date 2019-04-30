@@ -17,7 +17,10 @@ class EnforceAuthMiddleware(object):
         response = self.get_response(request)
         if not request.user.is_authenticated:
             if (request.path == reverse('login')
-                or request.path == reverse('signup')):
+                or request.path == reverse('signup')
+                or request.path == reverse('password_reset')
+                or request.path == reverse('password_reset_done')
+                or request.path.startswith('/accounts/reset/')):
                 return response
             else:
                 return HttpResponseRedirect(reverse('login'))
