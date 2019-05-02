@@ -93,3 +93,4 @@ export default {
     max-width: 12.5em
     max-height: 12.5em
 </style>
+
