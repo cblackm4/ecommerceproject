@@ -21,6 +21,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=125)
     price = models.FloatField(default=0.0)
+    img_src = models.URLField()
 
 
 class Recipe(models.Model):
