@@ -196,5 +196,26 @@
       "price" : 11.50,
       "inventory" : 20
     }
+  },
+  {
+    "model" : "pawkages.Customer",
+    "pk" : 1,
+    "fields" : {
+	  "user" : 1,
+      "shipping_address" : "",
+      "billing_address" : ""
+    }
+  },
+  {
+    "model" : "pawkages.Recipe",
+    "pk" : 1,
+    "fields" : {
+	  "customer" : 1,
+      "name" : "Test Recipe",
+      "description" : "This is a test",
+      "pet_size" : "MD",
+      "ingredients" : []
+    }
   }
 ]
+

@@ -4,6 +4,7 @@ import Home from '@/components/Home.vue'
 import Account from '@/components/Account'
 import Contact from '@/components/Contact.vue'
 import Products from '@/components/Products.vue'
+import Recipes from '@/components/Recipes.vue'
 import ViewProduct from '@/components/ViewProduct.vue'
 
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
       path: '/products',
       name: 'Products',
       component: Products
+    },
+    {
+      path: '/recipes',
+      name: 'Recipes',
+      component: Recipes
     },
     {
       path: '/products/:id?',

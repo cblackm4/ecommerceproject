@@ -25,6 +25,8 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    name = models.CharField(max_length=25, default = 'New Recipe')
+    description = models.CharField(max_length=250, default = '')
     ingredients = models.ManyToManyField(Ingredient)
     PET_SIZE_CHOICES = (
         ('CAT', 'Cat'),
