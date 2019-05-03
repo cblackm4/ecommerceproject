@@ -3,7 +3,7 @@
 
     <v-navigation-drawer
       v-model="drawer"
-      absolute
+      fixed
       temporary
     >
       <v-list class="pa-1">
@@ -19,7 +19,6 @@
 
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
-
           <v-list-tile
             v-for="item in items"
             :key="item.title"
@@ -135,8 +134,9 @@ export default {
       items: [
         {title:'Home', icon: 'home', route:"/"},
         {title:'Products', icon: 'pets', route:"Products"},
+        {title:'Subscriptions', icon: '360', route: 'Subscriptions'},
         {title:'Contact', icon: 'contact_support', route:'Contact'},
-        {title:'Account', icon: 'account_box', route:'Account'},
+        {title:'My Account', icon: 'account_box', route:'Account'},
       ],
       icons: [
         {src:'fab fa-facebook'},
@@ -166,6 +166,8 @@ export default {
     },
   },
   beforeMount() {
+    this.$axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    this.$axios.defaults.xsrfCookieName = "csrftoken";
     this.getUser();
   },
 }
