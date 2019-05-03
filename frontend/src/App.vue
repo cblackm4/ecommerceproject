@@ -166,6 +166,8 @@ export default {
     },
   },
   beforeMount() {
+    this.$axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    this.$axios.defaults.xsrfCookieName = "csrftoken";
     this.getUser();
   },
 }
