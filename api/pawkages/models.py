@@ -19,8 +19,9 @@ class Product(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=25)
-    description = models.CharField(max_length=125)
+    description = models.CharField(max_length=250)
     price = models.FloatField(default=0.0)
+    img_src = models.URLField()
 
 
 
