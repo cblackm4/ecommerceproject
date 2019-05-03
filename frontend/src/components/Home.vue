@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap justify-center>
-      <v-flex xs9>
+      <v-flex xs12 md8>
         <v-carousel>
           <v-carousel-item
             v-for="(item,i) in items"

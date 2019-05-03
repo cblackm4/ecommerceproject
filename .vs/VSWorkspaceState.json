@@ -2,14 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\api",
+    "\\api\\api",
+    "\\api\\pawkages",
     "\\frontend",
-    "\\frontend\\node_modules",
-    "\\frontend\\node_modules\\.cache",
-    "\\frontend\\node_modules\\.cache\\babel-loader",
-    "\\frontend\\node_modules\\.cache\\eslint-loader",
-    "\\frontend\\node_modules\\.cache\\vue-loader",
     "\\frontend\\node_modules\\vue-cli-plugin-vuetify",
-    "\\frontend\\src"
+    "\\frontend\\src",
+    "\\frontend\\src\\components"
   ],
+  "SelectedNode": "\\frontend\\src\\router.js",
   "PreviewInSolutionExplorer": false
 }
