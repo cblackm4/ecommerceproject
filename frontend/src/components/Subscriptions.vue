@@ -18,7 +18,7 @@
               <template v-slot:items="props">
                 <td>{{ props.item.id }}</td>
                 <td>{{ props.item.recipes }}</td>
-                <td>{{ props.item.products.name }}</td>
+                <td>{{ props.item.products }}</td>
                 <td>{{ props.item.frequency }}</td>
                 <td>{{ props.item.active }}</td>
               </template>
