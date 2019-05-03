@@ -216,6 +216,37 @@
       "pet_size" : "MD",
       "ingredients" : []
     }
+  },
+  {
+    "model" : "pawkages.Subscription",
+    "pk" : 1,
+    "fields" : {
+      "customer" : 1,
+      "recipes" : [],
+      "products" : [
+        3,
+        7,
+        15
+      ],
+      "frequency" : "30 0",
+      "active" : true
+    }
+  },
+  {
+    "model" : "pawkages.Subscription",
+    "pk" : 2,
+    "fields" : {
+      "customer" : 1,
+      "recipes" : [],
+      "products" : [
+        1,
+        4,
+        11,
+        18
+      ],
+      "frequency" : "30 0",
+      "active" : true
+    }
   }
-]
 
+]
