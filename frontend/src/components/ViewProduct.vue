@@ -2,7 +2,7 @@
   <v-content>
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
-        <v-flex xs12>
+        <v-flex xs12 md9>
           <v-card>
             <v-toolbar dark flat>
               <v-toolbar-title>{{product.name}}</v-toolbar-title>
@@ -11,14 +11,15 @@
               <v-tooltip right>
               </v-tooltip>
             </v-toolbar>
-            
+
             <v-layout row wrap align-end>
-              <v-flex xs4>
+              <v-flex xs12 md4>
                 <v-card class="product-img">
                   <v-img :src="product.img_src"/>
                 </v-card>
               </v-flex>
-              <v-flex xs8>
+
+              <v-flex xs12 md8>
                 <v-card class="product-info">
                   <v-card-title>Product Information</v-card-title>
                   <v-card-text>
@@ -37,7 +38,8 @@
                   </v-card-text>
                 </v-card>
               </v-flex>
-              <v-flex xs12>
+
+              <v-flex xs12 md12>
                 <v-card class="product-desc">
                   <v-card-title>Product Description</v-card-title>
                   <v-card-text>
