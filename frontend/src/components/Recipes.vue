@@ -17,13 +17,11 @@
             </v-tooltip>
           </v-toolbar>
 
-
-
           <v-data-table :headers="headers" :items="recipes" :search="search" class="elevation-1">
             <template v-slot:items="props">
-              <td @click="" class="text-xs-right">{{ props.item.name }}</td>
-              <td @click="" class="text-xs-right">{{ props.item.description }}</td>
-              <td @click="" class="text-xs-right">{{ props.item.pet_size }}</td>
+              <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
+              <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
+              <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.pet_size == 'CAT' ? 'Cat' : props.item.pet_size == 'SM' ? 'Small Dog' : props.item.pet_size == 'MD' ? 'Medium Dog' : props.item.pet_size == 'LG' ? 'Large Dog' : '' }}</td>
             </template>
 
             <template v-slot:no-results>
@@ -67,7 +65,7 @@ export default {
         }
       )
     },
-    goToProduct(id) {
+    goToRecipe(id) {
       this.$router.push('/recipes/' + id);
     }
   },
