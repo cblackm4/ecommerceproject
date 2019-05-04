@@ -198,37 +198,19 @@
     }
   },
   {
-    "model": "administration.user",
-    "pk": 1,
-    "fields": {
-      "password": "pbkdf2_sha256$150000$zUSPX0VTqsf8$yqGCTzczGPoU+xRKYhmviw3Kaa13f4ez0UdQ9kIecrA=",
-      "last_login": "2019-04-26T23:28:41.091Z",
-      "is_superuser": true,
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
-      "email": "admin@example.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-04-26T23:28:03.820Z",
-      "groups": [],
-      "user_permissions": []
-    }
-},
-  {
-    "model" : "pawkages.customer",
+    "model" : "pawkages.Customer",
     "pk" : 1,
     "fields" : {
-	    "user" : 1,
+	  "user" : 1,
       "shipping_address" : "",
       "billing_address" : ""
     }
   },
   {
-    "model" : "pawkages.recipe",
+    "model" : "pawkages.Recipe",
     "pk" : 1,
     "fields" : {
-	    "customer" : 1,
+	  "customer" : 1,
       "name" : "Test Recipe",
       "description" : "This is a test",
       "pet_size" : "MD",
@@ -236,34 +218,43 @@
     }
   },
   {
-    "model" : "pawkages.subscription",
+    "model" : "pawkages.Ingredient",
     "pk" : 1,
     "fields" : {
-      "customer" : 1,
-      "recipes" : [],
-      "products" : [
-        3,
-        7,
-        15
-      ],
-      "frequency" : "30 00:00:00",
-      "active" : true
+      "name" : "Chicken",
+      "description" : "Poultry builds lean muscle mass in dogs and delivers Omega 6 fatty acids that help sustain healthy skin and shiny coats. It’s also a great source of essential amino acids and glucosamine, which helps promote bone health.",
+      "price" : "1.99",
+      "img_src" : "https://www.mychicagosteak.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/h/chicken_breast_1.jpg"
     }
   },
   {
-    "model" : "pawkages.subscription",
+    "model" : "pawkages.Ingredient",
     "pk" : 2,
     "fields" : {
-      "customer" : 1,
-      "recipes" : [],
-      "products" : [
-        1,
-        4,
-        11
-      ],
-      "frequency" : "30 00:00:00",
-      "active" : true
+      "name" : "Beef",
+      "description" : "Rich in essential amino acids, minerals and vitamins, lean beef is also an excellent diet food for pets.",
+      "price" : "2.99",
+      "img_src" : "https://cdn01-www-kingsford-com.scdn4.secure.raxcdn.com/wp-content/uploads/2014/11/kfd-hoetosteak-Steak_4_0323-1024x621.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 3,
+    "fields" : {
+      "name" : "Salmon",
+      "description" : "Supports the immune system and can be beneficial for skin and coat health. There has also been some indication that it may benefit dogs with allergies.",
+      "price" : "2.49",
+      "img_src" : "https://www.deliaonline.com/sites/default/files/styles/square/public/salmon-19578.jpg?itok=bQvrHWs1&c=41387482b671a921e5b38bff602e7674"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 4,
+    "fields" : {
+      "name" : "Lamb",
+      "description" : "Lamb is an excellent source of high-quality protein and essential amino acids, which are vital nutrients for your dog.",
+      "price" : "3.49",
+      "img_src" : "https://bushcooking.com/wp-content/uploads/2017/08/lamb-reverse-sear-2-380x380.jpg"
     }
   }
-
 ]
