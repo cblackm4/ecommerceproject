@@ -36,6 +36,7 @@
     data: () => ({
       subs: [],
       products: [],
+      recipes: [],
       headers: [{
           text: 'Subscription ID',
           value: 'id'

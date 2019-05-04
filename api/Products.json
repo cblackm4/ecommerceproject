@@ -383,7 +383,10 @@
     "pk" : 1,
     "fields" : {
       "customer" : 1,
-      "recipes" : [],
+      "recipes" : [
+        1,
+        2
+      ],
       "products" : [
         3,
         7,
