@@ -44,18 +44,35 @@
                                         <td class="text-xs-left">{{ props.item.description }}</td>
                                         <td class="text-xs-left">${{ props.item.price }}</td>
                                     </template>
+
+                                    <template v-slot:no-data>
+                                        <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
+                                           There are no ingredients for this recipe
+                                        </v-alert>
+                                    </template>
                                 </v-data-table>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn dark><v-icon>delete</v-icon>Delete</v-btn>
-                            <v-btn dark>Edit Recipe</v-btn>
+                            <v-btn dark @click="DeleteRecipe()" ><v-icon>delete</v-icon>Delete</v-btn>
+                            <v-btn dark @click="EditRecipe()">Edit Recipe</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-layout>
         </v-container>
+        <v-snackbar v-model="snackbar"
+                    :timeout="5000"
+                    color="green"
+                    bottom
+                    right>
+            {{snackbarMessage}}
+            <v-btn @click="snackbar = false;"
+                   flat>
+                Close
+            </v-btn>
+        </v-snackbar>
     </v-content>
 </template>
 
@@ -65,7 +82,8 @@
             recipe: {},
             headers: [{
                 text: 'Image',
-                value: 'img_src'
+                value: 'img_src',
+                sortable: false
             },
             {
                 text: 'Name',
@@ -80,16 +98,30 @@
                 value: 'price'
             },
             ],
+            snackbar: false,
+            snackbarMessage: "",
         }),
-    methods: {
-      getRecipe() {
-        this.$axios.get('/api/recipes/' + this.$route.params.id + '/').then(
-            (response) => {
-                this.recipe = response.data;
+        methods: {
+            getRecipe() {
+                this.$axios.get('/api/recipes/' + this.$route.params.id + '/').then(
+                    (response) => {
+                        this.recipe = response.data;
+                    }
+                )
+            },
+            DeleteRecipe() {
+                this.$axios.delete('/api/recipes/' + this.$route.params.id + '/').then(
+                    () => {
+                        this.snackbarMessage = "Recipe Deleted";
+                        this.snackbar = true;
+                        this.$router.push('/recipes/');
+                    }
+                );
+            },
+            EditRecipe() {
+                this.$router.push('/recipeEditor/'+ this.$route.params.id + '/');
             }
-        )
-      },
-    },
+        },
     beforeMount() {
       this.getRecipe();
     },

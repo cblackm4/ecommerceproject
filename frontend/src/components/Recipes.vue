@@ -11,7 +11,7 @@
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
-                <v-btn @click="$router.push('/recipes/')" flat><v-icon>add</v-icon>Create New Recipe</v-btn>
+                <v-btn @click="$router.push('/recipeEditor/-1')" flat><v-icon>add</v-icon>Create New Recipe</v-btn>
                 <v-tooltip right>
                 </v-tooltip>
             </v-toolbar>
@@ -61,7 +61,7 @@ export default {
               var allRecipes = response.data,
                   userRecipes = [], currentRecipe,
                   currentUser = this.$cookies.get('user');
-
+              
               for (var r = 0; r < allRecipes.length; r++) {
                   currentRecipe = allRecipes[r];
                   if (currentRecipe.user == currentUser) {
@@ -70,6 +70,7 @@ export default {
               }
 
               this.recipes = userRecipes;
+              console.log(this.recipes);
         }
       )
     },

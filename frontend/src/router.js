@@ -7,6 +7,7 @@ import Products from '@/components/Products.vue'
 import Subscriptions from '@/components/Subscriptions.vue'
 import Recipes from '@/components/Recipes.vue'
 import ViewRecipe from '@/components/ViewRecipe.vue'
+import CreateRecipe from '@/components/CreateRecipe.vue'
 import ViewProduct from '@/components/ViewProduct.vue'
 
 Vue.use(Router)
@@ -53,6 +54,11 @@ export default new Router({
       path: '/recipes/:id?',
       name: 'ViewRecipe',
       component: ViewRecipe
+    },
+    {
+      path: '/recipeEditor/:id?',
+      name: 'CreateRecipe',
+      component: CreateRecipe
     },
     {
       path: '/products/:id?',

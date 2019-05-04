@@ -25,11 +25,25 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
 
-    ingredients = IngredientSerializer(many=True, read_only=True)
+    ingredients = IngredientSerializer(many=True)
 
     class Meta:
         model = Recipe
-        fields = '__all__'
+        fields = ('id','user', 'pet_size', 'name', 'ingredients', 'description')
+    
+    def create(self, validated_data):
+        ingredients_data = validated_data.pop('ingredients')
+        recipe = Recipe.objects.create(**validated_data)
+        ingredient_list = list()
+
+        for ingredient in ingredients_data:
+            ingredient_list.append(Ingredient.objects.get(name=ingredient.get('name')))
+
+        recipe.ingredients.set(ingredient_list)
+        recipe.save()
+
+        return recipe
+
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):

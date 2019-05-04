@@ -197,28 +197,7 @@
       "inventory" : 20
     }
   },
-  {
-    "model" : "pawkages.Recipe",
-    "pk" : 1,
-    "fields" : {
-	  "user" : 1,
-      "name" : "Test Recipe",
-      "description" : "This is a test",
-      "pet_size" : "MD",
-      "ingredients" : [2, 4]
-    }
-  },
-  {
-    "model" : "pawkages.Recipe",
-    "pk" : 2,
-    "fields" : {
-	  "user" : 2,
-      "name" : "User 2 Test Recipe",
-      "description" : "This is a test to make sure that the recipes are only being shown for the logged in user",
-      "pet_size" : "MD",
-      "ingredients" : [2, 4]
-    }
-  },
+  
   {
     "model" : "pawkages.Ingredient",
     "pk" : 1,
