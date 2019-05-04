@@ -167,9 +167,9 @@
                 }
             },
             SaveRecipe() {
-                this.recipe.pet_size = this.recipe.pet_sizeName.value;
-                this.recipe.pet_sizeName = this.recipe.pet_sizeName.text;
-                this.recipe.user = this.$cookies.get('user');
+                if (this.recipe.pet_sizeName.value != undefined && this.recipe.pet_sizeName.value != null) {
+                    this.recipe.pet_size = this.recipe.pet_sizeName.value;
+                }
 
                 if (!this.newRecipe) {
 
@@ -183,6 +183,8 @@
                         })
                 }
                 else {
+                    this.recipe.user = this.$cookies.get('user');
+
                     this.$axios.post('/api/recipes/', this.recipe, {
                         headers: {
                             'Content-Type': 'application/json'
