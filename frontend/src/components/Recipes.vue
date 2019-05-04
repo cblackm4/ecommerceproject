@@ -4,32 +4,29 @@
     <v-layout align-center justify-center>
       <v-flex xs12>
         <v-card class="elevation-12">
-          <v-toolbar dark flat>
-            <v-toolbar-title>Recipes</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-spacer></v-spacer>
-            <v-spacer></v-spacer>
-            <v-spacer></v-spacer>
-            <v-spacer></v-spacer>
-            <v-text-field v-model="search" append-icon="search" label="Search Recipes" single-line hide-details></v-text-field>
+            <v-toolbar dark flat>
+                <v-toolbar-title>Recipes</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-btn @click="$router.push('/recipes/')" flat><v-icon>add</v-icon>Create New Recipe</v-btn>
+                <v-tooltip right>
+                </v-tooltip>
+            </v-toolbar>
 
-            <v-tooltip right>
-            </v-tooltip>
-          </v-toolbar>
-
-          <v-data-table :headers="headers" :items="recipes" :search="search" class="elevation-1">
+          <v-data-table :headers="headers" :items="recipes" class="elevation-1">
             <template v-slot:items="props">
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.pet_size == 'CAT' ? 'Cat' : props.item.pet_size == 'SM' ? 'Small Dog' : props.item.pet_size == 'MD' ? 'Medium Dog' : props.item.pet_size == 'LG' ? 'Large Dog' : '' }}</td>
             </template>
-
-            <template v-slot:no-results>
-         <v-alert :value="true" color="error" icon="warning">
-           Your search for "{{ search }}" found no results.
-         </v-alert>
-
-       </template>
+            <template v-slot:no-data>
+                <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
+                    You don't have any recipes saved yet.
+                </v-alert>
+            </template>
           </v-data-table>
         </v-card>
       </v-flex>
@@ -60,8 +57,19 @@ export default {
   methods: {
     getRecipes() {
       this.$axios.get('/api/recipes/').then(
-        (response) => {
-          this.recipes = response.data;
+          (response) => {
+              var allRecipes = response.data,
+                  userRecipes = [], currentRecipe,
+                  currentUser = this.$cookies.get('user');
+
+              for (var r = 0; r < allRecipes.length; r++) {
+                  currentRecipe = allRecipes[r];
+                  if (currentRecipe.user == currentUser) {
+                      userRecipes.push(currentRecipe);
+                  }
+              }
+
+              this.recipes = userRecipes;
         }
       )
     },

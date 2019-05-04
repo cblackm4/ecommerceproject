@@ -198,23 +198,25 @@
     }
   },
   {
-    "model" : "pawkages.Customer",
+    "model" : "pawkages.Recipe",
     "pk" : 1,
     "fields" : {
 	  "user" : 1,
-      "shipping_address" : "",
-      "billing_address" : ""
+      "name" : "Test Recipe",
+      "description" : "This is a test",
+      "pet_size" : "MD",
+      "ingredients" : [2, 4]
     }
   },
   {
     "model" : "pawkages.Recipe",
-    "pk" : 1,
+    "pk" : 2,
     "fields" : {
-	  "customer" : 1,
-      "name" : "Test Recipe",
-      "description" : "This is a test",
+	  "user" : 2,
+      "name" : "User 2 Test Recipe",
+      "description" : "This is a test to make sure that the recipes are only being shown for the logged in user",
       "pet_size" : "MD",
-      "ingredients" : []
+      "ingredients" : [2, 4]
     }
   },
   {

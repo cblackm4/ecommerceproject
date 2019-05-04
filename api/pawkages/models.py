@@ -18,15 +18,15 @@ class Product(models.Model):
 
 
 class Ingredient(models.Model):
+    img_src = models.URLField(default='')
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=250)
     price = models.FloatField(default=0.0)
-    img_src = models.URLField()
 
 
 
 class Recipe(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default = 1)
     name = models.CharField(max_length=25, default = 'New Recipe')
     description = models.CharField(max_length=250, default = '')
     ingredients = models.ManyToManyField(Ingredient)
