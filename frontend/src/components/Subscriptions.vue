@@ -12,15 +12,22 @@
               <v-spacer></v-spacer>
               <v-spacer></v-spacer>
               <v-spacer></v-spacer>
+              <v-text-field v-model="search" append-icon="search" label="Search Subscriptions" single-line hide-details></v-text-field>
             </v-toolbar>
 
-            <v-data-table :headers="headers" :items="subs" class="elevation-1" hide-actions>
+            <v-data-table :headers="headers" :items="subs" :search="search" class="elevation-1" hide-actions>
               <template v-slot:items="props">
                 <td>{{ props.item.id }}</td>
                 <td>{{ props.item.recipes }}</td>
                 <td>{{ props.item.products }}</td>
                 <td>{{ props.item.frequency }}</td>
                 <td>{{ props.item.active }}</td>
+              </template>
+
+              <template v-slot:no-results>
+                <v-alert :value="true" color="error" icon="warning">
+                  Your search for "{{ search }}" found no results.
+                </v-alert>
               </template>
            </v-data-table>
 
@@ -35,6 +42,7 @@
   export default {
     data: () => ({
       subs: [],
+      search: '',
       headers: [{
           text: 'Subscription ID',
           value: 'id'
