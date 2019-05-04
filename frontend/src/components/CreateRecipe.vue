@@ -184,8 +184,6 @@
                     .then(response => {
                         this.$router.push('/recipes/'+ response.data.id + '/');
                     })
-                    .catch(error => {
-                    });
             },
             AddIngredient() {
                 this.recipe.ingredients.push(this.selectedIngredient);
