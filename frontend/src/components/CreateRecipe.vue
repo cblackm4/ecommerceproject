@@ -171,18 +171,22 @@
                 this.recipe.pet_sizeName = this.recipe.pet_sizeName.text;
                 this.recipe.user = this.$cookies.get('user');
 
-                var ingredientIDs = [];
-                for (var i = 0; i < this.recipe.ingredients.length; i++) {
-                    ingredientIDs.push(this.recipe.ingredients[i].id);
-                }
-
-                this.$axios.post('/api/recipes/', this.recipe, {
-                        headers: {
-                            'Content-Type': 'application/json'
+                if (!this.newRecipe) {
+                    this.$axios.delete('/api/recipes/' + this.$route.params.id + '/').then(
+                        () => {
+                            this.snackbarMessage = "Recipe Deleted";
+                            this.snackbar = true;
+                            this.$router.push('/recipes/');
                         }
-                    })
+                    );
+                }
+                this.$axios.post('/api/recipes/', this.recipe, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => {
-                        this.$router.push('/recipes/'+ response.data.id + '/');
+                        this.$router.push('/recipes/' + response.data.id + '/');
                     })
             },
             AddIngredient() {
