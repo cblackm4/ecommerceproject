@@ -17,9 +17,9 @@
             </v-tooltip>
           </v-toolbar>
 
-          <v-data-table :headers="headers" :items="products" :search="search" v-model="selected" class="elevation-1">
+          <v-data-table :headers="headers" :items="products" :search="search" class="elevation-1">
             <template v-slot:items="props">
-              <v-checkbox v-model="props.selected"></v-checkbox>
+
               <td @click="goToProduct(props.item.id)"><img class="product-image" :src="props.item.img_src" /></td>
               <td @click="goToProduct(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
               <td @click="goToProduct(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
@@ -53,11 +53,6 @@ export default {
     products: [],
     search: '',
     headers: [
-      {
-        text:'Select Item',
-        value:'selected'
-      },
-
       {
         text: 'Image',
         value: 'img_src'
