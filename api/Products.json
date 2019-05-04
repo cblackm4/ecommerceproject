@@ -197,7 +197,7 @@
       "inventory" : 20
     }
   },
-  
+
   {
     "model" : "pawkages.Ingredient",
     "pk" : 1,
@@ -376,6 +376,36 @@
       "description" : "Liver Is Rich In Vitamin A, is a High Source Of Omega 3 And Omega 6 Fatty Acids, Iron, Copper and Niacin.",
       "price" : "1.25",
       "img_src" : "https://farm5.staticflickr.com/4484/37463368050_6347f49977_c.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.subscription",
+    "pk" : 1,
+    "fields" : {
+      "customer" : 1,
+      "recipes" : [],
+      "products" : [
+        3,
+        7,
+        15
+      ],
+      "frequency" : "30 00:00:00",
+      "active" : true
+    }
+  },
+  {
+    "model" : "pawkages.subscription",
+    "pk" : 2,
+    "fields" : {
+      "customer" : 1,
+      "recipes" : [],
+      "products" : [
+        1,
+        4,
+        11
+      ],
+      "frequency" : "30 00:00:00",
+      "active" : true
     }
   }
 ]
