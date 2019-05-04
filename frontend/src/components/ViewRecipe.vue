@@ -37,7 +37,7 @@
                                         <td></td>
                                     </tr>
                                 </table>
-                                <v-data-table :headers="headers" :items="recipe.ingredients" :show-pagination="false">
+                                <v-data-table :headers="headers" :items="recipe.ingredients" :show-pagination="false" hide-actions>
                                     <template v-slot:items="props">
                                         <td><img class="product-image" :src="props.item.img_src" /></td>
                                         <td class="text-xs-left">{{ props.item.name }}</td>
@@ -47,7 +47,7 @@
 
                                     <template v-slot:no-data>
                                         <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                           There are no ingredients for this recipe
+                                           There are no ingredients saved for this recipe
                                         </v-alert>
                                     </template>
                                 </v-data-table>
