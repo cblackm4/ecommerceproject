@@ -11,7 +11,7 @@
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
-            <v-text-field v-model="search" append-icon="search" label="Search Product" single-line hide-details></v-text-field>
+            <v-text-field v-model="search" append-icon="search" label="Search Products" single-line hide-details></v-text-field>
 
             <v-tooltip right>
             </v-tooltip>

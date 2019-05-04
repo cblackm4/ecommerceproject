@@ -34,7 +34,7 @@
                         <td>{{product.inventory > 0 ? 'Instock: ' + product.inventory + ' left' : 'Out of Stock'}}</td>
                       </tr>
                     </table>
-                    <v-btn color="primary">Add to Cart</v-btn>
+                    <v-btn dark>Add to Cart</v-btn>
                   </v-card-text>
                 </v-card>
               </v-flex>
