@@ -40,7 +40,7 @@
                                 </template>
                               </v-data-table>
                             </td>
-                            <td>{{ props.item.frequency | format }}</td>
+                            <td>{{ props.item.frequency }}</td>
                             <td>{{ props.item.active }}</td>
                             <td>
                               <v-btn dark @click="goToSub(props.item.id)">Edit</v-btn>
@@ -82,21 +82,12 @@
                 value: 'edit'
               }
             ],
-            // Apply filter to frequency field -- needs more work? Currently doesn't work
-            filters: {
-              format: function (value) {
-                if (!value) return ''
-                value = value.toString()
-                return value.charAt(0).toUpperCase() + "days"
-              }
-            }
         }),
         methods: {
             getSubs() {
                 this.$axios.get('/api/subscriptions/').then(
                     (response) => {
                         this.subs = response.data;
-                        console.log(this.subs);
                     }
                 )
             },
@@ -111,7 +102,5 @@
 </script>
 
 <style>
-  tbody tr:nth-of-type(odd) {
-   background-color: rgba(0, 0, 0, .05);
-  }
+
 </style>
