@@ -14,37 +14,39 @@
                     <v-spacer></v-spacer>
                 </v-toolbar>
 
-                <v-data-table :headers="headers" :items="subs" class="elevation-1" hide-actions>
-                    <template v-slot:items="props">
-                        <td>{{ props.item.id }}</td>
-                        <td>{{ props.item.recipes }}</td>
-                        <td></td>
-                        <td>{{ props.item.frequency }}</td>
-                        <td>{{ props.item.active }}</td>
-                    </template>
-                </v-data-table>
-
-                <v-data-table :headers="headers" :items="subs" class="elevation-1" hide-actions>
-                        <template v-slot:items="props">
-                            <td>{{ props.item.id }}</td>
-                            <td>{{ props.item.frequency }}</td>
+                <v-data-table :headers="headers" :items="subs"  class="elevation-1" hide-actions>
+                        <template v-slot:items="props" >
                             <td>
-
-                                <v-data-table :headers="productHeaders" :items="props.item.products" hide-actions>
-                                    <template v-slot:items="product_props">
-                            <td @click="goToProduct(props.item.id)"><img class="product-image" :src="props.item.img_src" /></td>
-                            <td @click="goToProduct(props.item.id)" class="text-xs-left">{{ product_props.item.name }}</td>
-                            <td @click="goToProduct(props.item.id)" class="text-xs-left">{{ product_props.item.description }}</td>
-                            <td @click="goToProduct(props.item.id)" class="text-xs-left">{{ product_props.item.price }}</td>
-                            <td @click="goToProduct(props.item.id)" class="text-xs-left">{{ product_props.item.inventory }}</td>
-
+                              <v-data-table  :items="props.item.recipes" hide-actions hide-headers dense>
+                                <template v-slot:no-data>
+                                    <div>
+                                      <v-icon>warning</v-icon> Not Subscribed to any Recipes
+                                    </div>
+                                </template>
+                                <template v-slot:items="recipe_props">
+                                  <td>{{ recipe_props.item.name }}</td>
+                                </template>
+                              </v-data-table>
+                            </td>
+                            <td>
+                              <v-data-table  :items="props.item.products" hide-actions hide-headers dense>
+                                <template v-slot:no-data>
+                                  <div>
+                                    <v-icon>warning</v-icon> Not Subscribed to any Products
+                                  </div>
+                                </template>
+                                <template v-slot:items="product_props">
+                                  <td>{{ product_props.item.name }}</td>
+                                </template>
+                              </v-data-table>
+                            </td>
+                            <td>{{ props.item.frequency | format }}</td>
+                            <td>{{ props.item.active }}</td>
+                            <td>
+                              <v-btn dark @click="goToSub(props.item.id)">Edit</v-btn>
+                            </td>
                         </template>
-                    </v-data-table>
-                </td>
-                <td>{{ props.item.active }}</td>
-</template>
-           </v-data-table>
-
+                </v-data-table>
           </v-card>
         </v-flex>
       </v-layout>
@@ -58,49 +60,36 @@
             subs: [],
             products: [],
             recipes: [],
-            headers: [{
-                text: 'Subscription ID',
-                value: 'id'
-            },
-            {
+            headers: [
+              {
                 text: 'Recipes',
                 value: 'recipes'
-            },
-            {
+              },
+              {
                 text: 'Products',
                 value: 'products'
-            },
-            {
+              },
+              {
                 text: 'Subscription Length',
                 value: 'frequency'
-            },
-            {
+              },
+              {
                 text: 'Active?',
                 value: 'active'
-            },
+              },
+              {
+                text: '',
+                value: 'edit'
+              }
             ],
-            productHeaders: [
-                {
-                    text: 'Image',
-                    value: 'img_src'
-                },
-                {
-                    text: 'Name',
-                    value: 'name'
-                },
-                {
-                    text: 'Description',
-                    value: 'description'
-                },
-                {
-                    text: 'Price',
-                    value: 'price'
-                },
-                {
-                    text: 'Quantity',
-                    value: 'inventory'
-                },
-            ],
+            // Apply filter to frequency field -- needs more work? Currently doesn't work
+            filters: {
+              format: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + "days"
+              }
+            }
         }),
         methods: {
             getSubs() {
@@ -122,5 +111,7 @@
 </script>
 
 <style>
-
+  tbody tr:nth-of-type(odd) {
+   background-color: rgba(0, 0, 0, .05);
+  }
 </style>
