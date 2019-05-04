@@ -11,17 +11,25 @@
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
+                <v-text-field v-model="search" append-icon="search" label="Search Recipes" single-line hide-details></v-text-field>
                 <v-btn @click="$router.push('/recipeEditor/-1')" flat><v-icon>add</v-icon>Create New Recipe</v-btn>
                 <v-tooltip right>
                 </v-tooltip>
             </v-toolbar>
 
-          <v-data-table :headers="headers" :items="recipes" class="elevation-1">
+          <v-data-table :headers="headers" :items="recipes" :search="search" class="elevation-1">
             <template v-slot:items="props">
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.pet_size == 'CAT' ? 'Cat' : props.item.pet_size == 'SM' ? 'Small Dog' : props.item.pet_size == 'MD' ? 'Medium Dog' : props.item.pet_size == 'LG' ? 'Large Dog' : '' }}</td>
             </template>
+
+            <template v-slot:no-results>
+              <v-alert :value="true" color="error" icon="warning">
+                Your search for "{{ search }}" found no results.
+              </v-alert>
+            </template>
+
             <template v-slot:no-data>
                 <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
                     You don't have any recipes saved yet.
@@ -61,7 +69,7 @@ export default {
               var allRecipes = response.data,
                   userRecipes = [], currentRecipe,
                   currentUser = this.$cookies.get('user');
-              
+
               for (var r = 0; r < allRecipes.length; r++) {
                   currentRecipe = allRecipes[r];
                   if (currentRecipe.user == currentUser) {
@@ -89,4 +97,3 @@ export default {
     max-width: 12.5em
     max-height: 12.5em
 </style>
-
