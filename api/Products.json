@@ -410,5 +410,14 @@
       "frequency" : "30 00:00:00",
       "active" : true
     }
+  },
+  {
+    "model" : "pawkages.customer",
+    "pk" : 1,
+    "fields" : {
+      "user" : 1,
+      "shipping_address" : "",
+      "billing_address" : ""
+    }
   }
 ]
