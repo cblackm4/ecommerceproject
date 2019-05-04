@@ -70,7 +70,6 @@ export default {
               }
 
               this.recipes = userRecipes;
-              console.log(this.recipes);
         }
       )
     },

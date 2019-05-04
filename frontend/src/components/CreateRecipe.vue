@@ -176,19 +176,15 @@
                     ingredientIDs.push(this.recipe.ingredients[i].id);
                 }
 
-                console.log(this.recipe);
-
                 this.$axios.post('/api/recipes/', this.recipe, {
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     })
                     .then(response => {
-                        console.log(response)
                         this.$router.push('/recipes/'+ response.data.id + '/');
                     })
                     .catch(error => {
-                        console.log(error.response)
                     });
             },
             AddIngredient() {
