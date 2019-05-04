@@ -263,9 +263,9 @@
     "pk" : 7,
     "fields" : {
       "name" : "Quinoa",
-      "description" : "This extremely nutritious grain contains the Plant Compounds Quercetin and Kaempferol, and Very High in Fiber and Protein, Much Higher Than Most Grains, With All the Essential Amino Acids. It is also Gluten-Free and Perfect for pets With Gluten Intolerance",
+      "description" : "Quinoa contains the Plant Compounds Quercetin and Kaempferol, is Gluten Free, and is Very High in Fiber and Protein, Much Higher Than Most Grains, With All the Essential Amino Acids.",
       "price" : "4.50",
-      "img_src" : "https://cdn1.medicalnewstoday.com/content/images/articles/274/274745/quinoa-in-dry-and-cooked-forms.jpg"
+      "img_src" : "https://tinyurl.com/y5n6n8jt"
     }
   },
   {
@@ -343,7 +343,7 @@
     "pk" : 15,
     "fields" : {
       "name" : "Peanut Butter",
-      "description" : "Peanut Butter adds Vitamin E (necessary for proper immune system function) and Vitamin B (very important for a shiny, healthy skin and coat) to their diet. It is also a wonderful source of essential heart-healthy fats and protein to give your dog energy",
+      "description" : "Peanut Butter adds Vitamin E, and Vitamin B which are very important for a shiny, healthy skin and coat. It is also a good source of fats and protein.",
       "price" : "0.75",
       "img_src" : "https://foodrevolution.org/wp-content/uploads/2019/01/iStock-898312966-belchonock-featured.jpg"
     }

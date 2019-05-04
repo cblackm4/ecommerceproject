@@ -170,7 +170,6 @@
                 if (this.recipe.pet_sizeName.value != undefined && this.recipe.pet_sizeName.value != null) {
                     this.recipe.pet_size = this.recipe.pet_sizeName.value;
                 }
-
                 if (!this.newRecipe) {
 
                     this.$axios.put('/api/recipes/' + this.$route.params.id + '/', this.recipe, {
