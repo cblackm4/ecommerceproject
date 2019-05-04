@@ -17,7 +17,7 @@
                 </v-tooltip>
             </v-toolbar>
 
-          <v-data-table :headers="headers" :items="recipes" :search="search" class="elevation-1">
+          <v-data-table :headers="headers" :items="recipes" :search="search" class="elevation-1" hide-actions>
             <template v-slot:items="props">
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
