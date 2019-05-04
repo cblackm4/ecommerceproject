@@ -70,9 +70,10 @@ export default {
     }),
     methods: {
         getSubs() {
-            this.$axios.get('/api/subscriptions/').then(
+            this.$axios.get('/api/subscriptions/' + this.$route.params.id + '/').then(
                 (response) => {
                     this.subs = response.data;
+                    console.log(this.subs);
                 }
             )
         },

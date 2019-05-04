@@ -377,5 +377,47 @@
       "price" : "1.25",
       "img_src" : "https://farm5.staticflickr.com/4484/37463368050_6347f49977_c.jpg"
     }
+  },
+  {
+    "model" : "pawkages.subscription",
+    "pk" : 1,
+    "fields" : {
+      "customer" : 1,
+      "recipes" : [
+        1,
+        2
+      ],
+      "products" : [
+        3,
+        7,
+        15
+      ],
+      "frequency" : "30 00:00:00",
+      "active" : true
+    }
+  },
+  {
+    "model" : "pawkages.subscription",
+    "pk" : 2,
+    "fields" : {
+      "customer" : 1,
+      "recipes" : [],
+      "products" : [
+        1,
+        4,
+        11
+      ],
+      "frequency" : "30 00:00:00",
+      "active" : true
+    }
+  },
+  {
+    "model" : "pawkages.customer",
+    "pk" : 1,
+    "fields" : {
+      "user" : 1,
+      "shipping_address" : "",
+      "billing_address" : ""
+    }
   }
 ]
