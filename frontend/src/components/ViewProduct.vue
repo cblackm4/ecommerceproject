@@ -35,6 +35,7 @@
                       </tr>
                     </table>
                     <v-btn color="primary">Add to Cart</v-btn>
+                    <v-btn color="primary" @click="$router.push('/Subscriptions')">Create A Subscription</v-btn>
                   </v-card-text>
                 </v-card>
               </v-flex>
