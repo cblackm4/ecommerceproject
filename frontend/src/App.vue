@@ -134,7 +134,8 @@ export default {
       items: [
         {title:'Home', icon: 'home', route:"/"},
         {title:'Products', icon: 'pets', route:"Products"},
-        {title:'Subscriptions', icon: '360', route: 'Subscriptions'},
+        { title: 'Subscriptions', icon: '360', route: 'Subscriptions' },
+        {title:'Recipes', icon: 'edit', route: 'Recipes'},
         {title:'Contact', icon: 'contact_support', route:'Contact'},
         {title:'My Account', icon: 'account_box', route:'Account'},
       ],
