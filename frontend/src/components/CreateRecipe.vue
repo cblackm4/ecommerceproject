@@ -172,22 +172,26 @@
                 this.recipe.user = this.$cookies.get('user');
 
                 if (!this.newRecipe) {
-                    this.$axios.delete('/api/recipes/' + this.$route.params.id + '/').then(
-                        () => {
-                            this.snackbarMessage = "Recipe Deleted";
-                            this.snackbar = true;
-                            this.$router.push('/recipes/');
+
+                    this.$axios.put('/api/recipes/' + this.$route.params.id + '/', this.recipe, {
+                        headers: {
+                            'Content-Type': 'application/json'
                         }
-                    );
-                }
-                this.$axios.post('/api/recipes/', this.recipe, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then(response => {
-                        this.$router.push('/recipes/' + response.data.id + '/');
                     })
+                        .then(response => {
+                            this.$router.push('/recipes/' + response.data.id + '/');
+                        })
+                }
+                else {
+                    this.$axios.post('/api/recipes/', this.recipe, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            this.$router.push('/recipes/' + response.data.id + '/');
+                        })
+                }
             },
             AddIngredient() {
                 this.recipe.ingredients.push(this.selectedIngredient);

@@ -44,6 +44,24 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         return recipe
 
+    def update(self, instance, validated_data):
+        ingredients_data = validated_data.pop('ingredients')
+        new_name = validated_data.pop('name')
+        new_description = validated_data.pop('description')
+        new_pet_size = validated_data.pop('pet_size')
+
+        ingredient_list = list()
+        for ingredient in ingredients_data:
+            ingredient_list.append(Ingredient.objects.get(name=ingredient.get('name')))
+
+        instance.name = new_name;
+        instance.description = new_description;
+        instance.pet_size = new_pet_size;
+        instance.ingredients.set(ingredient_list)
+        instance.save()
+
+        return instance
+
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
