@@ -237,5 +237,145 @@
       "price" : "3.49",
       "img_src" : "https://bushcooking.com/wp-content/uploads/2017/08/lamb-reverse-sear-2-380x380.jpg"
     }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 5,
+    "fields" : {
+      "name" : "Brown Rice",
+      "description" : "Recommended for a healthy diet because it contains extra nutrients. Brown rice tends to be a bit more caloric, but it also contains extra protein and fiber that offer these health benefits: Lowers cholesterol. Controls blood sugar levels.",
+      "price" : "0.89",
+      "img_src" : "https://i1.wp.com/passtheplants.com/wp-content/uploads/2015/10/cold-water-brown-rice-method-6.jpg?fit=1360%2C1360&ssl=1"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 6,
+    "fields" : {
+      "name" : "Rolled Oats",
+      "description" : "Rich in Antioxidants, Including Avenanthramides, Rolled Oats Contain a Powerful Soluble Fiber Called Beta-Glucan and Can Lower Cholesterol Levels and Protect LDL Cholesterol From Damage",
+      "price" : "1.79",
+      "img_src" : "https://www.healthline.com/hlcmsresource/images/AN_images/AN491-Oats-732x549-thumb.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 7,
+    "fields" : {
+      "name" : "Quinoa",
+      "description" : "This extremely nutritious grain contains the Plant Compounds Quercetin and Kaempferol, and Very High in Fiber and Protein, Much Higher Than Most Grains, With All the Essential Amino Acids. It is also Gluten-Free and Perfect for pets With Gluten Intolerance",
+      "price" : "4.50",
+      "img_src" : "https://cdn1.medicalnewstoday.com/content/images/articles/274/274745/quinoa-in-dry-and-cooked-forms.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 8,
+    "fields" : {
+      "name" : "Sweet Potatoes",
+      "description" : "Sweet potatoes are low in calories and higher in beta-carotene and vitamin C, vitamin B, potassium and manganese. A great filler for any treat.",
+      "price" : "1.50",
+      "img_src" : "https://foodrevolution.org/wp-content/uploads/2018/12/iStock-514149368-featured.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 9,
+    "fields" : {
+      "name" : "Blueberries",
+      "description" : "Blueberries are Low in Calories But High in Nutrients, and full of Antioxidants.",
+      "price" : "2.50",
+      "img_src" : "https://www.missionmuffins.org/uploads/6/2/3/8/62385969/s499291881700212660_p113_i2_w1024.jpeg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 10,
+    "fields" : {
+      "name" : "Pumpkin",
+      "description" : "Pumpkin is Nutrient-Rich, Benefits the Eyes, helps to Boost Immune Health and Moisturizes your pet's Skin & Coat.",
+      "price" : "0.75",
+      "img_src" : "https://iowagirleats.com/wp-content/uploads/2016/10/Easy-Pumpkin-Spice-Latte-3-Ways-iowagirleats-02.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 11,
+    "fields" : {
+      "name" : "Spinach",
+      "description" : "Spinach contains large amounts of vitamins A, B, C, and K. It also contains iron, antioxidants, beta-carotene, and roughage, which stimulate the digestive tract.",
+      "price" : "1.32",
+      "img_src" : "http://www.capsica.in/wp-content/uploads/2019/02/Spinach-1.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 12,
+    "fields" : {
+      "name" : "Green Beans",
+      "description" : "Green beans are full of important vitamins and minerals, such as protein, iron, calcium, and vitamins B6, A, C, and K. Green beans are also full of fiber and are low in calories, which can help dogs feel full when they are dieting",
+      "price" : "0.50",
+      "img_src" : "http://cdn.akc.org/content/article-body-image/green_bean_body_image.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 13,
+    "fields" : {
+      "name" : "Apples",
+      "description" : "Apples are a healthy, and low calorie treat. They are a good source of vitamin A, vitamin C, and dietary fiber, and they also help keep a dog's teeth clean along with freshening the breath.",
+      "price" : "1.75",
+      "img_src" : "https://expo.advance.net/img/b3c423b831/width960/8fc_applesphotomollykimball.jpeg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 14,
+    "fields" : {
+      "name" : "Cantaloupe",
+      "description" : "Cantaloupes are loaded vitamin A and lots of beta carotene, which helps reduce the risk of cancer and prevents cell damage. Also a good source of vitamins B-6 and C, fiber, folate, niacin and potassium.",
+      "price" : "1.50",
+      "img_src" : "https://geneticliteracyproject.org/wp-content/uploads/2017/06/Screen-Shot-2017-06-14-at-3.19.37-PM.png"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 15,
+    "fields" : {
+      "name" : "Peanut Butter",
+      "description" : "Peanut Butter adds Vitamin E (necessary for proper immune system function) and Vitamin B (very important for a shiny, healthy skin and coat) to their diet. It is also a wonderful source of essential heart-healthy fats and protein to give your dog energy",
+      "price" : "0.75",
+      "img_src" : "https://foodrevolution.org/wp-content/uploads/2019/01/iStock-898312966-belchonock-featured.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 16,
+    "fields" : {
+      "name" : "Bone Meal",
+      "description" : "Bone meal contains many nutrient minerals, including phosphorous, which can help your dog's body to better absorb other nutrients and aid digestion. Bone meal can help soothe difficult digestion in dogs with flatulence and diarrhea",
+      "price" : "2.25",
+      "img_src" : "https://www.planetnatural.com/wp-content/uploads/2013/03/bone-meal1.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 17,
+    "fields" : {
+      "name" : "Eggs",
+      "description" : "Eggs are a great source of very digestible protein, riboflavin, and selenium. For some dogs that are prone to digestive upset, eggs can give them a little protein boost.",
+      "price" : "0.75",
+      "img_src" : "https://cdn1.medicalnewstoday.com/content/images/articles/323/323001/bowl-full-of-eggs.jpg"
+    }
+  },
+  {
+    "model" : "pawkages.Ingredient",
+    "pk" : 18,
+    "fields" : {
+      "name" : "Liver",
+      "description" : "Liver Is Rich In Vitamin A, is a High Source Of Omega 3 And Omega 6 Fatty Acids, Iron, Copper and Niacin.",
+      "price" : "1.25",
+      "img_src" : "https://farm5.staticflickr.com/4484/37463368050_6347f49977_c.jpg"
+    }
   }
 ]
