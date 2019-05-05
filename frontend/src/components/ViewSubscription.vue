@@ -27,6 +27,26 @@
                 </v-form>
             </v-card-text>
 
+            <v-card-text>Recipes</v-card-text>
+            <v-data-table :headers="headers" :items="subs.recipes" :show-pagination="false" hide-actions>
+                <template v-slot:items="props">
+                    <td class="text-xs-right">{{ props.item.name }}</td>
+                    <td class="text-xs-right">{{ props.item.description }}</td>
+                    <td class="text-xs-right">${{ props.item.price }}</td>
+                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe()" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
+                </template>
+            </v-data-table>
+
+            <v-card-text>Products</v-card-text>
+            <v-data-table :headers="headers" :items="subs.products" :show-pagination="false" hide-actions>
+                <template v-slot:items="props">
+                    <td class="text-xs-right">{{ props.item.name }}</td>
+                    <td class="text-xs-right">{{ props.item.description }}</td>
+                    <td class="text-xs-right">${{ props.item.price }}</td>
+                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeProduct()" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
+                </template>
+            </v-data-table>
+
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn @click="cancelSub()" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
@@ -47,24 +67,20 @@ export default {
       recipes: [],
       headers: [
         {
-          text: 'Recipes',
-          value: 'recipes'
+          text: 'Name',
+          value: 'name'
         },
         {
-          text: 'Products',
-          value: 'products'
+          text: 'Description',
+          value: 'description'
         },
         {
-          text: 'Subscription Length',
-          value: 'frequency'
+          text: 'Price',
+          value: 'price'
         },
         {
-          text: 'Active?',
-          value: 'active'
-        },
-        {
-          text: '',
-          value: 'edit'
+          text: 'Actions',
+          value: 'actions'
         }
       ],
     }),
@@ -84,6 +100,12 @@ export default {
                 }
             );
         },
+        removeRecipe() {
+
+        },
+        removeProduct() {
+
+        }
     },
     beforeMount() {
         this.getSubs();
