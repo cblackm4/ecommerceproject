@@ -16,35 +16,49 @@
                 <v-form>
                     <table style="width: 100%; padding-left: 20px; font-family: Roboto;">
                         <tr>
-                            <td style="padding-top: 8px; padding-bottom: 16px"><h3>Status: </h3></td>
-                            <td>{{ subs.active }}</td>
+                            <td style="padding-top: 8px; padding-bottom: 8px"><h3>Status: </h3></td>
+                            <td><h3>{{ subs.active }}</h3></td>
                         </tr>
                         <tr>
-                            <td valign="top" style="padding-bottom: 8px; width: 120px"><h3>Subscription: </h3></td>
-                            <td>{{ subs.frequency }}</td>
+                            <td valign="top" style="padding-top: 8px; padding-bottom: 8px; width: 120px"><h3>Subscription: </h3></td>
+                            <td><h3>{{ subs.frequency }}</h3></td>
                         </tr>
                     </table>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn @click="" dark><v-icon>edit</v-icon>Edit Details</v-btn>
+                    </v-card-actions>
                 </v-form>
             </v-card-text>
 
-            <v-card-text>Recipes</v-card-text>
+            <v-card-text><h3>Recipes</h3></v-card-text>
             <v-data-table :headers="headers" :items="subs.recipes" :show-pagination="false" hide-actions>
-                <template v-slot:items="props">
-                    <td class="text-xs-right">{{ props.item.name }}</td>
-                    <td class="text-xs-right">{{ props.item.description }}</td>
-                    <td class="text-xs-right">${{ props.item.price }}</td>
-                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe()" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
-                </template>
+              <template v-slot:items="props">
+                  <td class="text-xs-left">{{ props.item.name }}</td>
+                  <td class="text-xs-left">{{ props.item.description }}</td>
+                  <td class="text-xs-left">${{ props.item.price }}</td>
+                  <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe()" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
+              </template>
+              <template v-slot:no-data>
+                  <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
+                     You are not currently subscribed to any recipes.
+                  </v-alert>
+              </template>
             </v-data-table>
 
-            <v-card-text>Products</v-card-text>
+            <v-card-text><h3>Products</h3></v-card-text>
             <v-data-table :headers="headers" :items="subs.products" :show-pagination="false" hide-actions>
-                <template v-slot:items="props">
-                    <td class="text-xs-right">{{ props.item.name }}</td>
-                    <td class="text-xs-right">{{ props.item.description }}</td>
-                    <td class="text-xs-right">${{ props.item.price }}</td>
-                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeProduct()" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
-                </template>
+              <template v-slot:items="props">
+                  <td class="text-xs-left">{{ props.item.name }}</td>
+                  <td class="text-xs-left">{{ props.item.description }}</td>
+                  <td class="text-xs-left">${{ props.item.price }}</td>
+                  <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeProduct()" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
+              </template>
+              <template v-slot:no-data>
+                  <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
+                     You are not currently subscribed to any products.
+                  </v-alert>
+              </template>
             </v-data-table>
 
             <v-card-actions>

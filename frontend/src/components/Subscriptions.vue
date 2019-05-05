@@ -74,7 +74,7 @@
                 value: 'frequency'
               },
               {
-                text: 'Active?',
+                text: 'Status',
                 value: 'active'
               },
               {
