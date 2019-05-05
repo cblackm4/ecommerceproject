@@ -23,14 +23,14 @@
                         <v-card-text>
                             <v-form>
 
-                                <table style="width: 100%; padding-left: 20px; font-family: Roboto;">
+                                <table style="width: 100%; padding-left: 20px; padding-top: 8px; font-family: Roboto;">
                                     <tr>
-                                        <td style="padding-top: 8px; padding-bottom: 16px"><h3>Pet Size: </h3></td>
-                                        <td>{{recipe.pet_size == 'CAT' ? 'Cat' : recipe.pet_size == 'SM' ? 'Small Dog' : recipe.pet_size == 'MD' ? 'Medium Dog' : recipe.pet_size == 'LG' ? 'Large Dog' : ''}}</td>
+                                        <td valign="top"  style="padding-bottom: 16px"><h3>Pet Size: </h3></td>
+                                        <td valign="top" >{{recipe.pet_size == 'CAT' ? 'Cat' : recipe.pet_size == 'SM' ? 'Small Dog' : recipe.pet_size == 'MD' ? 'Medium Dog' : recipe.pet_size == 'LG' ? 'Large Dog' : ''}}</td>
                                     </tr>
                                     <tr>
                                         <td valign="top" style="padding-bottom: 8px; width: 120px"><h3>Description: </h3></td>
-                                        <td>{{recipe.description}}</td>
+                                        <td valign="top">{{recipe.description}}</td>
                                     </tr>
                                     <tr>
                                         <td style="padding-top: 8px"><h3>Ingredients </h3></td>

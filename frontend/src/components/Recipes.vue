@@ -22,6 +22,7 @@
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.pet_size == 'CAT' ? 'Cat' : props.item.pet_size == 'SM' ? 'Small Dog' : props.item.pet_size == 'MD' ? 'Medium Dog' : props.item.pet_size == 'LG' ? 'Large Dog' : '' }}</td>
+              <td @click="goToRecipe(props.item.id)" class="text-xs-left">${{ props.item.cost }}</td>
             </template>
 
             <template v-slot:no-results>
@@ -59,6 +60,10 @@ export default {
       {
         text: 'Pet Size',
         value: 'pet_size'
+      },
+      {
+        text: 'Recipe Cost',
+        value: 'cost'
       }
     ],
   }),
@@ -67,7 +72,7 @@ export default {
       this.$axios.get('/api/recipes/').then(
           (response) => {
               var allRecipes = response.data,
-                  userRecipes = [], currentRecipe,
+                  userRecipes = [], currentRecipe, recipeCost,
                   currentUser = this.$cookies.get('user');
 
               for (var r = 0; r < allRecipes.length; r++) {
@@ -75,6 +80,16 @@ export default {
                   if (currentRecipe.user == currentUser) {
                       userRecipes.push(currentRecipe);
                   }
+              }
+
+              for (var r = 0; r < userRecipes.length; r++) {
+                  currentRecipe = userRecipes[r];
+                  recipeCost = 0;
+                  for (var i = 0; i < currentRecipe.ingredients.length; i++) {
+                      recipeCost += currentRecipe.ingredients[i].price;
+                  }
+
+                  currentRecipe.cost = recipeCost.toFixed(2);
               }
 
               this.recipes = userRecipes;

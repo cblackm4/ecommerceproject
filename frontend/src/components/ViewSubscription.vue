@@ -102,8 +102,23 @@ export default {
         getSubs() {
             this.$axios.get('/api/subscriptions/' + this.$route.params.id + '/').then(
                 (response) => {
-                    this.subs = response.data;
-                    console.log(this.subs);
+                    var subscriptionData = response.data,
+                        currentRecipe,
+                        recipeCost;
+
+                    for (var r = 0; r < subscriptionData.recipes.length; r++) {
+                        currentRecipe = subscriptionData.recipes[r];
+                        recipeCost = 0;
+                        for (var i = 0; i < currentRecipe.ingredients.length; i++) {
+                            recipeCost += currentRecipe.ingredients[i].price;
+                        }
+
+                        currentRecipe.price = recipeCost.toFixed(2);
+                    }
+
+                    console.log(subscriptionData);
+
+                    this.subs = subscriptionData;
                 }
             )
         },
