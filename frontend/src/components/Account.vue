@@ -9,8 +9,22 @@
               <v-spacer></v-spacer>
               <v-tooltip right>
               </v-tooltip>
+              <template v-slot:extension>
+                <v-tabs
+                  v-model="tab_selection"
+                  color="transparent"
+                  slider-color="white"
+                >
+                  <v-tab
+                    v-for="tab in tabs"
+                    :key="tab.name"
+                  >
+                    {{ tab.name }}
+                  </v-tab>
+                </v-tabs>
+              </template>
             </v-toolbar>
-            <v-card-text>
+            <v-card-text v-if="tab_selection === 0">
               <v-form>
                 <v-text-field name="username" :disabled="true" label="Username" type="text" v-model="user.username"></v-text-field>
                 <v-text-field name="first_name" label="First Name" type="text" v-model="user.first_name"></v-text-field>
@@ -18,9 +32,15 @@
                 <v-text-field name="email" label="Email" type="Email" v-model="user.email"></v-text-field>
               </v-form>
             </v-card-text>
+            <v-card-text v-if="tab_selection === 1">
+              <v-form>
+                <v-text-field name="shipping_address" label="Shipping Address" type="text" v-model="customer.shipping_address"></v-text-field>
+                <v-text-field name="billing_address" label="Billing Address" type="text" v-model="customer.billing_address"></v-text-field>
+              </v-form>
+            </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click="saveUser" dark>Save</v-btn>
+              <v-btn @click="save" dark>Save</v-btn>
               <v-btn dark>Reset Password</v-btn>
             </v-card-actions>
           </v-card>
@@ -47,8 +67,17 @@
   export default {
     data() {
       return {
+        customer: {
+          shipping_address: '',
+          billing_address: ''
+        },
         snackbar: false,
         snackbarMessage: "",
+        tab_selection: null,
+        tabs: [
+          { name: 'User' },
+          { name: 'Customer' }
+        ]
       }
     },
     computed: {
@@ -57,15 +86,34 @@
       }
     },
     methods: {
-      saveUser() {
-        this.$axios.put('/api/users/' + this.$cookies.get('user') + '/', this.user).then(
+      save() {
+        if (this.tab_selection === 0) {
+          this.$axios.put('/api/users/' + this.$cookies.get('user') + '/', this.user).then(
+            (response) => {
+              this.$store.commit('setUser', response.data);
+              this.snackbarMessage = "Save successful!";
+              this.snackbar = true;
+            }
+          );
+        } else if (this.tab_selection === 1) {
+          this.$axios.put('/api/customers/' + this.$cookies.get('user') + '/', this.customer).then(
+            (response) => {
+              this.snackbarMessage = "Save successful!";
+              this.snackbar = true;
+            }
+          );
+        }
+      },
+      getCustomer() {
+        this.$axios.get('/api/customers/' + this.$cookies.get('user') + '/').then(
           (response) => {
-            this.$store.commit('setUser', response.data);
-            this.snackbarMessage = "Save successful!";
-            this.snackbar = true;
+            this.customer = response.data;
           }
-        );
-      }
+        )
+      },
+    },
+    beforeMount() {
+      this.getCustomer();
     }
   }
 </script>

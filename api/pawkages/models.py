@@ -4,7 +4,7 @@ from administration.models import User
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     shipping_address = models.CharField(max_length=125)
     billing_address = models.CharField(max_length=125)
 
