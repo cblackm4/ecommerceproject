@@ -34,15 +34,39 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
 
+    def get_queryset(self):
+        """
+        Only show recipes made by currently authenticated user.
+        """
+        user = self.request.user
+        queryset = Recipe.objects.filter(user=user)
+        return queryset
+
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
+    def get_queryset(self):
+        """
+        Only show subscriptions for currently authenticated user.
+        """
+        user = self.request.user
+        queryset = Subscription.objects.filter(user=user)
+        return queryset
+
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        """
+        Only show transaction history for currently authenticated user.
+        """
+        user = self.request.user
+        queryset = Subscription.objects.filter(user=user)
+        return queryset
 
 
 class FeedbackViewSet(viewsets.ModelViewSet):
