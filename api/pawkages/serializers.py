@@ -54,9 +54,9 @@ class RecipeSerializer(serializers.ModelSerializer):
         for ingredient in ingredients_data:
             ingredient_list.append(Ingredient.objects.get(name=ingredient.get('name')))
 
-        instance.name = new_name;
-        instance.description = new_description;
-        instance.pet_size = new_pet_size;
+        instance.name = new_name
+        instance.description = new_description
+        instance.pet_size = new_pet_size
         instance.ingredients.set(ingredient_list)
         instance.save()
 

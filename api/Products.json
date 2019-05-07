@@ -379,10 +379,67 @@
     }
   },
   {
+    "model": "administration.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$WS7klqUapRFF$UfHk+Nk/I/QN/TxZH992jc3pNF5oc8J/cpW21W5mE08=",
+      "last_login": "2019-05-07T21:16:33.746Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-05-07T21:15:27.386Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "pawkages.customer",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "shipping_address": "",
+      "billing_address": ""
+    }
+  },
+  {
+    "model": "pawkages.recipe",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "name": "Test Recipe One",
+      "description": "This is the first test recipe.",
+      "pet_size": "SM",
+      "ingredients": [
+        1,
+        5
+      ]
+    }
+  },
+  {
+    "model": "pawkages.recipe",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "name": "Test Recipe Two",
+      "description": "Yet another amazing recipe!",
+      "pet_size": "MD",
+      "ingredients": [
+        9,
+        12,
+        15,
+        18
+      ]
+    }
+  },
+  {
     "model" : "pawkages.subscription",
     "pk" : 1,
     "fields" : {
-      "customer" : 1,
+      "user" : 1,
       "recipes" : [
         1,
         2
@@ -400,7 +457,7 @@
     "model" : "pawkages.subscription",
     "pk" : 2,
     "fields" : {
-      "customer" : 1,
+      "user" : 1,
       "recipes" : [],
       "products" : [
         1,
@@ -409,15 +466,6 @@
       ],
       "frequency" : "30 00:00:00",
       "active" : true
-    }
-  },
-  {
-    "model" : "pawkages.customer",
-    "pk" : 1,
-    "fields" : {
-      "user" : 1,
-      "shipping_address" : "",
-      "billing_address" : ""
     }
   }
 ]

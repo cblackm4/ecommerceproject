@@ -40,7 +40,7 @@
                                             </v-combobox>
                                         </td>
                                         <td style="text-align:right; width: 4%">
-                                            <v-btn @click="AddIngredient()" dark><v-icon>add</v-icon></v-btn>
+                                            <v-btn @click="addIngredient()" dark><v-icon>add</v-icon></v-btn>
                                         </td>
                                     </tr>
                                 </table>
@@ -68,7 +68,7 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn @click="SaveRecipe()" dark>Save Recipe</v-btn>
+                            <v-btn @click="saveRecipe()" dark>Save Recipe</v-btn>
                         </v-card-actions>
 
                     </v-card>
@@ -147,7 +147,7 @@
                         }
                         this.ingredients = ingredientVal;
                     }
-                )
+                );
 
                 if (this.$route.params.id != -1) {
                     this.newRecipe = false;
@@ -166,35 +166,27 @@
                     this.recipe.ingredients = [];
                 }
             },
-            SaveRecipe() {
+            saveRecipe() {
                 if (this.recipe.pet_sizeName.value != undefined && this.recipe.pet_sizeName.value != null) {
                     this.recipe.pet_size = this.recipe.pet_sizeName.value;
                 }
                 if (!this.newRecipe) {
 
-                    this.$axios.put('/api/recipes/' + this.$route.params.id + '/', this.recipe, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                        .then(response => {
+                    this.$axios.put('/api/recipes/' + this.$route.params.id + '/', this.recipe).then(
+                        (response) => {
                             this.$router.push('/recipes/' + response.data.id + '/');
                         })
                 }
                 else {
                     this.recipe.user = this.$cookies.get('user');
 
-                    this.$axios.post('/api/recipes/', this.recipe, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                        .then(response => {
+                    this.$axios.post('/api/recipes/', this.recipe).then(
+                        (response) => {
                             this.$router.push('/recipes/' + response.data.id + '/');
                         })
                 }
             },
-            AddIngredient() {
+            addIngredient() {
                 this.recipe.ingredients.push(this.selectedIngredient);
                 this.componentKey += 1;
             },

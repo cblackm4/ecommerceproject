@@ -40,7 +40,7 @@ class Recipe(models.Model):
 
 
 class Subscription(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipes = models.ManyToManyField(Recipe)
     products = models.ManyToManyField(Product)
     frequency = models.DurationField()
@@ -48,7 +48,7 @@ class Subscription(models.Model):
 
 
 class Transaction(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -59,5 +59,5 @@ class Feedback(models.Model):
     order_number = models.IntegerField()
     email = models.CharField(max_length=50)
     reason = models.CharField(max_length=250)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
