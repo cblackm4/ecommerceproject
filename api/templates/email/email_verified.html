@@ -1,0 +1,49 @@
+<!-- templates/email/email_verified.html -->
+{% extends "base.html" %}
+
+{% block title%}Pawkages - Email Verification Successful!{% endblock title %}
+
+{% block script %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+      new Vue({
+        el: '#app',
+        data: {
+        },
+        methods: {
+        }
+      })
+    })
+</script>
+{% endblock script%}
+
+{% block content %}
+<template>
+  <v-app id="inspire">
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark>
+                <v-toolbar-title>Email Verification Successful!</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-tooltip right>
+                </v-tooltip>
+              </v-toolbar>
+                <v-card-text>
+                    <h1>Verification complete</h1>
+                    <p>Your email has been verified and your account information has been updated.</p>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn dark href="{% url 'login' %}" >Return to Login</v-btn>
+                </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
+</template>
+{% endblock content %}
