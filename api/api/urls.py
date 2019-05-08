@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 from .router import ROUTER
-from administration.views import SignUp
+from administration.views import SignUp, EmailVerified, verify_email
 from administration import views
 
 urlpatterns = [
@@ -29,5 +29,7 @@ urlpatterns = [
     ),
     path('accounts/', include('django.contrib.auth.urls')),
     path(r'accounts/signup/', SignUp.as_view(), name='signup'),
+    path('verify_email/<uuid:token>/', verify_email, name='verify_email'),
+    path('email_verified/', EmailVerified.as_view(), name='email_verified'),
     path('api/', include(ROUTER.urls)),
 ]
