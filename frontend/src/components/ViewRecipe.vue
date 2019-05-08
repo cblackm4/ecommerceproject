@@ -25,12 +25,16 @@
 
                                 <table style="width: 100%; padding-left: 20px; padding-top: 8px; font-family: Roboto;">
                                     <tr>
-                                        <td valign="top"  style="padding-bottom: 16px"><h3>Pet Size: </h3></td>
-                                        <td valign="top" >{{recipe.pet_size == 'CAT' ? 'Cat' : recipe.pet_size == 'SM' ? 'Small Dog' : recipe.pet_size == 'MD' ? 'Medium Dog' : recipe.pet_size == 'LG' ? 'Large Dog' : ''}}</td>
+                                        <td valign="top" style="padding-bottom: 16px"><h3>Pet Size: </h3></td>
+                                        <td valign="top">{{recipe.pet_size == 'CAT' ? 'Cat' : recipe.pet_size == 'SM' ? 'Small Dog' : recipe.pet_size == 'MD' ? 'Medium Dog' : recipe.pet_size == 'LG' ? 'Large Dog' : ''}}</td>
                                     </tr>
                                     <tr>
-                                        <td valign="top" style="padding-bottom: 8px; width: 120px"><h3>Description: </h3></td>
+                                        <td valign="top" style="padding-bottom: 16px; width: 120px"><h3>Description: </h3></td>
                                         <td valign="top">{{recipe.description}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" style="padding-bottom: 8px; width: 120px"><h3>Recipe Price: </h3></td>
+                                        <td valign="top">${{recipe.cost}}</td>
                                     </tr>
                                     <tr>
                                         <td style="padding-top: 8px"><h3>Ingredients </h3></td>
@@ -105,7 +109,15 @@
             getRecipe() {
                 this.$axios.get('/api/recipes/' + this.$route.params.id + '/').then(
                     (response) => {
-                        this.recipe = response.data;
+                        var currentRecipe = response.data;
+                        var recipeCost = 0;
+                        for (var i = 0; i < currentRecipe.ingredients.length; i++) {
+                            recipeCost += currentRecipe.ingredients[i].price;
+                        }
+
+                        currentRecipe.cost = recipeCost.toFixed(2);
+
+                        this.recipe = currentRecipe;
                     }
                 )
             },

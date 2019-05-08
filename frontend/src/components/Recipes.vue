@@ -71,16 +71,7 @@ export default {
     getRecipes() {
       this.$axios.get('/api/recipes/').then(
           (response) => {
-              var allRecipes = response.data,
-                  userRecipes = [], currentRecipe, recipeCost,
-                  currentUser = this.$cookies.get('user');
-
-              for (var r = 0; r < allRecipes.length; r++) {
-                  currentRecipe = allRecipes[r];
-                  if (currentRecipe.user == currentUser) {
-                      userRecipes.push(currentRecipe);
-                  }
-              }
+              var userRecipes = response.data, currentRecipe, recipeCost;
 
               for (var r = 0; r < userRecipes.length; r++) {
                   currentRecipe = userRecipes[r];

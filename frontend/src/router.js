@@ -10,6 +10,7 @@ import Recipes from '@/components/Recipes.vue'
 import ViewRecipe from '@/components/ViewRecipe.vue'
 import CreateRecipe from '@/components/CreateRecipe.vue'
 import ViewProduct from '@/components/ViewProduct.vue'
+import Cart from '@/components/Cart.vue'
 
 Vue.use(Router)
 
@@ -70,6 +71,11 @@ export default new Router({
       path: '/products/:id?',
       name: 'ViewProduct',
       component: ViewProduct
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
   ]
 })

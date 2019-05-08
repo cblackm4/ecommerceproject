@@ -51,11 +51,10 @@
                                         <td class="text-xs-left">{{ props.item.name }}</td>
                                         <td class="text-xs-left">{{ props.item.description }}</td>
                                         <td class="text-xs-left">${{ props.item.price }}</td>
-                                        <td class="text-xs-left">
-                                            <v-icon @click="removeIngredient(props.item)">
-                                                delete
-                                            </v-icon>
-                                        </td>
+                                        <td><v-tooltip bottom>
+                                        <template v-slot:activator="{ on }">
+                                            <v-icon @click="removeIngredient(props.item)" v-on="on">cancel</v-icon>
+                                        </template><span>Remove Item</span></v-tooltip></td>
                                     </template>
 
                                     <template v-slot:no-data>
@@ -64,6 +63,14 @@
                                         </v-alert>
                                     </template>
                                 </v-data-table>
+                                <table style="width: 100%;     border-top: 1px solid lightgray;">
+                                    <tr>
+                                        <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Recipe Price: </h3></td>
+                                        <td style="float: right; padding-right: 120px; padding-top: 16px; font-weight: 400; font-size: 13px;">
+                                            ${{recipe.cost}}
+                                        </td>
+                                    </tr>
+                                </table>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
@@ -153,7 +160,16 @@
                     this.newRecipe = false;
                     this.$axios.get('/api/recipes/' + this.$route.params.id + '/').then(
                         (response) => {
-                            this.recipe = response.data;
+                            var currentRecipe = response.data;
+                            var recipeCost = 0;
+                            for (var i = 0; i < currentRecipe.ingredients.length; i++) {
+                                recipeCost += currentRecipe.ingredients[i].price;
+                            }
+
+                            currentRecipe.cost = recipeCost.toFixed(2);
+
+                            this.recipe = currentRecipe;
+
                             for (var i = 0; i < this.pet_sizes.length; i++) {
                                 if (this.pet_sizes[i].value == this.recipe.pet_size) {
                                     this.recipe.pet_sizeName = this.pet_sizes[i].text;
@@ -163,6 +179,7 @@
                     )
                 }
                 else {
+                    this.recipe.cost = 0;
                     this.recipe.ingredients = [];
                 }
             },
@@ -188,6 +205,7 @@
             },
             addIngredient() {
                 this.recipe.ingredients.push(this.selectedIngredient);
+                this.recipe.cost += this.selectedIngredient.price;
                 this.componentKey += 1;
             },
             removeIngredient(ingredient) {
@@ -199,6 +217,7 @@
                         newIngredients.push(existingIngredients[i]);
                     }
                 }
+                this.recipe.cost -= ingredient.price;
                 this.recipe.ingredients = newIngredients;
                 this.componentKey += 1;
             }

@@ -48,15 +48,29 @@
     </v-navigation-drawer>
 
     <v-toolbar dark fixed>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-img :src="require('./assets/logo.png')" max-width="175px" max-height="175px" min-width="150px" min-heigh="150px"></v-img>
-      <v-spacer></v-spacer>
-      <!--Ideally, a v-if will be used to see if a user gave us a first name. If not it will default to the user name-->
-      <v-toolbar-title>Hello, {{user.first_name}}!<v-icon class="icon">account_circle</v-icon></v-toolbar-title>
-      <v-icon>shopping_cart</v-icon>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn href="/accounts/logout/" flat>LOGOUT</v-btn>
-      </v-toolbar-items>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <router-link to="/" style="text-decoration: none !important">
+            <v-img :src="require('./assets/logo.png')" max-width="175px" max-height="175px" min-width="150px" min-heigh="150px"></v-img>
+        </router-link>
+        <v-spacer></v-spacer>
+        <!--Ideally, a v-if will be used to see if a user gave us a first name. If not it will default to the user name-->
+        <v-toolbar-title>
+            Hello, {{user.first_name}}!
+            <router-link to="/Account" style="text-decoration: none !important">
+                <v-icon class="icon">account_circle</v-icon>
+            </router-link>
+        </v-toolbar-title>
+        <router-link to="/Cart" style="text-decoration: none !important; padding-right: 10px">
+            <v-badge right v-model="show">
+                <template v-slot:badge>
+                    <span>{{cartItems.products.length + cartItems.recipes.length}}</span>
+                </template>
+                <v-icon>shopping_cart</v-icon>
+            </v-badge>
+        </router-link>
+        <v-toolbar-items class="hidden-sm-and-down">
+            <v-btn href="/accounts/logout/" flat>LOGOUT</v-btn>
+        </v-toolbar-items>
     </v-toolbar>
 
     <v-parallax xs12 :src="require('./assets/heroimage.jpg')">
@@ -131,6 +145,8 @@ export default {
       * Route: the name of the component that needs to be routed
       */
       drawer: false,
+      cartItems: { products: [], recipes: [] },
+      show: false,
       items: [
         {title:'Home', icon: 'home', route:"/"},
         {title:'Products', icon: 'pets', route:"../Products"},
@@ -157,14 +173,22 @@ export default {
     }
   },
   methods: {
-    getUser() {
-      this.$axios.get('/api/users/' + this.$cookies.get('user') + '/').then(
-        (response) => {
-          const r = response.data;
-          this.$store.commit('setUser', r);
-        }
-      )
-    },
+      getUser() {
+          if (this.$cookies.get('cart') != null && this.$cookies.get('cart') != undefined) {
+              this.cartItems = this.$cookies.get('cart');
+          }
+          else {
+              this.cartItems = { products: [2, 3], recipes: [1] };
+              this.$cookies.set('cart', this.cartItems);
+          }
+          this.show = (this.cartItems.products.length + this.cartItems.recipes.length) > 0;
+          this.$axios.get('/api/users/' + this.$cookies.get('user') + '/').then(
+              (response) => {
+                  const r = response.data;
+                  this.$store.commit('setUser', r);
+              }
+          )
+      },
   },
   beforeMount() {
     this.$axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -175,7 +199,6 @@ export default {
 </script>
 
 <style lang="sass">
-
   .icon
     margin-right: 10px
     margin-left: 10px
