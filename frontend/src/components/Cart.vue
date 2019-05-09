@@ -16,9 +16,9 @@
               </v-toolbar>
               <v-data-table :headers="headers" :items="allItems" class="elevation-1" :key="componentKey" hide-actions>
                   <template v-slot:items="props">
-                      <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
-                      <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
-                      <td @click="goToRecipe(props.item.id)" class="text-xs-left">${{ props.item.price }}</td>
+                      <td @click="goToProduct(props.item)" class="text-xs-left">{{ props.item.name }}</td>
+                      <td @click="goToProduct(props.item)" class="text-xs-left">{{ props.item.description }}</td>
+                      <td @click="goToProduct(props.item)" class="text-xs-left">${{ props.item.price }}</td>
                       <td>
                           <v-tooltip bottom>
                               <template v-slot:activator="{ on }">
@@ -30,7 +30,7 @@
 
                   <template v-slot:no-data>
                       <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                          You don't have any recipes in your cart.
+                          You don't have any items in your cart.
                       </v-alert>
                   </template>
               </v-data-table>
@@ -38,13 +38,13 @@
                   <tr>
                       <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Subtotal: </h3></td>
                       <td style="float: right; padding-right: 108px; padding-top: 16px; font-weight: 400; font-size: 13px;">
-                          ${{ subtotal }}
+                          ${{ formatPrice(subtotal) }}
                       </td>
                   </tr>
               </table>
               <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn dark>Proceed to Checkout</v-btn>
+                  <v-btn :disabled="show == 0" dark>Proceed to Checkout</v-btn>
               </v-card-actions>
           </v-card>
       </v-flex>
@@ -58,6 +58,7 @@ export default {
         data: () => ({
             cartItems: { products: [], recipes: [] },
             allItems: [],
+            show: false,
             subtotal: 0,
             search: '',
             headers: [{
@@ -86,7 +87,7 @@ export default {
 
                 var subTotal = 0;
                 this.cartItems = this.$store.getters.cart;
-
+                this.show = (this.cartItems.products.length + this.cartItems.recipes.length) > 0;
 
                 this.$axios.get('/api/recipes/').then(
                     (response) => {
@@ -101,7 +102,7 @@ export default {
                                 recipeCost += currentRecipe.ingredients[i].price;
                             }
 
-                            currentRecipe.price = recipeCost.toFixed(2);
+                            currentRecipe.price = recipeCost;
                             currentRecipe.isRecipe = true;
                         }
 
@@ -161,15 +162,26 @@ export default {
                     }
                 }
 
-                // Reset the cookie
+                // Reset the stored value
                 cart.products = newProducts;
                 cart.recipes = newRecipes;
 
-                console.log(cart);
                 this.$store.commit('setCart', cart);
 
                 this.componentKey += 1;
                 this.getCart();
+            },
+            formatPrice(value) {
+                let val = (value / 1).toFixed(2)
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+            goToProduct(item) {
+                if (item.isRecipe) {
+                    this.$router.push('/recipes/' + item.id);
+                }
+                else {
+                    this.$router.push('/products/' + item.id);
+                }
             }
         },
   beforeMount() {

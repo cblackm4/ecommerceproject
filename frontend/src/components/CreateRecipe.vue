@@ -67,7 +67,7 @@
                                     <tr>
                                         <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Recipe Price: </h3></td>
                                         <td style="float: right; padding-right: 120px; padding-top: 16px; font-weight: 400; font-size: 13px;">
-                                            ${{recipe.cost}}
+                                            ${{formatPrice(recipe.cost)}}
                                         </td>
                                     </tr>
                                 </table>
@@ -166,7 +166,7 @@
                                 recipeCost += currentRecipe.ingredients[i].price;
                             }
 
-                            currentRecipe.cost = recipeCost.toFixed(2);
+                            currentRecipe.cost = recipeCost;
 
                             this.recipe = currentRecipe;
 
@@ -195,8 +195,6 @@
                         })
                 }
                 else {
-                    this.recipe.user = this.$cookies.get('user');
-
                     this.$axios.post('/api/recipes/', this.recipe).then(
                         (response) => {
                             this.$router.push('/recipes/' + response.data.id + '/');
@@ -220,6 +218,10 @@
                 this.recipe.cost -= ingredient.price;
                 this.recipe.ingredients = newIngredients;
                 this.componentKey += 1;
+            },
+            formatPrice(value) {
+                let val = (value / 1).toFixed(2)
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }
         },
     beforeMount() {

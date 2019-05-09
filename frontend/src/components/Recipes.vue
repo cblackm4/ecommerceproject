@@ -22,7 +22,7 @@
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
               <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.pet_size == 'CAT' ? 'Cat' : props.item.pet_size == 'SM' ? 'Small Dog' : props.item.pet_size == 'MD' ? 'Medium Dog' : props.item.pet_size == 'LG' ? 'Large Dog' : '' }}</td>
-              <td @click="goToRecipe(props.item.id)" class="text-xs-left">${{ props.item.cost }}</td>
+              <td @click="goToRecipe(props.item.id)" class="text-xs-left">${{ formatPrice(props.item.cost) }}</td>
             </template>
 
             <template v-slot:no-results>
@@ -67,30 +67,34 @@ export default {
       }
     ],
   }),
-  methods: {
-    getRecipes() {
-      this.$axios.get('/api/recipes/').then(
-          (response) => {
-              var userRecipes = response.data, currentRecipe, recipeCost;
+        methods: {
+            getRecipes() {
+                this.$axios.get('/api/recipes/').then(
+                    (response) => {
+                        var userRecipes = response.data, currentRecipe, recipeCost;
 
-              for (var r = 0; r < userRecipes.length; r++) {
-                  currentRecipe = userRecipes[r];
-                  recipeCost = 0;
-                  for (var i = 0; i < currentRecipe.ingredients.length; i++) {
-                      recipeCost += currentRecipe.ingredients[i].price;
-                  }
+                        for (var r = 0; r < userRecipes.length; r++) {
+                            currentRecipe = userRecipes[r];
+                            recipeCost = 0;
+                            for (var i = 0; i < currentRecipe.ingredients.length; i++) {
+                                recipeCost += currentRecipe.ingredients[i].price;
+                            }
 
-                  currentRecipe.cost = recipeCost.toFixed(2);
-              }
+                            currentRecipe.cost = recipeCost;
+                        }
 
-              this.recipes = userRecipes;
-        }
-      )
-    },
-    goToRecipe(id) {
-      this.$router.push('/recipes/' + id);
-    }
-  },
+                        this.recipes = userRecipes;
+                    }
+                )
+            },
+            goToRecipe(id) {
+                this.$router.push('/recipes/' + id);
+            },
+            formatPrice(value) {
+                let val = (value / 1).toFixed(2)
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            }
+        },
   beforeMount() {
     this.getRecipes();
   },

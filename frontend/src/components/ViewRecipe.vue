@@ -34,7 +34,7 @@
                                     </tr>
                                     <tr>
                                         <td valign="top" style="padding-bottom: 8px; width: 120px"><h3>Recipe Price: </h3></td>
-                                        <td valign="top">${{recipe.cost}}</td>
+                                        <td valign="top">${{formatPrice(recipe.cost)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="padding-top: 8px"><h3>Ingredients </h3></td>
@@ -59,8 +59,9 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn dark @click="DeleteRecipe()" ><v-icon>delete</v-icon>Delete</v-btn>
+                            <v-btn dark @click="DeleteRecipe()"><v-icon>delete</v-icon>Delete</v-btn>
                             <v-btn dark @click="EditRecipe()">Edit Recipe</v-btn>
+                            <v-btn dark @click="addToCart()">Add to Cart</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-flex>
@@ -115,7 +116,7 @@
                             recipeCost += currentRecipe.ingredients[i].price;
                         }
 
-                        currentRecipe.cost = recipeCost.toFixed(2);
+                        currentRecipe.cost = recipeCost;
 
                         this.recipe = currentRecipe;
                     }
@@ -132,6 +133,24 @@
             },
             EditRecipe() {
                 this.$router.push('/recipeEditor/'+ this.$route.params.id + '/');
+            },
+            addToCart() {
+                var cartItems = this.$store.getters.cart,
+                    cart = {};
+
+                var recipes = cartItems.recipes;
+                if (!recipes.includes(this.$route.params.id)) {
+                    recipes.push(this.$route.params.id);
+                }
+
+                cart.products = cartItems.products;
+                cart.recipes = recipes;
+
+                this.$store.commit('setCart', cart);
+            },
+            formatPrice(value) {
+                let val = (value / 1).toFixed(2)
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }
         },
     beforeMount() {

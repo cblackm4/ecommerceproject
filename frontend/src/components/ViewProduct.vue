@@ -34,7 +34,7 @@
                         <td>{{product.inventory > 0 ? 'Instock: ' + product.inventory + ' left' : 'Out of Stock'}}</td>
                       </tr>
                     </table>
-                    <v-btn dark>Add to Cart</v-btn>
+                    <v-btn dark @click="addToCart()">Add to Cart</v-btn>
                     <v-btn dark @click="$router.push('/Subscriptions')">Create A Subscription</v-btn>
                   </v-card-text>
                 </v-card>
@@ -61,15 +61,29 @@
     data: () => ({
       product: {},
     }),
-    methods: {
-      getProduct() {
-        this.$axios.get('/api/products/' + this.$route.params.id + '/').then(
-          (response) => {
-            this.product = response.data;
-          }
-        )
-      },
-    },
+        methods: {
+            getProduct() {
+                this.$axios.get('/api/products/' + this.$route.params.id + '/').then(
+                    (response) => {
+                        this.product = response.data;
+                    }
+                )
+            },
+            addToCart() {
+                var cartItems = this.$store.getters.cart,
+                    cart = {};
+
+                var products = cartItems.products;
+                if (!products.includes(this.$route.params.id)) {
+                    products.push(this.$route.params.id);
+                }
+
+                cart.products = products;
+                cart.recipes = cartItems.recipes;
+
+                this.$store.commit('setCart', cart);
+            }
+        },
     beforeMount() {
       this.getProduct();
     },

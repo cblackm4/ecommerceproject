@@ -145,7 +145,6 @@ export default {
       * Route: the name of the component that needs to be routed
       */
       drawer: false,
-      show: false,
       items: [
         {title:'Home', icon: 'home', route:"/"},
         {title:'Products', icon: 'pets', route:"../Products"},
@@ -172,13 +171,13 @@ export default {
             },
             cart() {
                 return this.$store.getters.cart;
+            },
+            show() {
+                return (this.$store.getters.cart.products.length + this.$store.getters.cart.recipes.length) > 0;
             }
         },
   methods: {
       getUser() {
-          this.$store.commit('setCart', { products: [2, 3], recipes: [1] });
-
-          this.show = (this.cart.products.length + this.cart.recipes.length) > 0;
           this.$axios.get('/api/users/' + this.$cookies.get('user') + '/').then(
               (response) => {
                   const r = response.data;
