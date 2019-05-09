@@ -154,14 +154,24 @@
                 )
                 this.$axios.get('/api/recipes/').then(
                     (response) => {
-                        this.recipes = response.data;
-                        console.log(this.recipes);
+
+                        var recipes = response.data;
+                        for (var i = 0; i < recipes.length; i++) {
+                            recipes[i].text = recipes[i].name;
+                            recipes[i].value = recipes[i].id;
+                        }
+
+                        this.recipes = recipes;
                     }
                 )
                 this.$axios.get('/api/products/').then(
                     (response) => {
-                        this.products = response.data;
-                        console.log(this.products);
+                        var products = response.data;
+                        for (var i = 0; i < products.length; i++) {
+                            products[i].text = products[i].name;
+                            products[i].value = products[i].id;
+                        }
+                        this.products = products;
                     }
                 )
             },

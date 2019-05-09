@@ -14,7 +14,7 @@
                   <v-tooltip right>
                   </v-tooltip>
               </v-toolbar>
-              <v-data-table :headers="headers" :items="allItems" :search="search" class="elevation-1" hide-actions>
+              <v-data-table :headers="headers" :items="allItems" class="elevation-1" :key="componentKey" hide-actions>
                   <template v-slot:items="props">
                       <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.name }}</td>
                       <td @click="goToRecipe(props.item.id)" class="text-xs-left">{{ props.item.description }}</td>
@@ -37,7 +37,7 @@
               <table style="width: 100%;">
                   <tr>
                       <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Subtotal: </h3></td>
-                      <td style="float: right; padding-right: 114px; padding-top: 16px; font-weight: 400; font-size: 13px;">
+                      <td style="float: right; padding-right: 108px; padding-top: 16px; font-weight: 400; font-size: 13px;">
                           ${{ subtotal }}
                       </td>
                   </tr>
@@ -76,18 +76,21 @@ export default {
                 sortable: false
             },
             { text: 'Remove', value: '', sortable: false }
-            ],
+        ],
+            componentKey: 0,
         }),
         methods: {
             getCart() {
                 this.subtotal = 0.0;
+                this.allItems = [];
+
                 var subTotal = 0;
                 if (this.$cookies.get('cart') != null && this.$cookies.get('cart') != undefined) {
                     this.cartItems = this.$cookies.get('cart');
                 }
                 else {
-                    this.cartItems = { products: [1], recipes: [] };
-                    this.$cookies.set('cart', cart);
+                    this.cartItems = { products: [], recipes: [] };
+                    this.$cookies.set('cart', this.cartItems);
                 }
 
                 this.$axios.get('/api/recipes/').then(
@@ -104,6 +107,7 @@ export default {
                             }
 
                             currentRecipe.price = recipeCost.toFixed(2);
+                            currentRecipe.isRecipe = true;
                         }
 
                         subTotal = 0;
@@ -133,6 +137,7 @@ export default {
                                 currentProduct = products[r];
                                 if (currentProduct.id == cartProduct) {
                                     subTotal += currentProduct.price;
+                                    currentProduct.isRecipe = false;
                                     this.allItems.push(currentProduct);
                                 }
                             }
@@ -141,8 +146,38 @@ export default {
                     }
                 )
             },
-            removeItem() {
+            removeItem(removedItem) {
+                // first remove the cart cookie
+                this.$cookies.remove('cart');
 
+                // remove the item from the object to be stored in the cookie
+                var cart = {}, newRecipes = [], newProducts = [];
+                if (removedItem.isRecipe) {
+                    newProducts = this.cartItems.products;
+                    for (var i = 0; i < this.cartItems.recipes.length; i++) {
+                        if (this.cartItems.recipes[i] != removedItem.id) {
+                            newRecipes.push(this.cartItems.recipes[i]);
+                        }
+                    }
+                }
+                else {
+                    newRecipes = this.cartItems.recipes;
+                    for (var i = 0; i < this.cartItems.products.length; i++) {
+                        if (this.cartItems.products[i] != removedItem.id) {
+                            newProducts.push(this.cartItems.products[i]);
+                        }
+                    }
+                }
+
+                // Reset the cookie
+                cart.products = newProducts;
+                cart.recipes = newRecipes;
+
+                console.log(cart);
+                this.$cookies.set('cart', cart);
+
+                this.componentKey += 1;
+                this.getCart();
             }
         },
   beforeMount() {
