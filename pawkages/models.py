@@ -5,30 +5,30 @@ from administration.models import User
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    shipping_address = models.CharField(max_length=256)
-    billing_address = models.CharField(max_length=256)
+    shipping_address = models.TextField()
+    billing_address = models.TextField()
 
 
 class Product(models.Model):
     img_src = models.URLField()
-    name = models.CharField(max_length=256)
-    description = models.CharField(max_length=512)
+    name = models.TextField()
+    description = models.TextField()
     price = models.FloatField()
     inventory = models.IntegerField()
 
 
 class Ingredient(models.Model):
     img_src = models.URLField(default='')
-    name = models.CharField(max_length=256)
-    description = models.CharField(max_length=512)
+    name = models.TextField()
+    description = models.TextField()
     price = models.FloatField(default=0.0)
 
 
 
 class Recipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default = 1)
-    name = models.CharField(max_length=256, default = 'New Recipe')
-    description = models.CharField(max_length=512, default = '')
+    name = models.TextField(default = 'New Recipe')
+    description = models.TextField(default = '')
     ingredients = models.ManyToManyField(Ingredient)
     PET_SIZE_CHOICES = (
         ('CAT', 'Cat'),
@@ -54,10 +54,10 @@ class Transaction(models.Model):
 
 
 class Feedback(models.Model):
-    firstname = models.CharField(max_length=64)
-    lastname = models.CharField(max_length=64)
+    firstname = models.TextField()
+    lastname = models.TextField()
     order_number = models.IntegerField()
-    email = models.CharField(max_length=64)
-    reason = models.CharField(max_length=256)
+    email = models.TextField()
+    reason = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     date = models.DateTimeField(auto_now_add=True)
