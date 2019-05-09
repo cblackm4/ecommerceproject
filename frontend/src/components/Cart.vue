@@ -18,7 +18,7 @@
                   <template v-slot:items="props">
                       <td @click="goToProduct(props.item)" class="text-xs-left">{{ props.item.name }}</td>
                       <td @click="goToProduct(props.item)" class="text-xs-left">{{ props.item.description }}</td>
-                      <td @click="goToProduct(props.item)" class="text-xs-left">${{ props.item.price }}</td>
+                      <td @click="goToProduct(props.item)" class="text-xs-left">${{ formatPrice(props.item.price) }}</td>
                       <td>
                           <v-tooltip bottom>
                               <template v-slot:activator="{ on }">
