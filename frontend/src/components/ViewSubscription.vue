@@ -159,22 +159,18 @@ export default {
           this.recipeKey += 1;
         },
         removeProduct(product) {
-          this.dialog = true;
-          console.log(this.agreed);
+          //this.dialog = true;
+          console.log("prcoess");
+          var currentProducts = this.subs.products, updatedProducts = [];
 
-          if (this.agreed == true) {
-            console.log("prcoess");
-            var currentProducts = this.subs.products, updatedProducts = [];
-
-            for (var i = 0; i < currentProducts.length; i++) {
-              if (currentProducts[i].id != product.id) {
-                updatedProducts.push(currentProducts[i]);
-                console.log(currentProducts[i]);
-              }
+          for (var i = 0; i < currentProducts.length; i++) {
+            if (currentProducts[i].id != product.id) {
+              updatedProducts.push(currentProducts[i]);
+              console.log(currentProducts[i]);
             }
-            this.subs.products = updatedProducts;
-            this.productKey += 1;
           }
+          this.subs.products = updatedProducts;
+          this.productKey += 1;
         },
     },
     beforeMount() {

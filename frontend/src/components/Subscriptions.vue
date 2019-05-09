@@ -12,6 +12,9 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
+                    <v-btn @click="$router.push('/create-subscription/-1')" flat><v-icon>add</v-icon>Create New Subscription</v-btn>
+                    <v-tooltip right>
+                    </v-tooltip>
                 </v-toolbar>
 
                 <v-data-table :headers="headers" :items="subs"  class="elevation-1" hide-actions>
