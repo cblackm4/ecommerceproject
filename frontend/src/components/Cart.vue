@@ -85,13 +85,8 @@ export default {
                 this.allItems = [];
 
                 var subTotal = 0;
-                if (this.$cookies.get('cart') != null && this.$cookies.get('cart') != undefined) {
-                    this.cartItems = this.$cookies.get('cart');
-                }
-                else {
-                    this.cartItems = { products: [], recipes: [] };
-                    this.$cookies.set('cart', this.cartItems);
-                }
+                this.cartItems = this.$store.getters.cart;
+
 
                 this.$axios.get('/api/recipes/').then(
                     (response) => {
@@ -147,9 +142,6 @@ export default {
                 )
             },
             removeItem(removedItem) {
-                // first remove the cart cookie
-                this.$cookies.remove('cart');
-
                 // remove the item from the object to be stored in the cookie
                 var cart = {}, newRecipes = [], newProducts = [];
                 if (removedItem.isRecipe) {
@@ -174,7 +166,7 @@ export default {
                 cart.recipes = newRecipes;
 
                 console.log(cart);
-                this.$cookies.set('cart', cart);
+                this.$store.commit('setCart', cart);
 
                 this.componentKey += 1;
                 this.getCart();

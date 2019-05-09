@@ -63,7 +63,7 @@
         <router-link to="/Cart" style="text-decoration: none !important; padding-right: 10px">
             <v-badge right v-model="show">
                 <template v-slot:badge>
-                    <span>{{cartItems.products.length + cartItems.recipes.length}}</span>
+                    <span>{{cart.products.length + cart.recipes.length}}</span>
                 </template>
                 <v-icon>shopping_cart</v-icon>
             </v-badge>
@@ -145,7 +145,6 @@ export default {
       * Route: the name of the component that needs to be routed
       */
       drawer: false,
-      cartItems: { products: [], recipes: [] },
       show: false,
       items: [
         {title:'Home', icon: 'home', route:"/"},
@@ -167,21 +166,19 @@ export default {
       ]
     }
   },
-  computed: {
-    user() {
-      return this.$store.getters.user;
-    }
-  },
+        computed: {
+            user() {
+                return this.$store.getters.user;
+            },
+            cart() {
+                return this.$store.getters.cart;
+            }
+        },
   methods: {
       getUser() {
-          if (this.$cookies.get('cart') != null && this.$cookies.get('cart') != undefined) {
-              this.cartItems = this.$cookies.get('cart');
-          }
-          else {
-              this.cartItems = { products: [2, 3], recipes: [1] };
-              this.$cookies.set('cart', this.cartItems);
-          }
-          this.show = (this.cartItems.products.length + this.cartItems.recipes.length) > 0;
+          this.$store.commit('setCart', { products: [2, 3], recipes: [1] });
+
+          this.show = (this.cart.products.length + this.cart.recipes.length) > 0;
           this.$axios.get('/api/users/' + this.$cookies.get('user') + '/').then(
               (response) => {
                   const r = response.data;
