@@ -144,6 +144,7 @@ WEBPACK_LOADER = {
 # Login redirect
 LOGIN_REDIRECT_URL = '/'
 
+# Email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_HOST_USER = 'pawkages495@gmail.com'
