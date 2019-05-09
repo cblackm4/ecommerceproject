@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -26,7 +27,7 @@ SECRET_KEY = 'yq&zw3#-&@fy2qxvus!eyszl4*!2q_b#u&+sj(+bvusa7ntkb+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['pawkages.herokuapp.com'. 'localhost']
+ALLOWED_HOSTS = ['pawkages.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -153,3 +154,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'pawkages495@gmail.com'
 EMAIL_HOST_PASSWORD = 'eC0mmer(e'
 EMAIL_USE_TLS = True
+
+
+django_heroku.settings(locals())
