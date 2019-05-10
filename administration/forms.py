@@ -1,5 +1,6 @@
 from django import forms
 from .models import User
+from pawkages.models import Customer
 from django.contrib.auth.forms import UserCreationForm
 
 class UserCreateForm(UserCreationForm):
@@ -18,4 +19,5 @@ class UserCreateForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
+            Customer.objects.create(user=user)
         return user
