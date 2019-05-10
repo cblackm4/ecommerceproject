@@ -26,9 +26,9 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default = 1)
-    name = models.CharField(max_length=256, default = 'New Recipe')
-    description = models.CharField(max_length=512, default = '')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256, default='New Recipe')
+    description = models.CharField(max_length=512, default='')
     ingredients = models.ManyToManyField(Ingredient)
     PET_SIZE_CHOICES = (
         ('CAT', 'Cat'),
@@ -40,7 +40,7 @@ class Recipe(models.Model):
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     recipes = models.ManyToManyField(Recipe)
     products = models.ManyToManyField(Product)
     frequency = models.DurationField()
@@ -48,7 +48,7 @@ class Subscription(models.Model):
 
 
 class Transaction(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -59,5 +59,5 @@ class Feedback(models.Model):
     order_number = models.IntegerField()
     email = models.CharField(max_length=64)
     reason = models.CharField(max_length=256)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)

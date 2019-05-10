@@ -6,6 +6,9 @@ from .models import (
 )
 
 class CustomerSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Customer
         fields = '__all__'
@@ -25,6 +28,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
 
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredients = IngredientSerializer(many=True)
 
     class Meta:
@@ -66,6 +70,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class SubscriptionSerializer(serializers.ModelSerializer):
 
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
     products = ProductSerializer(many=True, read_only=True)
     recipes = RecipeSerializer(many=True, read_only=True)
 
@@ -75,12 +80,18 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Transaction
         fields = '__all__'
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    
     class Meta:
         model = Feedback
         fields = '__all__'

@@ -19,6 +19,8 @@ class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -42,6 +44,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         queryset = Recipe.objects.filter(user=user)
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class SubscriptionViewSet(viewsets.ModelViewSet):
     queryset = Subscription.objects.all()
@@ -55,6 +60,8 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
         queryset = Subscription.objects.filter(user=user)
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
@@ -68,8 +75,12 @@ class TransactionViewSet(viewsets.ModelViewSet):
         queryset = Subscription.objects.filter(user=user)
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class FeedbackViewSet(viewsets.ModelViewSet):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
