@@ -5,7 +5,7 @@ module.exports = {
 		? "/"
 		: "http://localhost:8080/",
 	outputDir: 'dist',
-	assetDir: 'static',
+	assetsDir: 'static',
 
 	chainWebpack: config => {
 
