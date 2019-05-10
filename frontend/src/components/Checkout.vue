@@ -10,20 +10,13 @@
               <v-tooltip right>
               </v-tooltip>
             </v-toolbar>
-            <v-switch v-model="user_info" label="Do not use information from pawkages account: "></v-switch>
             <v-card-text>
               <v-form>
-                <div v-if="user_info">
-                  <v-text-field name="First Name" label="First Name" type="text"></v-text-field>
-                  <v-text-field name="Last Name" label="Last Name" type="text"></v-text-field>
-                  <v-text-field name="Shipping Address" label="Shipping Address" type="text"></v-text-field>
-                  <v-text-field name="Billing Address" label="Billing Address" type="text"></v-text-field>
-                </div>
-                <div v-else>
-                  <v-alert type="info" :value="true">
-                    Information from your pawkages account will be used for this order
-                  </v-alert>
-                </div>
+                <v-text-field name="first_name" label="First Name" type="text" v-model="user.first_name"></v-text-field>
+                <v-text-field name="last_name" label="Last Name" type="text" v-model="user.last_name"></v-text-field>
+                <v-text-field name="email" label="Email" type="Email" v-model="user.email"></v-text-field>
+                <v-text-field name="Shipping Address" label="Shipping Address" type="text"></v-text-field>
+                <v-text-field name="Billing Address" label="Billing Address" type="text"></v-text-field>
                 <v-text-field name="Card Number" label="Card Number" type="text"></v-text-field>
                 <v-text-field name="CVV" label="CVV" type="text"></v-text-field>
                 <v-text-field name="Zip Code" label="Zip Code" type="text"></v-text-field>
@@ -48,26 +41,14 @@
         /*snackbar: false,
         text: ''*/
       }
-    }/*,
-    methods: {
-      order() {
-        this.text = "We received your order. Have a nice day!";
-        this.snackbar = true;
-
-      },
-
-      getCustomer() {
-        this.$axios.get('/api/customers/' + this.$cookies.get('user') + '/').then(
-          (response) => {
-            this.customer = response.data;
-          }
-        )
+    },
+    computed: {
+      user() {
+        return this.$store.getters.user;
       }
-    }*/
+    }
   }
-
 </script>
 
 <style>
-
 </style>
