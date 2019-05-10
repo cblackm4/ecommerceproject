@@ -35,7 +35,7 @@
                                 </tr>
                             </table>
 
-                            <v-data-table :headers="headers" :items="subs.recipes" :key="componentKey"
+                            <v-data-table :headers="headers" :items="subs.recipes"
                                           hide-actions>
                                 <template v-slot:items="props">
                                     <td class="text-xs-left">{{ props.item.name }}</td>
@@ -64,22 +64,24 @@
                                       </v-combobox>
                                     </td>
                                     <td style="text-align:right; width: 4%">
-                                        <v-btn @click="addRecipe()" dark><v-icon>add</v-icon></v-btn>
+                                        <v-btn @click="addProducts()" dark><v-icon>add</v-icon></v-btn>
                                     </td>
                                 </tr>
                             </table>
 
-                            <v-data-table :headers="headers" :items="subs.products" :key="componentKey"
+                            <v-data-table :headers="headers" :items="subs.products"
                                           hide-actions>
-                                <template v-slot:items="props">
-                                    <td class="text-xs-left">{{ props.item.name }}</td>
-                                    <td class="text-xs-left">{{ props.item.description }}</td>
-                                    <td class="text-xs-left">${{ props.item.price }}</td>
-                                    <td><v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
+                                          <template v-slot:items="props">
+                                          <div :key="props.item.name + props.index">
+                                            <td class="text-xs-left">{{ props.item.name }}</td>
+                                            <td class="text-xs-left">{{ props.item.description }}</td>
+                                            <td class="text-xs-left">${{ props.item.price }}</td>
+                                            <td><v-tooltip bottom>
+                                            <template v-slot:activator="{ on }">
 
-                                    </template><span>Remove Item</span></v-tooltip></td>
-                                </template>
+                                            </template><span>Remove Item</span></v-tooltip></td>
+                                          </div>
+                                          </template>
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
@@ -112,11 +114,16 @@
 <script>
   export default {
         data: () => ({
-            subs: {},
+            subs: {
+              user: '',
+              recipes: [],
+              products: [],
+              frequency: '',
+              active: ''
+            },
             recipes: [],
             products: [],
             newSub: true,
-            componentKey: 0,
             selectedRecipe: null,
             selectedProduct: null,
             sub_type: [
@@ -146,12 +153,7 @@
             ],
         }),
         methods: {
-            getSubs() {
-                this.$axios.get('/api/subscriptions/').then(
-                    (response) => {
-                        this.subs = response.data;
-                    }
-                )
+            getData() {
                 this.$axios.get('/api/recipes/').then(
                     (response) => {
 
@@ -180,10 +182,13 @@
             },
             addProducts() {
               this.subs.products.push(this.selectedProduct);
+            },
+            saveSubscription() {
+              this.subs.user = this.$cookies.get('user');
             }
         },
         beforeMount() {
-            this.getSubs();
+            this.getData();
         },
   }
 </script>
