@@ -31,22 +31,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark @click="order">Place Order</v-btn>
+              <v-btn dark>Place Order</v-btn>
             </v-card-actions>
-            <v-snackbar
-      v-model="snackbar"
-      :color="green"
-      :timeout="5000"
-    >
-      {{ text }}
-      <v-btn
-        dark
-        flat
-        @click="snackbar = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
           </v-card>
         </v-flex>
       </v-layout>
@@ -59,16 +45,17 @@
     data () {
       return {
         user_info: true,
-        snackbar: false,
-        text: ''
+        /*snackbar: false,
+        text: ''*/
       }
-    },
+    }/*,
     methods: {
       order() {
         this.text = "We received your order. Have a nice day!";
         this.snackbar = true;
 
-      }
+      },
+
       getCustomer() {
         this.$axios.get('/api/customers/' + this.$cookies.get('user') + '/').then(
           (response) => {
@@ -76,9 +63,9 @@
           }
         )
       }
-    }
+    }*/
   }
-}
+
 </script>
 
 <style>
