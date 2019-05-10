@@ -70,15 +70,15 @@
                 to resubscribe to the item, you will have to readd the item to your subscription.</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" flat @click="dialog = false, agreed = false">Disagree</v-btn>
-                  <v-btn color="green darken-1" flat @click="dialog = false, agreed = true">Agree</v-btn>
+                  <v-btn color="green darken-1" flat @click="dialog = false">Disagree</v-btn>
+                  <v-btn color="green darken-1" flat @click="dialog = false; cancelSub();">Agree</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="cancelSub()" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
+                <v-btn @click="dialog=true;" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
             </v-card-actions>
 
           </v-card>
