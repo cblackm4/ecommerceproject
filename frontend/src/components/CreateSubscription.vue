@@ -11,6 +11,10 @@
                                 <v-spacer></v-spacer>
                                 <v-spacer></v-spacer>
                                 <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-btn @click="$router.push('/subscriptions/')" flat><v-icon>keyboard_arrow_left</v-icon>Back to Subscriptions</v-btn>
+                                <v-tooltip right>
+                                </v-tooltip>
                             </v-toolbar>
                             <v-spacer></v-spacer>
                             <v-tooltip right>
@@ -18,7 +22,7 @@
                         </v-toolbar>
                         <v-card-text>
                           <v-form>
-                            <v-combobox v-model="subs.frequency" :items="sub_type" required label="Select a Subscription Type"></v-combobox>
+                            <v-combobox v-model="subs.frequency" :items="sub_type" label="Select a Subscription Type"></v-combobox>
 
                             <table style="width: 100%">
                                 <tr>
@@ -46,7 +50,7 @@
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                        Select recipes to add to this subscription.
+                                        No recipes added to this subscription.
                                     </v-alert>
                                 </template>
                             </v-data-table>
@@ -79,7 +83,7 @@
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                        Select products to add to this subscription.
+                                        No products added to this subscription.
                                     </v-alert>
                                 </template>
                             </v-data-table>
@@ -99,13 +103,25 @@
                             <v-btn @click="saveSubscription()" dark>Save Subscription</v-btn>
                         </v-card-actions>
 
+                        <v-dialog dark v-model="confirmSub" persistent max-width="500">
+                          <v-card>
+                            <v-card-title class="headline">Success!</v-card-title>
+                            <v-card-text>Thank you for creating a subscription with Pawkages! Redirecting you to your subscriptions page...
+                            <div class="text-xs-center">
+                              <v-progress-circular
+                                indeterminate
+                                color="white"
+                              ></v-progress-circular></div></v-card-text>
+                          </v-card>
+                        </v-dialog>
+
                         <v-dialog dark v-model="errorDialog" persistent max-width="500">
                           <v-card>
                             <v-card-title class="headline">Error Creating Subscription</v-card-title>
                             <v-card-text>Make sure that you have selected a subscription type and have added at least one (1) recipe or product to your subscription.</v-card-text>
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn dark flat @click="errorDialog = false">OK!</v-btn>
+                              <v-btn color="white" flat @click="errorDialog = false">OK!</v-btn>
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
@@ -132,6 +148,7 @@
             selectedRecipe: null,
             selectedProduct: null,
             errorDialog: false,
+            confirmSub: false,
             sub_type: [
               {
                 text: '30 Days',
@@ -233,7 +250,9 @@
                   // API post
                   this.$axios.post('/api/subscriptions/', newSub).then(
                   (response) => {
-                      this.$router.push('/subscriptions/' + response.data.id + '/');
+                      this.confirmSub = true;
+                      setTimeout(() =>
+                        this.$router.push('/subscriptions/'), 2000);
                   })
 
                 } else {
@@ -242,7 +261,7 @@
               } else {
                 this.errorDialog = true;
               }
-            }
+            },
         },
         beforeMount() {
             this.getData();
