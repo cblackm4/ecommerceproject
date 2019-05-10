@@ -18,7 +18,7 @@
                         </v-toolbar>
                         <v-card-text>
                           <v-form>
-                            <v-combobox :items="sub_type" label="Subscription Type"></v-combobox>
+                            <v-combobox v-model="subs.frequency" :items="sub_type" required label="Select a Subscription Type"></v-combobox>
 
                             <table style="width: 100%">
                                 <tr>
@@ -41,15 +41,12 @@
                                     <td class="text-xs-left">{{ props.item.name }}</td>
                                     <td class="text-xs-left">{{ props.item.description }}</td>
                                     <td class="text-xs-left">${{ props.item.price }}</td>
-                                    <td><v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-
-                                    </template><span>Remove Item</span></v-tooltip></td>
+                                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe(recipe)" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
                                 </template>
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                        Select ingredients to add to this recipe
+                                        Select recipes to add to this subscription.
                                     </v-alert>
                                 </template>
                             </v-data-table>
@@ -76,16 +73,13 @@
                                             <td class="text-xs-left">{{ props.item.name }}</td>
                                             <td class="text-xs-left">{{ props.item.description }}</td>
                                             <td class="text-xs-left">${{ props.item.price }}</td>
-                                            <td><v-tooltip bottom>
-                                            <template v-slot:activator="{ on }">
-
-                                            </template><span>Remove Item</span></v-tooltip></td>
+                                            <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeProduct(props.item)" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
                                           </div>
                                           </template>
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                        Select ingredients to add to this recipe
+                                        Select products to add to this subscription.
                                     </v-alert>
                                 </template>
                             </v-data-table>
@@ -104,6 +98,17 @@
                             <v-spacer></v-spacer>
                             <v-btn @click="saveSubscription()" dark>Save Subscription</v-btn>
                         </v-card-actions>
+
+                        <v-dialog dark v-model="dialog" max-width="500">
+                          <v-card>
+                            <v-card-title class="headline">Error Creating Subscription</v-card-title>
+                            <v-card-text>Make sure that you have selected a subscroption type and have added at least one (1) recipe or product to your subscription.</v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn dark flat @click="dialog = false;">OK!</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -124,16 +129,18 @@
             recipes: [],
             products: [],
             newSub: true,
+            selectedSub: null,
             selectedRecipe: null,
             selectedProduct: null,
+            dialog: false,
             sub_type: [
               {
                 text: '30 Days',
-                value: 'thirty_days'
+                value: '30 00:00:00'
               },
               {
                 text: '6 Months',
-                value: 'six_months'
+                value: '180 00:00:00'
               },
             ],
             headers: [
@@ -183,8 +190,28 @@
             addProducts() {
               this.subs.products.push(this.selectedProduct);
             },
+            removeRecipe(recipe) {
+              recipe = this.recipe;
+              this.subs.recipes.pop(recipe);
+            },
+            removeProduct(product) {
+              this.subs.products.pop(product);
+            },
             saveSubscription() {
-              this.subs.user = this.$cookies.get('user');
+              var frequency = this.subs.frequency.value;
+              var products = this.subs.products;
+              var recipes = this.subs.recipes;
+              if (frequency != undefined && frequency != null && products.length != 0 || recipes.length != 0) {
+                this.subs.user = this.$cookies.get('user');
+                console.log(this.subs.user);
+                console.log(frequency);
+                console.log(products);
+                console.log(recipes);
+                this.subs.active = true;
+                console.log(this.subs.active);
+              } else {
+                this.dialog = true;
+              }
             }
         },
         beforeMount() {

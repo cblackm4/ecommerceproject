@@ -78,7 +78,7 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="dialog=true;" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
+                <v-btn @click="dialog=true" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
             </v-card-actions>
 
           </v-card>
