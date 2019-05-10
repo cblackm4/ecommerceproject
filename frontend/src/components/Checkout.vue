@@ -10,6 +10,19 @@
               <v-tooltip right>
               </v-tooltip>
             </v-toolbar>
+            <v-layout row wrap align-center justify-center>
+              <v-flex xs12 md9>
+                <v-card class="product-img">
+                  <v-data-table :headers="headers" :items="allItems" class="elevation-1" :key="componentKey" hide-actions>
+                      <template v-slot:items="props">
+                          <td class="text-xs-left">{{ props.item.name }}</td>
+                          <td class="text-xs-left">{{ props.item.description }}</td>
+                          <td class="text-xs-left">${{ formatPrice(props.item.price) }}</td>
+                      </template>
+                  </v-data-table>
+                </v-card>
+              </v-flex>
+            </v-layout>
             <v-card-text>
               <v-form>
                 <v-text-field name="first_name" label="First Name" type="text" v-model="user.first_name"></v-text-field>
@@ -35,13 +48,25 @@
 
 <script>
   export default {
-    data () {
-      return {
-        user_info: true,
-        /*snackbar: false,
-        text: ''*/
+    data: () => ({
+      headers: [{
+          text: 'Name',
+          value: 'name',
+          sortable: false
+      },
+      {
+          text: 'Description',
+          value: 'description',
+          sortable: false
+      },
+      {
+          text: 'Price',
+          value: 'price',
+          sortable: false
       }
-    },
+  ],
+      componentKey: 0,
+  }),
     computed: {
       user() {
         return this.$store.getters.user;
