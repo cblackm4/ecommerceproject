@@ -40,8 +40,8 @@
                                 <template v-slot:items="props">
                                     <td class="text-xs-left">{{ props.item.name }}</td>
                                     <td class="text-xs-left">{{ props.item.description }}</td>
-                                    <td class="text-xs-left">${{ props.item.price }}</td>
-                                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe(recipe)" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
+                                    <td class="text-xs-left">${{ props.item.cost }}</td>
+                                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe(props.item)" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
                                 </template>
 
                                 <template v-slot:no-data>
@@ -86,7 +86,7 @@
 
                             <table style="width: 100%;     border-top: 1px solid lightgray;">
                                 <tr>
-                                    <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Recipe Price: </h3></td>
+                                    <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Subscription Total ({{ subs.frequency.text }}): </h3></td>
                                     <td style="float: right; padding-right: 120px; padding-top: 16px; font-weight: 400; font-size: 13px;">
 
                                     </td>
@@ -99,13 +99,13 @@
                             <v-btn @click="saveSubscription()" dark>Save Subscription</v-btn>
                         </v-card-actions>
 
-                        <v-dialog dark v-model="dialog" max-width="500">
+                        <v-dialog dark v-model="errorDialog" persistent max-width="500">
                           <v-card>
                             <v-card-title class="headline">Error Creating Subscription</v-card-title>
-                            <v-card-text>Make sure that you have selected a subscroption type and have added at least one (1) recipe or product to your subscription.</v-card-text>
+                            <v-card-text>Make sure that you have selected a subscription type and have added at least one (1) recipe or product to your subscription.</v-card-text>
                             <v-card-actions>
                               <v-spacer></v-spacer>
-                              <v-btn dark flat @click="dialog = false;">OK!</v-btn>
+                              <v-btn dark flat @click="errorDialog = false">OK!</v-btn>
                             </v-card-actions>
                           </v-card>
                         </v-dialog>
@@ -128,11 +128,10 @@
             },
             recipes: [],
             products: [],
-            newSub: true,
             selectedSub: null,
             selectedRecipe: null,
             selectedProduct: null,
-            dialog: false,
+            errorDialog: false,
             sub_type: [
               {
                 text: '30 Days',
@@ -164,12 +163,12 @@
                 this.$axios.get('/api/recipes/').then(
                     (response) => {
 
-                        var recipes = response.data;
+                        var recipes = response.data, recipeCost;
                         for (var i = 0; i < recipes.length; i++) {
                             recipes[i].text = recipes[i].name;
                             recipes[i].value = recipes[i].id;
+                            recipes[i].cost = recipes[i].cost;
                         }
-
                         this.recipes = recipes;
                     }
                 )
@@ -191,7 +190,6 @@
               this.subs.products.push(this.selectedProduct);
             },
             removeRecipe(recipe) {
-              recipe = this.recipe;
               this.subs.recipes.pop(recipe);
             },
             removeProduct(product) {
@@ -201,16 +199,48 @@
               var frequency = this.subs.frequency.value;
               var products = this.subs.products;
               var recipes = this.subs.recipes;
-              if (frequency != undefined && frequency != null && products.length != 0 || recipes.length != 0) {
-                this.subs.user = this.$cookies.get('user');
-                console.log(this.subs.user);
-                console.log(frequency);
-                console.log(products);
-                console.log(recipes);
-                this.subs.active = true;
-                console.log(this.subs.active);
+
+              // If frequency is not selected and at least one recipe or product is not chosen - display an error to the user
+              if (frequency != undefined && frequency != null) {
+                if (products.length != 0 || recipes.length != 0) {
+                  this.subs.active = true;
+
+                  // Create arrays to store IDs of recipes and products to pass to newSub object
+                  var productID = new Array();
+                  for (var x in this.subs.products) {
+                    productID.push(this.subs.products[x].id);
+                  }
+
+                  var recipeID = new Array();
+                  for (var y in this.subs.recipes) {
+                    recipeID.push(this.subs.recipes[y].id);
+                  }
+
+                  //Create object ot pass to API
+                  var newSub = {
+                    "user": this.$cookies.get('user'),
+                    "recipes": [recipeID],
+                    "products": [productID],
+                    "frequency": frequency,
+                    "active": this.subs.active
+                  }
+
+                  // Test output
+                  for (var i in newSub) {
+                      console.log('key is: ' + i + ', value is: ' + newSub[i]);
+                  }
+
+                  // API post
+                  this.$axios.post('/api/subscriptions/', newSub).then(
+                  (response) => {
+                      this.$router.push('/subscriptions/' + response.data.id + '/');
+                  })
+
+                } else {
+                  this.errorDialog = true;
+                }
               } else {
-                this.dialog = true;
+                this.errorDialog = true;
               }
             }
         },
