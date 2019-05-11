@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap justify-center>
-      <v-flex xs12 md8>
+      <v-flex xs12 md9>
         <v-carousel>
           <v-carousel-item
             v-for="(item,i) in items"
@@ -9,11 +9,41 @@
             :src="item.src"
           ></v-carousel-item>
         </v-carousel>
+        <br />
+        <v-layout align-center justify-center>
+          <v-flex xs12 md8>
+            <v-layout align-center column justify-center>
+              <h1 class="display-2 font-weight-thin text-center">Shop Pawkages</h1>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+
+        <v-container fluid grid-list-md>
+          <v-layout row wrap justify-center fill-height>
+            <v-flex v-for="card in cards" :key="card.title" v-bind="{ [`xs${card.flex}`]: true }">
+              <v-card dark>
+                <router-link :to="{ name: card.name, params: { cards: route}}"><v-img position="center" :src="card.src" height="400px">
+
+                  <v-container fill-height fluid pa-2>
+                    <v-layout fill-height>
+                      <v-flex xs12 md9 align-end flexbox>
+                        <span class="headline white--text" v-text="card.title">
+                        </span>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-img>
+                </router-link>
+                <v-card-text>
+                  {{ card.description }}
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </v-flex>
     </v-layout>
   </v-container>
-
-
 </template>
 
 <script>
@@ -32,10 +62,43 @@
          {
            src: 'https://static.boredpanda.com/blog/wp-content/uploads/2019/04/dogs-catching-treats-frei-schnauze-christian-vieler-254-5ca20b9835d48__700.jpg'
          }
+      ],
+      route: '',
+      cards: [
+        {
+          title: 'Products',
+          src: require('@/assets/card1.jpg'),
+          flex: 12,
+          name: "Products",
+          route: '../products',
+          description: "Browse our robust collection of dog and cat food. You can find trusted brands for any general feeding need."
+        },
+        {
+          title: 'Subscriptions',
+          src: require('@/assets/card2.jpg'),
+          flex: 6,
+          name: "Subscriptions",
+          route: '../subscriptions',
+          description: "Find a product that you love? Created a recipe that you need for your furry friends diet? Set up a subscription and pay every month or every 6 months!"
+        },
+        {
+          title: 'Recipes',
+          src: require('@/assets/card3.jpg'),
+          flex: 6,
+          name: "Recipes",
+          route: '../recipes',
+          description: "Does basic nutrition not apply? Prefer to control what's in your animals diet? Browse our ingredients and create a recipe you need for any situation!"
+        },
       ]
     })
   }
 </script>
 
-<style>
+<style scoped lang="sass">
+  a
+    color: white
+    text-decoration: none
+
+  a:visited
+    color: white
 </style>
