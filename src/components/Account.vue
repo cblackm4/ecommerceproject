@@ -41,7 +41,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn @click="save" dark>Save</v-btn>
-              <v-btn dark>Reset Password</v-btn>
+              <v-btn href="/accounts/password_reset/" dark>Reset Password</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
