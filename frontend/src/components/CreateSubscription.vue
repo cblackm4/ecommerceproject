@@ -235,20 +235,6 @@
                       this.subs.frequency = frequency;
                       this.subs.user = this.$cookies.get('user');
 
-                      var productObject, newProducts = [];
-                      for (var i = 0; i < products.length; i++) {
-                          productObject = {};
-                          productObject.img_src = products[i].img_src;
-                          productObject.name = products[i].name;
-                          productObject.description = products[i].description;
-                          productObject.price = products[i].price;
-                          productObject.inventory = products[i].inventory;
-
-                          newProducts.push(productObject);
-                      }
-
-                      this.subs.products = newProducts;
-
                       console.log(this.subs);
 
                       // API post
