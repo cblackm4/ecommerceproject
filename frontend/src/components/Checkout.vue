@@ -13,13 +13,15 @@
             <v-layout row wrap align-center justify-center>
               <v-flex xs12 md9>
                 <v-card class="product-img">
-                  <v-data-table :headers="headers" :items="allItems" class="elevation-1" :key="componentKey" hide-actions>
-                      <template v-slot:items="props">
-                          <td class="text-xs-left">{{ props.item.name }}</td>
-                          <td class="text-xs-left">{{ props.item.description }}</td>
-                          <td class="text-xs-left">${{ formatPrice(props.item.price) }}</td>
-                      </template>
-                  </v-data-table>
+                  <div>
+                    Subtotal: $100.00
+                    <v-spacer></v-spacer>
+                    Tax (8.25%): $8.25
+                    <v-spacer></v-spacer>
+                    Shipping: FREE
+                    <v-spacer></v-spacer>
+                    Grand Total: $108.25
+                  </div>
                 </v-card>
               </v-flex>
             </v-layout>
