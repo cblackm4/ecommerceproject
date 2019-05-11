@@ -55,6 +55,11 @@
             allItems: [],
             subtotal: 0,
             user: null,
+            orders: {
+              user: '',
+              products: [],
+              date: ''
+            },
             headers: [{
                 text: 'Name',
                 value: 'name',
@@ -140,6 +145,17 @@
                 let val = (value / 1).toFixed(2)
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             }
+        },
+        orderPlaced() {
+          this.orders.user = this.$cookies.get('user');
+          this.orders.date = new Date();
+          this.orders.products = products;
+
+          this.$axios.post('/api/transactions/', this.orders).then(
+            (response) => {
+              this.$router.push('/transactions/' + response.data.id + '/');
+            }
+          )
         },
   beforeMount() {
     this.getCart();

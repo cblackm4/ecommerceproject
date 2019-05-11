@@ -50,6 +50,7 @@ class Subscription(models.Model):
 class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     products = models.ManyToManyField(Product)
+    recipes = models.ManyToManyField(Recipe)
     date = models.DateTimeField(auto_now_add=True)
 
 
