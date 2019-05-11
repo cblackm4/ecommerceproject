@@ -20,7 +20,7 @@
                         <v-spacer></v-spacer>
                         Shipping: FREE
                         <v-spacer></v-spacer>
-                        Grand Total: ${{ formatPrice(subtotal + (subtotal*0.825)) }}
+                        Grand Total: ${{ formatPrice(subtotal + (subtotal*0.0825)) }}
                     </div>
                 </v-card>
               </v-flex>
