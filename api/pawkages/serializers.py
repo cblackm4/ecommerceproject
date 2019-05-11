@@ -94,6 +94,33 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
         return subscription
 
+    def update(self, instance, validated_data):
+
+        recipe_data = validated_data.pop('recipes')
+        product_data = validated_data.pop('products')
+
+        new_frequency = validated_data.pop('frequency')
+        new_active = validated_data.pop('active')
+
+        recipe_list = list()
+        product_list = list()
+
+        for recipe in recipe_data:
+            recipe_list.append(Recipe.objects.get(name=recipe.get('name')))
+
+        for product in product_data:
+            product_list.append(Product.objects.get(name=product.get('name')))
+
+
+        instance.recipes.set(recipe_list)
+        instance.products.set(product_list)
+
+        instance.frequency = new_frequency
+        instance.active = new_active
+        instance.save()
+
+        return instance
+
 
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
