@@ -1,0 +1,13 @@
+Hero Image:
+	https://pixabay.com/photos/golden-retriever-puppy-2706672/
+
+Card Images on Home Page
+	card 1 https://pixabay.com/photos/dog-eat-biscuit-reward-843800/
+	card 2 https://pixabay.com/photos/dog-eat-fressnapf-dog-food-food-2210717/
+	card 3 https://pixabay.com/photos/dog-puppy-small-dog-gnaw-animal-1599078/
+	card 4 https://pixabay.com/photos/bone-cachorra-female-dogs-1555086/
+
+About Us
+	https://pixabay.com/photos/dog-man-water-reflection-4153418/
+
+

@@ -95,7 +95,7 @@
 
                                 <table style="width: 100%;     border-top: 1px solid lightgray;">
                                     <tr>
-                                        <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Subscription Total ({{ subs.frequency.text }}): </h3></td>
+                                        
                                         <td style="float: right; padding-right: 120px; padding-top: 16px; font-weight: 400; font-size: 13px;"></td>
                                     </tr>
                                 </table>
@@ -103,7 +103,7 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn @click="saveSubscription()" dark>Save Subscription</v-btn>
+                            <v-btn @click="saveSubscription()" dark>Create Subscription</v-btn>
                         </v-card-actions>
 
                         <v-dialog dark v-model="confirmSub" persistent max-width="500">
@@ -235,13 +235,14 @@
                       this.subs.frequency = frequency;
                       this.subs.user = this.$cookies.get('user');
 
-                      console.log(this.subs);
-
                       // API post
                       this.$axios.post('/api/subscriptions/', this.subs).then(
                           (response) => {
-                              this.$router.push('/subscriptions/' + response.data.id + '/');
+                              this.confirmSub = true;
+                              setTimeout(() =>
+                                this.$router.push('/subscriptions/' + response.data.id + '/'), 2000);
                           })
+
 
                   } else {
                   this.errorDialog = true;

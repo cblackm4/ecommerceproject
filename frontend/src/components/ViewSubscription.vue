@@ -270,7 +270,9 @@ export default {
 
             this.$axios.put('/api/subscriptions/' + this.$route.params.id + '/', this.subs).then(
                 (response) => {
-                    this.$router.push('/subscriptions/' + response.data.id + '/');
+                    this.saveDialog = true;
+                    setTimeout(() =>
+                      this.$router.push('/subscriptions/'), 2000);
                 })
 
         }
