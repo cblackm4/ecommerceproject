@@ -263,14 +263,15 @@ export default {
           this.editDetail = true;
         },
         saveSub() {
-            this.subs.active = (this.subs.active === "Active");
-            this.subs.frequency = (this.subs.active === "30 Days") ? '30 00:00:00' : '180 00:00:00';
-            console.log(this.subs);
+            var currentFreq = '' + this.subs.frequency;
+
+            this.subs.active = true;
+            this.subs.frequency = (currentFreq.includes("30")) ? '30 00:00:00' : '180 00:00:00';
+
             this.$axios.put('/api/subscriptions/' + this.$route.params.id + '/', this.subs).then(
                 (response) => {
                     this.$router.push('/subscriptions/' + response.data.id + '/');
                 })
-
 
         }
     },
