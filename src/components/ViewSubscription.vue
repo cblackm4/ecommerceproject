@@ -263,23 +263,18 @@ export default {
           this.editDetail = true;
         },
         saveSub() {
+            var currentFreq = '' + this.subs.frequency;
 
-          var editedSub = {
-            "user": this.$cookies.get('user'),
-            "recipes": this.subs.recipes,
-            "products": this.subs.products,
-            "frequency": this.subs.frequency.value,
-            "active": this.subs.active
-          }
+            this.subs.active = true;
+            this.subs.frequency = (currentFreq.includes("30")) ? '30 00:00:00' : '180 00:00:00';
 
-          this.$axios.put('/api/subscriptions/' + this.$route.params.id + '/', editedSub).then(
-              (response) => {
-                this.confirmSub = true;
-                setTimeout(() =>
-                  this.$router.push('/subscriptions/' + response.data.id + '/'), 2000);
-              },
-              (error) => { alert("fail"); }
-            )
+            this.$axios.put('/api/subscriptions/' + this.$route.params.id + '/', this.subs).then(
+                (response) => {
+                    this.saveDialog = true;
+                    setTimeout(() =>
+                      this.$router.push('/subscriptions/'), 2000);
+                })
+
         }
     },
     beforeMount() {

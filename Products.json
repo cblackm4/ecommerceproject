@@ -26,7 +26,7 @@
     "pk" : 3,
     "fields" : {
       "img_src" : "https://www.beneful.com/sites/g/files/auxxlc231/files/styles/kraken_product_carousel_regular/public/BF_BakedDelights_Snackers_16542.jpg?itok=4VU8nNOP",
-      "name" : "Baked Delights® Snackers",
+      "name" : "Baked Delights® Snackers - Medium",
       "description" : "Contains 1 - 9.5 oz bag Super-savory, super-snackable, these oven-baked dog treats with soft centers and made with peanut butter (natural and artificial) and cheese flavors are sure to delight your best bud.",
       "price" : 3.08,
       "inventory" : 20
@@ -37,7 +37,7 @@
     "pk" : 4,
     "fields" : {
       "img_src" : "https://www.beneful.com/sites/g/files/auxxlc231/files/styles/kraken_product_carousel_regular/public/BF_BakedDelights_Snackers_16542.jpg?itok=4VU8nNOP",
-      "name" : "Baked Delights® Snackers",
+      "name" : "Baked Delights® Snackers - Large",
       "description" : "Contains 1 - 22 oz bag Super-savory, super-snackable, these oven-baked dog treats with soft centers and made with peanut butter (natural and artificial) and cheese flavors are sure to delight your best bud.",
       "price" : 5.67,
       "inventory" : 20
@@ -403,69 +403,6 @@
       "user": 1,
       "shipping_address": "",
       "billing_address": ""
-    }
-  },
-  {
-    "model": "pawkages.recipe",
-    "pk": 1,
-    "fields": {
-      "user": 1,
-      "name": "Test Recipe One",
-      "description": "This is the first test recipe.",
-      "pet_size": "SM",
-      "ingredients": [
-        1,
-        5
-      ]
-    }
-  },
-  {
-    "model": "pawkages.recipe",
-    "pk": 2,
-    "fields": {
-      "user": 1,
-      "name": "Test Recipe Two",
-      "description": "Yet another amazing recipe!",
-      "pet_size": "MD",
-      "ingredients": [
-        9,
-        12,
-        15,
-        18
-      ]
-    }
-  },
-  {
-    "model" : "pawkages.subscription",
-    "pk" : 1,
-    "fields" : {
-      "user" : 1,
-      "recipes" : [
-        1,
-        2
-      ],
-      "products" : [
-        3,
-        7,
-        15
-      ],
-      "frequency" : "30 00:00:00",
-      "active" : true
-    }
-  },
-  {
-    "model" : "pawkages.subscription",
-    "pk" : 2,
-    "fields" : {
-      "user" : 1,
-      "recipes" : [],
-      "products" : [
-        1,
-        4,
-        11
-      ],
-      "frequency" : "30 00:00:00",
-      "active" : true
     }
   }
 ]

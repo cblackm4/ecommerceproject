@@ -150,6 +150,7 @@ export default {
       * Route: the name of the component that needs to be routed
       */
       drawer: false,
+      route: '',
       items: [
         {title:'Home', icon: 'home', route:"/"},
         {title:'Products', icon: 'pets', route:"../products"},
@@ -233,12 +234,13 @@ export default {
 
   .social-footer a
     color: white
+    opacity: 0.7
     text-decoration: none
 
   .social-footer a:visited
     color: white
 
-  .v-list__tile .v-list__tile--link .theme--dark
-    padding: 0
+  .social-footer a:hover
+    opacity: 1.0
 
 </style>
