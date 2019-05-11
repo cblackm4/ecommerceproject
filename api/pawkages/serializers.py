@@ -66,12 +66,33 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class SubscriptionSerializer(serializers.ModelSerializer):
 
-    products = ProductSerializer(many=True, read_only=True)
-    recipes = RecipeSerializer(many=True, read_only=True)
+    products = ProductSerializer(many=True)
+    recipes = RecipeSerializer(many=True)
 
     class Meta:
         model = Subscription
         fields = '__all__'
+
+    def create(self, validated_data):
+        recipe_data = validated_data.pop('recipes')
+        product_data = validated_data.pop('products')
+
+        subscription = Subscription.objects.create(**validated_data)
+
+        recipe_list = list()
+        product_list = list()
+
+        for recipe in recipe_data:
+            recipe_list.append(Recipe.objects.get(name=recipe.get('name')))
+
+        for product in product_data:
+            product_list.append(Product.objects.get(name=product.get('name')))
+
+        subscription.recipes.set(recipe_list)
+        subscription.products.set(product_list)
+        subscription.save()
+
+        return subscription
 
 
 class TransactionSerializer(serializers.ModelSerializer):
