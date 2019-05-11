@@ -19,6 +19,11 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        instance.inventory = validated_data.pop('inventory')
+        instance.save()
+        return instance
+
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +39,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = ('id','user', 'pet_size', 'name', 'ingredients', 'description')
-    
+
     def create(self, validated_data):
         ingredients_data = validated_data.pop('ingredients')
         recipe = Recipe.objects.create(**validated_data)
@@ -130,10 +135,33 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
 
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    #products = ProductSerializer(many=True)
+    #recipes = RecipeSerializer(many=True)
 
     class Meta:
         model = Transaction
         fields = '__all__'
+
+    def create(self, validated_data):
+        recipe_data = validated_data.pop('recipes')
+        product_data = validated_data.pop('products')
+
+        transaction = Transaction.objects.create(**validated_data)
+
+        recipe_list = list()
+        product_list = list()
+
+        for recipe in recipe_data:
+            recipe_list.append(Recipe.objects.get(name=recipe.get('name')))
+
+        for product in product_data:
+            product_list.append(Product.objects.get(name=product.get('name')))
+
+        transaction.recipes.set(recipe_list)
+        transaction.products.set(product_list)
+        transaction.save()
+
+        return transaction
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
