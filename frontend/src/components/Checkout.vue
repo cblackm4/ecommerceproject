@@ -13,15 +13,15 @@
             <v-layout row wrap align-center justify-center>
               <v-flex xs12 md9>
                 <v-card class="product-img">
-                  <div>
-                    Subtotal: $100.00
-                    <v-spacer></v-spacer>
-                    Tax (8.25%): $8.25
-                    <v-spacer></v-spacer>
-                    Shipping: FREE
-                    <v-spacer></v-spacer>
-                    Grand Total: $108.25
-                  </div>
+                    <div>
+                        Subtotal: ${{ formatPrice(subtotal) }}
+                        <v-spacer></v-spacer>
+                        Tax (8.25%): ${{ formatPrice(subtotal*0.825) }}
+                        <v-spacer></v-spacer>
+                        Shipping: FREE
+                        <v-spacer></v-spacer>
+                        Grand Total: ${{ formatPrice(subtotal + (subtotal*0.825)) }}
+                    </div>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -49,32 +49,102 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      headers: [{
-          text: 'Name',
-          value: 'name',
-          sortable: false
-      },
-      {
-          text: 'Description',
-          value: 'description',
-          sortable: false
-      },
-      {
-          text: 'Price',
-          value: 'price',
-          sortable: false
-      }
-  ],
-      componentKey: 0,
-  }),
-    computed: {
-      user() {
-        return this.$store.getters.user;
-      }
-    }
-  }
+    export default {
+        data: () => ({
+            cartItems: { products: [], recipes: [] },
+            allItems: [],
+            subtotal: 0,
+            user: null,
+            headers: [{
+                text: 'Name',
+                value: 'name',
+                sortable: false
+            },
+            {
+                text: 'Description',
+                value: 'description',
+                sortable: false
+            },
+            {
+                text: 'Price',
+                value: 'price',
+                sortable: false
+            }
+            ],
+            componentKey: 0,
+        }),
+        methods: {
+            getCart() {
+                this.user = this.$store.getters.user;
+                this.subtotal = 0.0;
+                this.allItems = [];
+
+                var subTotal = 0;
+                this.cartItems = this.$store.getters.cart;
+                this.show = (this.cartItems.products.length + this.cartItems.recipes.length) > 0;
+
+                this.$axios.get('/api/recipes/').then(
+                    (response) => {
+                        var userRecipes = response.data,
+                            currentRecipe, cartRecipe,
+                            recipeCost;
+
+                        for (var r = 0; r < userRecipes.length; r++) {
+                            currentRecipe = userRecipes[r];
+                            recipeCost = 0;
+                            for (var i = 0; i < currentRecipe.ingredients.length; i++) {
+                                recipeCost += currentRecipe.ingredients[i].price;
+                            }
+
+                            currentRecipe.price = recipeCost;
+                            currentRecipe.isRecipe = true;
+                        }
+
+                        subTotal = 0;
+                        for (var i = 0; i < this.cartItems.recipes.length; i++) {
+                            cartRecipe = this.cartItems.recipes[i];
+                            for (var r = 0; r < userRecipes.length; r++) {
+                                currentRecipe = userRecipes[r];
+                                if (currentRecipe.id == cartRecipe) {
+                                    subTotal += currentRecipe.price;
+                                    this.allItems.push(currentRecipe);
+                                }
+                            }
+                        }
+                        this.subtotal += parseFloat(subTotal);
+                    }
+                )
+
+                this.$axios.get('/api/products/').then(
+                    (response) => {
+                        var products = response.data,
+                            cartProduct, currentProduct;
+
+                        subTotal = 0;
+                        for (var i = 0; i < this.cartItems.products.length; i++) {
+                            cartProduct = this.cartItems.products[i];
+                            for (var r = 0; r < products.length; r++) {
+                                currentProduct = products[r];
+                                if (currentProduct.id == cartProduct) {
+                                    subTotal += currentProduct.price;
+                                    currentProduct.isRecipe = false;
+                                    this.allItems.push(currentProduct);
+                                }
+                            }
+                        }
+                        this.subtotal += parseFloat(subTotal);
+                    }
+                )
+            },
+            formatPrice(value) {
+                let val = (value / 1).toFixed(2)
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            }
+        },
+  beforeMount() {
+    this.getCart();
+  },
+}
 </script>
 
 <style>
