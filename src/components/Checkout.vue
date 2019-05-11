@@ -149,17 +149,39 @@
               let val = (value / 1).toFixed(2)
               return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
           },
+          retrieveItems(callback) {
+            for (var i = 0; i < this.cartItems.products.length; i++) {
+              this.$axios.get('/api/products/' + this.cartItems.products[i] + '/').then(
+                (response) => {
+                  console.log(response.data)
+                  this.orders.products.push(response.data);
+                  if (i === this.cartItems.products.length - 1 && this.cartItems.recipes.length === 0) {
+                    callback();
+                  }
+                }
+              )
+            }
+            for (var i = 0; i < this.cartItems.recipes.length; i++) {
+              this.$axios.get('/api/recipes/' + this.cartItems.recipes[i] + '/').then(
+                (response) => {
+                  this.orders.recipes.push(response.data);
+                  if (i === this.cartItems.recipes.length - 1) {
+                    callback();
+                  }
+                }
+              )
+            }
+          },
           orderPlaced() {
             this.orders.user = this.$cookies.get('user');
             this.orders.date = new Date();
-            this.orders.products = this.cartItems.products;
-            this.orders.recipes = this.cartItems.recipes;
-
-            this.$axios.post('/api/transactions/', this.orders).then(
-              (response) => {
-                this.$router.push('/transactions/' + response.data.id + '/');
-              }
-            )
+            this.retrieveItems(() => {
+              this.$axios.post('/api/transactions/', this.orders).then(
+                (response) => {
+                  this.$router.push('/transactions/' + response.data.id + '/');
+                }
+              )
+            });
           },
         },
   beforeMount() {

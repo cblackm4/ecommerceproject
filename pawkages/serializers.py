@@ -135,8 +135,8 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
 
     user = serializers.PrimaryKeyRelatedField(read_only=True)
-    #products = ProductSerializer(many=True)
-    #recipes = RecipeSerializer(many=True)
+    products = ProductSerializer(many=True)
+    recipes = RecipeSerializer(many=True)
 
     class Meta:
         model = Transaction
