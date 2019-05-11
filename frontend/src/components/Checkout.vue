@@ -16,7 +16,7 @@
                     <div>
                         Subtotal: ${{ formatPrice(subtotal) }}
                         <v-spacer></v-spacer>
-                        Tax (8.25%): ${{ formatPrice(subtotal*0.825) }}
+                        Tax (8.25%): ${{ formatPrice(subtotal*0.0825) }}
                         <v-spacer></v-spacer>
                         Shipping: FREE
                         <v-spacer></v-spacer>
