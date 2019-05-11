@@ -39,7 +39,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark>Place Order</v-btn>
+              <v-btn @click="orderPlaced()" dark>Place Order</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -58,6 +58,7 @@
             orders: {
               user: '',
               products: [],
+              recipes: [],
               date: ''
             },
             headers: [{
@@ -149,10 +150,12 @@
         orderPlaced() {
           this.orders.user = this.$cookies.get('user');
           this.orders.date = new Date();
-          this.orders.products = products;
+          this.orders.products = this.cartItems.product;
+          this.orders.recipes = this.cartItems.recipes;
 
           this.$axios.post('/api/transactions/', this.orders).then(
             (response) => {
+
               this.$router.push('/transactions/' + response.data.id + '/');
             }
           )
