@@ -10,20 +10,26 @@
               <v-tooltip right>
               </v-tooltip>
             </v-toolbar>
-            <v-switch v-model="user_info" label="Do not use information from pawkages account: "></v-switch>
+            <v-layout row wrap align-center justify-center>
+              <v-flex xs12 md9>
+                <v-card class="product-img">
+                  <v-data-table :headers="headers" :items="allItems" class="elevation-1" :key="componentKey" hide-actions>
+                      <template v-slot:items="props">
+                          <td class="text-xs-left">{{ props.item.name }}</td>
+                          <td class="text-xs-left">{{ props.item.description }}</td>
+                          <td class="text-xs-left">${{ formatPrice(props.item.price) }}</td>
+                      </template>
+                  </v-data-table>
+                </v-card>
+              </v-flex>
+            </v-layout>
             <v-card-text>
               <v-form>
-                <div v-if="user_info">
-                  <v-text-field name="First Name" label="First Name" type="text"></v-text-field>
-                  <v-text-field name="Last Name" label="Last Name" type="text"></v-text-field>
-                  <v-text-field name="Shipping Address" label="Shipping Address" type="text"></v-text-field>
-                  <v-text-field name="Billing Address" label="Billing Address" type="text"></v-text-field>
-                </div>
-                <div v-else>
-                  <v-alert type="info" :value="true">
-                    Information from your pawkages account will be used for this order
-                  </v-alert>
-                </div>
+                <v-text-field name="first_name" label="First Name" type="text" v-model="user.first_name"></v-text-field>
+                <v-text-field name="last_name" label="Last Name" type="text" v-model="user.last_name"></v-text-field>
+                <v-text-field name="email" label="Email" type="Email" v-model="user.email"></v-text-field>
+                <v-text-field name="Shipping Address" label="Shipping Address" type="text"></v-text-field>
+                <v-text-field name="Billing Address" label="Billing Address" type="text"></v-text-field>
                 <v-text-field name="Card Number" label="Card Number" type="text"></v-text-field>
                 <v-text-field name="CVV" label="CVV" type="text"></v-text-field>
                 <v-text-field name="Zip Code" label="Zip Code" type="text"></v-text-field>
@@ -31,22 +37,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn dark @click="order">Place Order</v-btn>
+              <v-btn dark>Place Order</v-btn>
             </v-card-actions>
-            <v-snackbar
-      v-model="snackbar"
-      :color="green"
-      :timeout="5000"
-    >
-      {{ text }}
-      <v-btn
-        dark
-        flat
-        @click="snackbar = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
           </v-card>
         </v-flex>
       </v-layout>
@@ -56,31 +48,32 @@
 
 <script>
   export default {
-    data () {
-      return {
-        user_info: true,
-        snackbar: false,
-        text: ''
-      }
-    },
-    methods: {
-      order() {
-        this.text = "We received your order. Have a nice day!";
-        this.snackbar = true;
-
-      },
-      getCustomer() {
-        this.$axios.get('/api/customers/' + this.$cookies.get('user') + '/').then(
-          (response) => {
-            this.customer = response.data;
-          }
-        )
+    data: () => ({
+      headers: [{
+          text: 'Name',
+          value: 'name',
+          sortable: false
+        },
+        {
+          text: 'Description',
+          value: 'description',
+          sortable: false
+        },
+        {
+          text: 'Price',
+          value: 'price',
+          sortable: false
+        }
+      ],
+      componentKey: 0,
+  }),
+    computed: {
+      user() {
+        return this.$store.getters.user;
       }
     }
   }
-}
 </script>
 
 <style>
-
 </style>

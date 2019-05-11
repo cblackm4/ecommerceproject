@@ -44,7 +44,7 @@
               </table>
               <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn :disabled="show == 0" dark>Proceed to Checkout</v-btn>
+                  <v-btn v-btn dark @click="$router.push('/Checkout')">Proceed to Checkout</v-btn>
               </v-card-actions>
           </v-card>
       </v-flex>

@@ -26,7 +26,7 @@
                     </table>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn @click="" dark><v-icon>edit</v-icon>Edit Details</v-btn>
+                        <v-btn @click="editDetails()" dark><v-icon>edit</v-icon>Edit Details</v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card-text>
@@ -63,22 +63,65 @@
               </template>
             </v-data-table>
 
-            <v-dialog v-model="dialog" max-width="290">
+            <v-dialog dark v-model="cancelDialog" persistent max-width="500">
               <v-card>
-                <v-card-title class="headline">Remove Item?</v-card-title>
-                <v-card-text>By clicking "YES," this item will be removed from your subscription. This action cannot be undone. If you wish
-                to resubscribe to the item, you will have to readd the item to your subscription.</v-card-text>
+                <v-card-title class="headline">Cancel Subscription?</v-card-title>
+                <v-card-text>By clicking "YES," this subscription will be cancelled immediately.</v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="green darken-1" flat @click="dialog = false, agreed = false">Disagree</v-btn>
-                  <v-btn color="green darken-1" flat @click="dialog = false, agreed = true">Agree</v-btn>
+                  <v-btn color="white" flat @click="cancelDialog = false">No</v-btn>
+                  <v-btn color="white" flat @click="cancelDialog = false; cancelSub();">Yes, I want to cancel.</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
 
+            <v-dialog dark v-model="confirmCancel" persistent max-width="500">
+              <v-card>
+                <v-card-title class="headline">:(</v-card-title>
+                <v-card-text>We're sad to see you go! We hope you consider resubscribing in the future. If you wish to re-subscribe at any point, you can setup a new subscription by visiting the
+                  <router-link to='/create-subscription/:id?'>
+                    <a>Create Subscription</a>
+                  </router-link> page.
+                   Redirecting you to your subscriptions page...
+                <div class="text-xs-center">
+                  <v-progress-circular
+                    indeterminate
+                    color="white"
+                  ></v-progress-circular></div></v-card-text>
+              </v-card>
+            </v-dialog>
+
+            <v-dialog dark v-model="editDetail" persistent max-width="600">
+              <v-card>
+                <v-card-title class="headline">Chnage Subscription Type</v-card-title>
+                <v-card-text>
+                  <v-combobox v-model="subs.frequency" :items="sub_type" label="Select a Subscription Type"></v-combobox>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn color="white" flat @click="editDetail = false">Cancel</v-btn>
+                  <v-spacer></v-spacer>
+
+                  <v-btn color="white" flat @click="editDetail = false; changeSub();">Accept</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+            <v-dialog dark v-model="saveDialog" persistent max-width="500">
+              <v-card>
+                <v-card-title class="headline">Adjusting Your Settings</v-card-title>
+                <v-card-text>Your changes will be reflected on your account immediately. Redirecting you to your subscriptions.
+                <div class="text-xs-center">
+                  <v-progress-circular
+                    indeterminate
+                    color="white"
+                  ></v-progress-circular></div></v-card-text>
+              </v-card>
+            </v-dialog>
+
             <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn @click="cancelSub()" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
+              <v-btn @click="cancelDialog=true" dark><v-icon>delete</v-icon>Cancel Subscription</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn @click="saveSub()" dark><v-icon>save_alt</v-icon>Save Changes</v-btn>
             </v-card-actions>
 
           </v-card>
@@ -91,7 +134,8 @@
 <script>
 export default {
     data: () => ({
-      subs: {},
+      subs: {
+      },
       products: [],
       recipes: [],
       headers: [
@@ -112,10 +156,23 @@ export default {
           value: 'actions'
         }
       ],
+      sub_type: [
+        {
+          text: '30 Days',
+          value: '30 00:00:00'
+        },
+        {
+          text: '6 Months',
+          value: '180 00:00:00'
+        },
+      ],
       recipeKey: 0,
       productKey: 0,
-      dialog: false,
+      cancelDialog: false,
+      confirmCancel: false,
+      saveDialog: false,
       agreed: false,
+      editDetail: false,
     }),
     methods: {
         getSubs() {
@@ -134,28 +191,58 @@ export default {
 
                         currentRecipe.price = recipeCost.toFixed(2);
                     }
+
+                    // Convert data into readable format
+                    for (var j in subscriptionData) {
+                      if (subscriptionData.frequency == "30 00:00:00") {
+                        subscriptionData.frequency = "30 days";
+                      }
+                      if (subscriptionData.frequency == "180 00:00:00") {
+                        subscriptionData.frequency = "6 Months";
+                      }
+                      if (subscriptionData.active == true) {
+                        subscriptionData.active = "Active";
+                      }
+                      if (subscriptionData.active == false) {
+                        subscriptionData.active = "Inactive";
+                      }
+                    }
+
                     this.subs = subscriptionData;
 
                 }
             )
         },
+        changeSub() {
+          var frequency = this.subs.frequency.value;
+          if (frequency != undefined && frequency != null) {
+            if (frequency == "30 00:00:00") {
+              this.subs.frequency = "30 Days";
+            } else if (frequency == "180 00:00:00") {
+              this.subs.frequency = "6 Months";
+            }
+          } else {
+            frequency = this.subs.frequency;
+          }
+        },
         cancelSub() {
             this.$axios.delete('/api/subscriptions/' + this.$route.params.id + '/').then(
-                () => {
-                    this.$router.push('/subscriptions/');
-                }
-            );
+            (response) => {
+                this.confirmCancel = true;
+                setTimeout(() =>
+                  this.$router.push('/subscriptions/'), 3000);
+            })
         },
         removeRecipe(recipe) {
           var currentRecipe = this.subs.recipes, updatedRecipes = [];
 
-          for (var i = 0; i < currentProducts.length; i++) {
-            if (currentProducts[i].id != product.id) {
-              updatedProducts.push(currentProducts[i]);
-              console.log(currentProducts[i]);
+          for (var i = 0; i < currentRecipe.length; i++) {
+            if (currentRecipe[i].id != recipe.id) {
+              updatedRecipes.push(currentRecipe[i]);
+              console.log(currentRecipe[i]);
             }
           }
-          this.subs.products = updatedProducts;
+          this.subs.recipes = updatedRecipes;
           this.recipeKey += 1;
         },
         removeProduct(product) {
@@ -172,6 +259,28 @@ export default {
           this.subs.products = updatedProducts;
           this.productKey += 1;
         },
+        editDetails() {
+          this.editDetail = true;
+        },
+        saveSub() {
+
+          var editedSub = {
+            "user": this.$cookies.get('user'),
+            "recipes": this.subs.recipes,
+            "products": this.subs.products,
+            "frequency": this.subs.frequency.value,
+            "active": this.subs.active
+          }
+
+          this.$axios.put('/api/subscriptions/' + this.$route.params.id + '/', editedSub).then(
+              (response) => {
+                this.confirmSub = true;
+                setTimeout(() =>
+                  this.$router.push('/subscriptions/' + response.data.id + '/'), 2000);
+              },
+              (error) => { alert("fail"); }
+            )
+        }
     },
     beforeMount() {
         this.getSubs();

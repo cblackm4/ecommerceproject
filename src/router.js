@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home.vue'
+import About from '@/components/About.vue'
 import Account from '@/components/Account'
 import Contact from '@/components/Contact.vue'
 import Products from '@/components/Products.vue'
@@ -12,6 +13,7 @@ import ViewRecipe from '@/components/ViewRecipe.vue'
 import CreateRecipe from '@/components/CreateRecipe.vue'
 import ViewProduct from '@/components/ViewProduct.vue'
 import Cart from '@/components/Cart.vue'
+import Checkout from '@/components/Checkout.vue'
 
 Vue.use(Router)
 
@@ -27,6 +29,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/about',
+      Name: 'About',
+      component: About
     },
     {
       path: '/contact',
@@ -82,6 +89,11 @@ export default new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+    {
+      path: '/checkout',
+      name: 'Checkout',
+      component: Checkout
     }
   ]
 })

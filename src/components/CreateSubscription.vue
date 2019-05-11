@@ -11,6 +11,10 @@
                                 <v-spacer></v-spacer>
                                 <v-spacer></v-spacer>
                                 <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-btn @click="$router.push('/subscriptions/')" flat><v-icon>keyboard_arrow_left</v-icon>Back to Subscriptions</v-btn>
+                                <v-tooltip right>
+                                </v-tooltip>
                             </v-toolbar>
                             <v-spacer></v-spacer>
                             <v-tooltip right>
@@ -18,7 +22,7 @@
                         </v-toolbar>
                         <v-card-text>
                           <v-form>
-                            <v-combobox :items="sub_type" label="Subscription Type"></v-combobox>
+                            <v-combobox v-model="subs.frequency" :items="sub_type" label="Select a Subscription Type"></v-combobox>
 
                             <table style="width: 100%">
                                 <tr>
@@ -35,21 +39,18 @@
                                 </tr>
                             </table>
 
-                            <v-data-table :headers="headers" :items="subs.recipes" :key="componentKey"
+                            <v-data-table :headers="headers" :items="subs.recipes"
                                           hide-actions>
                                 <template v-slot:items="props">
                                     <td class="text-xs-left">{{ props.item.name }}</td>
                                     <td class="text-xs-left">{{ props.item.description }}</td>
-                                    <td class="text-xs-left">${{ props.item.price }}</td>
-                                    <td><v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-
-                                    </template><span>Remove Item</span></v-tooltip></td>
+                                    <td class="text-xs-left">${{ props.item.cost }}</td>
+                                    <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeRecipe(props.item)" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
                                 </template>
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                        Select ingredients to add to this recipe
+                                        No recipes added to this subscription.
                                     </v-alert>
                                 </template>
                             </v-data-table>
@@ -64,33 +65,32 @@
                                       </v-combobox>
                                     </td>
                                     <td style="text-align:right; width: 4%">
-                                        <v-btn @click="addRecipe()" dark><v-icon>add</v-icon></v-btn>
+                                        <v-btn @click="addProducts()" dark><v-icon>add</v-icon></v-btn>
                                     </td>
                                 </tr>
                             </table>
 
-                            <v-data-table :headers="headers" :items="subs.products" :key="componentKey"
+                            <v-data-table :headers="headers" :items="subs.products"
                                           hide-actions>
-                                <template v-slot:items="props">
-                                    <td class="text-xs-left">{{ props.item.name }}</td>
-                                    <td class="text-xs-left">{{ props.item.description }}</td>
-                                    <td class="text-xs-left">${{ props.item.price }}</td>
-                                    <td><v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-
-                                    </template><span>Remove Item</span></v-tooltip></td>
-                                </template>
+                                          <template v-slot:items="props">
+                                          <div :key="props.item.name + props.index">
+                                            <td class="text-xs-left">{{ props.item.name }}</td>
+                                            <td class="text-xs-left">{{ props.item.description }}</td>
+                                            <td class="text-xs-left">${{ props.item.price }}</td>
+                                            <td><v-tooltip bottom><template v-slot:activator="{ on }"><v-icon @click="removeProduct(props.item)" v-on="on">cancel</v-icon></template><span>Remove Item</span></v-tooltip></td>
+                                          </div>
+                                          </template>
 
                                 <template v-slot:no-data>
                                     <v-alert :value="true" color="transparent" style="color: rgba(0,0,0,0.54)">
-                                        Select ingredients to add to this recipe
+                                        No products added to this subscription.
                                     </v-alert>
                                 </template>
                             </v-data-table>
 
                             <table style="width: 100%;     border-top: 1px solid lightgray;">
                                 <tr>
-                                    <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Recipe Price: </h3></td>
+                                    <td valign="top" style="padding-bottom: 8px; padding-top: 16px; padding-left: 35px"><h3>Subscription Total ({{ subs.frequency.text }}): </h3></td>
                                     <td style="float: right; padding-right: 120px; padding-top: 16px; font-weight: 400; font-size: 13px;">
 
                                     </td>
@@ -102,6 +102,29 @@
                             <v-spacer></v-spacer>
                             <v-btn @click="saveSubscription()" dark>Save Subscription</v-btn>
                         </v-card-actions>
+
+                        <v-dialog dark v-model="confirmSub" persistent max-width="500">
+                          <v-card>
+                            <v-card-title class="headline">Success!</v-card-title>
+                            <v-card-text>Thank you for creating a subscription with Pawkages! Redirecting you to your subscriptions page...
+                            <div class="text-xs-center">
+                              <v-progress-circular
+                                indeterminate
+                                color="white"
+                              ></v-progress-circular></div></v-card-text>
+                          </v-card>
+                        </v-dialog>
+
+                        <v-dialog dark v-model="errorDialog" persistent max-width="500">
+                          <v-card>
+                            <v-card-title class="headline">Error Creating Subscription</v-card-title>
+                            <v-card-text>Make sure that you have selected a subscription type and have added at least one (1) recipe or product to your subscription.</v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="white" flat @click="errorDialog = false">OK!</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -112,21 +135,28 @@
 <script>
   export default {
         data: () => ({
-            subs: {},
+            subs: {
+              user: '',
+              recipes: [],
+              products: [],
+              frequency: '',
+              active: ''
+            },
             recipes: [],
             products: [],
-            newSub: true,
-            componentKey: 0,
+            selectedSub: null,
             selectedRecipe: null,
             selectedProduct: null,
+            errorDialog: false,
+            confirmSub: false,
             sub_type: [
               {
                 text: '30 Days',
-                value: 'thirty_days'
+                value: '30 00:00:00'
               },
               {
                 text: '6 Months',
-                value: 'six_months'
+                value: '180 00:00:00'
               },
             ],
             headers: [
@@ -146,21 +176,16 @@
             ],
         }),
         methods: {
-            getSubs() {
-                this.$axios.get('/api/subscriptions/').then(
-                    (response) => {
-                        this.subs = response.data;
-                    }
-                )
+            getData() {
                 this.$axios.get('/api/recipes/').then(
                     (response) => {
 
-                        var recipes = response.data;
+                        var recipes = response.data, recipeCost;
                         for (var i = 0; i < recipes.length; i++) {
                             recipes[i].text = recipes[i].name;
                             recipes[i].value = recipes[i].id;
+                            recipes[i].cost = recipes[i].cost;
                         }
-
                         this.recipes = recipes;
                     }
                 )
@@ -180,10 +205,66 @@
             },
             addProducts() {
               this.subs.products.push(this.selectedProduct);
-            }
+            },
+            removeRecipe(recipe) {
+              this.subs.recipes.pop(recipe);
+            },
+            removeProduct(product) {
+              this.subs.products.pop(product);
+            },
+            saveSubscription() {
+              var frequency = this.subs.frequency.value;
+              var products = this.subs.products;
+              var recipes = this.subs.recipes;
+
+              // If frequency is not selected and at least one recipe or product is not chosen - display an error to the user
+              if (frequency != undefined && frequency != null) {
+                if (products.length != 0 || recipes.length != 0) {
+                  this.subs.active = true;
+
+                  // Create arrays to store IDs of recipes and products to pass to newSub object
+                  var productID = new Array();
+                  for (var x in this.subs.products) {
+                    productID.push(this.subs.products[x].id);
+                  }
+
+                  var recipeID = new Array();
+                  for (var y in this.subs.recipes) {
+                    recipeID.push(this.subs.recipes[y].id);
+                  }
+
+                  //Create object ot pass to API
+                  var newSub = {
+                    "user": this.$cookies.get('user'),
+                    "recipes": [recipeID],
+                    "products": [productID],
+                    "frequency": frequency,
+                    "active": this.subs.active
+                  }
+
+                  // Test output
+                  for (var i in newSub) {
+                      console.log('key is: ' + i + ', value is: ' + newSub[i]);
+                  }
+
+                  // API post
+                  this.$axios.post('/api/subscriptions/', newSub).then(
+                  (response) => {
+                      this.confirmSub = true;
+                      setTimeout(() =>
+                        this.$router.push('/subscriptions/'), 2000);
+                  })
+
+                } else {
+                  this.errorDialog = true;
+                }
+              } else {
+                this.errorDialog = true;
+              }
+            },
         },
         beforeMount() {
-            this.getSubs();
+            this.getData();
         },
   }
 </script>
