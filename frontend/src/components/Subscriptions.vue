@@ -3,7 +3,6 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <v-flex xs12 md9>
-
             <v-card>
                 <v-toolbar dark flat>
                     <v-toolbar-title>Subscriptions</v-toolbar-title>
@@ -16,7 +15,6 @@
                     <v-tooltip right>
                     </v-tooltip>
                 </v-toolbar>
-
                 <v-data-table :headers="headers" :items="subs"  class="elevation-1" hide-actions>
                         <template v-slot:items="props" >
                             <td>
@@ -90,7 +88,25 @@
             getSubs() {
                 this.$axios.get('/api/subscriptions/').then(
                     (response) => {
-                        this.subs = response.data;
+                        var subData;
+                        subData = response.data;
+
+                        // Convert data into readable format
+                        for (var i in subData) {
+                          if (subData[i].frequency == "30 00:00:00") {
+                            subData[i].frequency = "30 days";
+                          }
+                          if (subData[i].frequency == "180 00:00:00") {
+                            subData[i].frequency = "6 Months";
+                          }
+                          if (subData[i].active == true) {
+                            subData[i].active = "Active";
+                          }
+                          if (subData[i].active == false) {
+                            subData[i].active = "Inactive";
+                          }
+                        }
+                        this.subs = subData;
                     }
                 )
             },

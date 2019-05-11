@@ -56,11 +56,11 @@
         <!--Ideally, a v-if will be used to see if a user gave us a first name. If not it will default to the user name-->
         <v-toolbar-title>
             Hello, {{user.first_name}}!
-            <router-link to="/Account" style="text-decoration: none !important">
+            <router-link to="/account" style="text-decoration: none !important">
                 <v-icon class="icon">account_circle</v-icon>
             </router-link>
         </v-toolbar-title>
-        <router-link to="/Cart" style="text-decoration: none !important; padding-right: 10px">
+        <router-link to="/cart" style="text-decoration: none !important; padding-right: 10px">
             <v-badge right v-model="show">
                 <template v-slot:badge>
                     <span>{{cart.products.length + cart.recipes.length}}</span>
@@ -75,7 +75,7 @@
 
     <v-parallax xs12 :src="require('./assets/heroimage.jpg')">
       <v-layout align-center column justify-center>
-        <h1 class="display-2 font-weight-thin mb-3">Welcome to Pawkages!</h1>
+        <h1 class="display-2 font-weight-thin mx-auto">Welcome to Pawkages!</h1>
         <v-btn dark flat href="#/Products">Shop Now</v-btn>
       </v-layout>
     </v-parallax>
@@ -89,7 +89,7 @@
         <v-flex xs4 md3>
           <v-card-text>
             <div class="text-xs-center">
-              <v-img :src="require('./assets/logo.png')" max-width="250px" max-height="250px" min-width="150px" min-heigh="150px"></v-img>
+              <router-link :to="{ name: 'Home', params: { items: route}}"><v-img :src="require('./assets/logo.png')" max-width="250px" max-height="250px" min-width="150px" min-heigh="150px"></v-img></router-link>
             </div>
           </v-card-text>
         </v-flex>
@@ -100,10 +100,13 @@
               Quick Links
             </div>
             <span>COMPANY:</span><br />
-            <div
-              v-for="(link, index) in links"
-              :key="'link' + index"
-            >{{ link.name }}</div>
+            <v-list-tile
+              dense
+              v-for="link in links"
+              :key="link.name"
+              :to="link.route">
+              <span>{{ link.name }}</span>
+            </v-list-tile>
           </v-card-text>
         </v-flex>
 
@@ -119,7 +122,9 @@
                   class="mx-3 white--text"
                   icon
                 >
-                  <v-icon size="24px">{{ icon.src }}</v-icon>
+                  <div class="social-footer">
+                    <a :href="icon.url" :target="icon.target"><v-icon size="24px">{{ icon.src }}</v-icon></a>
+                  </div>
                 </v-btn>
               </div>
             </v-card-text>
@@ -147,21 +152,42 @@ export default {
       drawer: false,
       items: [
         {title:'Home', icon: 'home', route:"/"},
-        {title:'Products', icon: 'pets', route:"../Products"},
-        {title: 'Subscriptions', icon: '360', route: '../Subscriptions' },
-        {title:'Recipes', icon: 'edit', route: '../Recipes'},
-        {title:'Contact', icon: 'contact_support', route:'../Contact'},
-        {title:'My Account', icon: 'account_box', route:'../Account'},
+        {title:'Products', icon: 'pets', route:"../products"},
+        {title:'Subscriptions', icon: '360', route: '../subscriptions' },
+        {title:'Recipes', icon: 'edit', route: '../recipes'},
+        {title:'Contact', icon: 'contact_support', route:'../contact'},
+        {title:'My Account', icon: 'account_box', route:'../account'},
       ],
       icons: [
-        {src:'fab fa-facebook'},
-        {src:'fab fa-twitter'},
-        {src:'fab fa-instagram'}
+        {
+          src:'fab fa-facebook',
+          url: 'https://www.facebook.com/',
+          target: '_blank'
+        },
+        {
+          src:'fab fa-twitter',
+          url: 'https://www.twitter.com/',
+          target: '_blank'
+        },
+        {
+          src:'fab fa-instagram',
+          url: 'https://www.instgram.com/',
+          target: '_blank'
+        }
       ],
       links: [
-        {name: 'About Us'},
-        {name: 'Contact Us'},
-        {name: 'Shop'}
+        {
+          name: 'About Us',
+          route: '../about'
+        },
+        {
+          name: 'Contact Us',
+          route: '../contact'
+        },
+        {
+          name: 'Shop',
+          route: '../products'
+        }
       ]
     }
   },
@@ -204,5 +230,15 @@ export default {
 
   .shop a:visited
     color: white
+
+  .social-footer a
+    color: white
+    text-decoration: none
+
+  .social-footer a:visited
+    color: white
+
+  .v-list__tile .v-list__tile--link .theme--dark
+    padding: 0
 
 </style>
