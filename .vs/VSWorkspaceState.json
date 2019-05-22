@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\api\\api",
+    "\\api\\pawkages",
+    "\\frontend",
+    "\\frontend\\node_modules\\vue-cli-plugin-vuetify",
+    "\\frontend\\src",
+    "\\frontend\\src\\components"
+  ],
+  "SelectedNode": "\\frontend\\src\\router.js",
+  "PreviewInSolutionExplorer": false
+}
